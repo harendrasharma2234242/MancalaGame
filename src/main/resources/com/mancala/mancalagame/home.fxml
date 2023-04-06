@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.Controller">
+   <children>
+      <ImageView fitHeight="296.0" fitWidth="584.0" layoutX="14.0" layoutY="51.0" opacity="0.11" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: #8AADDF;">
+         <image>
+            <Image url="@../../../../images/mancala.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="89.0" fitWidth="97.0" layoutX="263.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: #8AADDF;">
+         <image>
+            <Image url="@../../../../images/lock.PNG" />
+         </image>
+      </ImageView>
+      <Label contentDisplay="CENTER" layoutX="118.0" layoutY="123.0" text="USERNAME">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label contentDisplay="CENTER" layoutX="117.0" layoutY="188.0" text="PASSWORD">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tf_username" layoutX="243.0" layoutY="118.0" promptText="USERNAME">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="tf_password" layoutX="243.0" layoutY="183.0" promptText="PASSWORD">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </TextField>
+      <Button fx:id="btn_logging" layoutX="476.0" layoutY="140.0" mnemonicParsing="false" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Login">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="18.0" />
+         </font>
+      </Button>
+      <Label contentDisplay="CENTER" layoutX="398.0" layoutY="316.0" text="Not a user?">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="btn_signup" layoutX="475.0" layoutY="311.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Sign up!" textFill="#0b03f4" underline="true">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
