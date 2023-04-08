@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="399.0" prefWidth="598.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.SignUpController">
+         <children>
+            <Button fx:id="btn_loggedIn" layoutX="452.0" layoutY="339.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="login" textFill="#f0f0f4" underline="true">
+               <font>
+                  <Font name="Arial Black" size="14.0" />
+               </font>
+            </Button>
+            <Label layoutX="319.0" layoutY="346.0" text="Already a member?" textFill="#f4f0f0">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="sp_password" layoutX="402.0" layoutY="223.0" promptText="Password">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="sp_username" layoutX="402.0" layoutY="167.0" promptText="Username">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="sp_name" layoutX="402.0" layoutY="116.0" promptText="Name">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Button fx:id="btn_signup" layoutX="348.0" layoutY="282.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="100.0" style="-fx-background-color: #4A85D9;" text="Sign Up" textFill="#f2f2f4">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="18.0" />
+               </font>
+            </Button>
+            <Label layoutX="269.0" layoutY="168.0" text="Username" textFill="#f8f8f8">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="271.0" layoutY="224.0" text="Password" textFill="#f6f2f2">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="291.0" layoutY="118.0" text="Name" textFill="#f4f4f4">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Label>
+      <ImageView fitHeight="397.0" fitWidth="338.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/mancala.jpg" />
+         </image>
+      </ImageView>
+         </children>
+      </AnchorPane>

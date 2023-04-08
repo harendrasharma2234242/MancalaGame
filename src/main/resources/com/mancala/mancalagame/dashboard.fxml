@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.Dashboard">
+<top>
+   <HBox alignment="CENTER" spacing="20">
+      <Text text="Player 1:"/>
+      <Text fx:id="player1Score" text="0" font="50.0"/>
+   </HBox>
+</top>
+<bottom>
+   <HBox alignment="CENTER" spacing="20">
+      <Text text="Player 2:"/>
+      <Text fx:id="player2Score" text="0" font="50.0"/>
+   </HBox>
+</bottom>
+<center>
+   <GridPane hgap="20" vgap="10">
+      <Circle fx:id="p00" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p01" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p02" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p03" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p04" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p05" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p10" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p11" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p12" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p13" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p14" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="p15" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="m1" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Circle fx:id="m2" radius="50.0" fill="WHITE" stroke="BLACK"/>
+      <Text text="0" font="20.0" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.rowSpan="2"/>
+      <Text text="0" font="20.0" GridPane.rowIndex="0" GridPane.columnIndex="6" GridPane.rowSpan="2"/>
+   </GridPane>
+</center>
+</BorderPane>
