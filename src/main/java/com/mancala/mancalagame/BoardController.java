@@ -103,7 +103,6 @@ public class BoardController {
             } else if (index == 6) {
                 mancalas.get(1).setCount(mancalas.get(1).getCount()+1);
                 mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
-                System.out.println("index: " + index + "num: ");
                 index++;
                 rightMancalaFlag++;
             } else {
