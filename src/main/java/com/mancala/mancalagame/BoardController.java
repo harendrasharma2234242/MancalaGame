@@ -92,19 +92,26 @@ public class BoardController {
         int chosenHoleCount = holes.get(holeNumber).getCount();
         holes.get(holeNumber).setCount(0);
         holeLabels.set(holeNumber, "0");
-        for (int i = 1; i <= chosenHoleCount; i++) {
-            int index = i + holeNumber;
-            System.out.println("current index: " + index);
-            if (index == 13) {
-                holeNumber = 0;
-                i = 0;
-//                index = 0;
+        int i = 1;
+        int index = i + holeNumber;
+        int rightMancalaFlag = 0;
+        for (i = 1; i <= chosenHoleCount; i++) {
+            if (index == 12) {
                 mancalas.get(0).setCount(mancalas.get(0).getCount()+1);
                 mancalaLabels.set(0, String.valueOf(mancalas.get(0).getCount()));
+                index = 0;
+            } else if (index == 6) {
+                mancalas.get(1).setCount(mancalas.get(1).getCount()+1);
+                mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
+                System.out.println("index: " + index + "num: ");
+                index++;
+                rightMancalaFlag++;
+            } else {
+                int curr = holes.get(index).getCount();
+                holes.get(index-rightMancalaFlag).setCount(curr+1);
+                holeLabels.set(index-rightMancalaFlag, String.valueOf(curr+1));
+                index++;
             }
-            int curr = holes.get(holeNumber + i).getCount();
-            holes.get(holeNumber + i).setCount(curr+1);
-            holeLabels.set(holeNumber + i, String.valueOf(curr+1));
         }
         holeLabel0.setText(holeLabels.get(0));
         holeLabel1.setText(holeLabels.get(1));
@@ -119,6 +126,7 @@ public class BoardController {
         holeLabel10.setText(holeLabels.get(10));
         holeLabel11.setText(holeLabels.get(11));
         mancalaLabel_P1.setText(mancalaLabels.get(0));
+        mancalaLabel_P2.setText(mancalaLabels.get(1));
     }
 
     @FXML
