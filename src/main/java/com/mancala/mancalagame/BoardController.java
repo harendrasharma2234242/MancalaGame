@@ -1,11 +1,36 @@
 package com.mancala.mancalagame;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.util.ArrayList;
 
 public class BoardController {
+    @FXML
+    private Button button0;
+    @FXML
+    private Button button1;
+    @FXML
+    private Button button2;
+    @FXML
+    private Button button3;
+    @FXML
+    private Button button4;
+    @FXML
+    private Button button5;
+    @FXML
+    private Button button6;
+    @FXML
+    private Button button7;
+    @FXML
+    private Button button8;
+    @FXML
+    private Button button9;
+    @FXML
+    private Button button10;
+    @FXML
+    private Button button11;
     @FXML
     private Label currentPlayerLabel;
     @FXML
@@ -56,6 +81,18 @@ public class BoardController {
     private boolean mancalaFilled;
     @FXML
     private void setBoard() {
+        button0.setDisable(false);
+        button1.setDisable(false);
+        button2.setDisable(false);
+        button3.setDisable(false);
+        button4.setDisable(false);
+        button5.setDisable(false);
+        button6.setDisable(true);
+        button7.setDisable(true);
+        button8.setDisable(true);
+        button9.setDisable(true);
+        button10.setDisable(true);
+        button11.setDisable(true);
         for (int i = 0; i <= 12; i++) {
             holes.add(new Hole(4));
             holeLabels.add("4");
@@ -69,24 +106,52 @@ public class BoardController {
     private void setCurrentPlayer() {
         if (currentPlayer.getText().equals("1")) {
             currentPlayer.setText("2");
+            button0.setDisable(true);
+            button1.setDisable(true);
+            button2.setDisable(true);
+            button3.setDisable(true);
+            button4.setDisable(true);
+            button5.setDisable(true);
+            button6.setDisable(false);
+            button7.setDisable(false);
+            button8.setDisable(false);
+            button9.setDisable(false);
+            button10.setDisable(false);
+            button11.setDisable(false);
+
         } else {
             currentPlayer.setText("1");
+            button0.setDisable(false);
+            button1.setDisable(false);
+            button2.setDisable(false);
+            button3.setDisable(false);
+            button4.setDisable(false);
+            button5.setDisable(false);
+            button6.setDisable(true);
+            button7.setDisable(true);
+            button8.setDisable(true);
+            button9.setDisable(true);
+            button10.setDisable(true);
+            button11.setDisable(true);
         }
     }
 
-    private boolean checkCurrentPlayer(int player, int hole) {
-        if (player == 1 && hole < 6) {
-            warning.setText("");
-            return true;
-        } else if (player == 2 && hole >= 6) {
-            warning.setText("");
-            return true;
-        } else {
-            warning.setText("Player 1 must choose from the bottom row, and Player 2 must choose from the top");
-            return false;
-        }
+    private void setLabels() {
+        holeLabel0.setText(holeLabels.get(0));
+        holeLabel1.setText(holeLabels.get(1));
+        holeLabel2.setText(holeLabels.get(2));
+        holeLabel3.setText(holeLabels.get(3));
+        holeLabel4.setText(holeLabels.get(4));
+        holeLabel5.setText(holeLabels.get(5));
+        holeLabel6.setText(holeLabels.get(6));
+        holeLabel7.setText(holeLabels.get(7));
+        holeLabel8.setText(holeLabels.get(8));
+        holeLabel9.setText(holeLabels.get(9));
+        holeLabel10.setText(holeLabels.get(10));
+        holeLabel11.setText(holeLabels.get(11));
+        mancalaLabel_P1.setText(mancalaLabels.get(0));
+        mancalaLabel_P2.setText(mancalaLabels.get(1));
     }
-
     @FXML
     private void moveStones(int holeNumber) {
         int chosenHoleCount = holes.get(holeNumber).getCount();
@@ -112,117 +177,80 @@ public class BoardController {
                 index++;
             }
         }
-        holeLabel0.setText(holeLabels.get(0));
-        holeLabel1.setText(holeLabels.get(1));
-        holeLabel2.setText(holeLabels.get(2));
-        holeLabel3.setText(holeLabels.get(3));
-        holeLabel4.setText(holeLabels.get(4));
-        holeLabel5.setText(holeLabels.get(5));
-        holeLabel6.setText(holeLabels.get(6));
-        holeLabel7.setText(holeLabels.get(7));
-        holeLabel8.setText(holeLabels.get(8));
-        holeLabel9.setText(holeLabels.get(9));
-        holeLabel10.setText(holeLabels.get(10));
-        holeLabel11.setText(holeLabels.get(11));
-        mancalaLabel_P1.setText(mancalaLabels.get(0));
-        mancalaLabel_P2.setText(mancalaLabels.get(1));
+        setLabels();
     }
 
     @FXML
     private void onHole0Click() {
         holeNumber = 0;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole1Click() {
         holeNumber = 1;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole2Click() {
         holeNumber = 2;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole3Click() {
         holeNumber = 3;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole4Click() {
         holeNumber = 4;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole5Click() {
         holeNumber = 5;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole6Click() {
         holeNumber = 6;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole7Click() {
         holeNumber = 7;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole8Click() {
         holeNumber = 8;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole9Click() {
         holeNumber = 9;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole10Click() {
         holeNumber = 10;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
     @FXML
     private void onHole11Click() {
         holeNumber = 11;
-        if (checkCurrentPlayer(Integer.parseInt(currentPlayer.getText()), holeNumber)) {
-            setCurrentPlayer();
-            moveStones(holeNumber);
-        }
+        setCurrentPlayer();
+        moveStones(holeNumber);
     }
 
 }
