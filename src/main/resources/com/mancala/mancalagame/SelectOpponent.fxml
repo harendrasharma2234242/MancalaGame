@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <Pane prefHeight="400" prefWidth="600" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.OpponentSelectionController">
@@ -11,5 +12,6 @@
    <Button layoutX="308.0" layoutY="197.0" onAction="#handleComputerOpponent" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Computer" />
    <Button layoutX="215.0" layoutY="197.0" onAction="#handleHumanOpponent" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Human" />
    <Label layoutX="242.0" layoutY="138.0" style="-fx-text-fill: white;" text="Select your opponent:" />
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
 </children>
 </Pane>

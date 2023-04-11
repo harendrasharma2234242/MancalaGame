@@ -5,52 +5,56 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white; -fx-cursor: hand;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.Controller">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.Controller">
    <children>
-      <ImageView fitHeight="296.0" fitWidth="584.0" layoutX="14.0" layoutY="51.0" opacity="0.11" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: #8AADDF;">
+      <ImageView fitHeight="60.0" fitWidth="54.0" layoutX="460.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../images/mancala.jpg" />
+            <Image url="@../../../images/lock.PNG" />
          </image>
       </ImageView>
-      <ImageView fitHeight="89.0" fitWidth="97.0" layoutX="263.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: #8AADDF;">
-         <image>
-            <Image url="@../../../../images/lock.PNG" />
-         </image>
-      </ImageView>
-      <Label contentDisplay="CENTER" layoutX="118.0" layoutY="123.0" text="USERNAME">
+      <Label contentDisplay="CENTER" layoutX="289.0" layoutY="123.0" text="USERNAME" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Label>
-      <Label contentDisplay="CENTER" layoutX="117.0" layoutY="188.0" text="PASSWORD">
+      <Label contentDisplay="CENTER" layoutX="288.0" layoutY="188.0" text="PASSWORD" textFill="#f3f3f3">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="tf_username" layoutX="243.0" layoutY="118.0" promptText="USERNAME">
+      <TextField fx:id="tf_username" layoutX="411.0" layoutY="118.0" promptText="USERNAME">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </TextField>
-      <TextField fx:id="tf_password" layoutX="243.0" layoutY="183.0" promptText="PASSWORD">
+      <TextField fx:id="tf_password" layoutX="411.0" layoutY="183.0" promptText="PASSWORD">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="btn_logging" layoutX="476.0" layoutY="140.0" mnemonicParsing="false" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Login">
+      <Button fx:id="btn_logging" layoutX="451.0" layoutY="249.0" mnemonicParsing="false" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Login" textFill="#f6f5f5">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
       </Button>
-      <Label contentDisplay="CENTER" layoutX="398.0" layoutY="316.0" text="Not a user?">
+      <Label contentDisplay="CENTER" layoutX="398.0" layoutY="316.0" text="Not a user?" textFill="#fbf7f7">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font>
       </Label>
-      <Button fx:id="btn_signup" layoutX="475.0" layoutY="311.0" mnemonicParsing="false" style="-fx-background-color: transparent; -fx-cursor: hand;" text="Sign up!" textFill="#0b03f4" underline="true">
+      <Button fx:id="btn_signup" layoutX="474.0" layoutY="309.0" mnemonicParsing="false" style="-fx-background-color: rgba(0,0,0,0); -fx-cursor: hand;" text="Sign up!" textFill="#f5f5fb" underline="true">
          <font>
-            <Font name="Arial Rounded MT Bold" size="14.0" />
+            <Font name="Arial Black" size="14.0" />
          </font>
       </Button>
+      <AnchorPane prefHeight="400.0" prefWidth="174.0">
+         <children>
+            <ImageView fitHeight="389.0" fitWidth="290.0" layoutY="6.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/mancala.jpg" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
 </Pane>

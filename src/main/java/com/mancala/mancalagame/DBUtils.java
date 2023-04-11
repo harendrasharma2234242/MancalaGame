@@ -1,5 +1,6 @@
 package com.mancala.mancalagame;
 
+import com.mancala.mancalagame.query.QueryUtility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,8 +13,12 @@ import java.io.IOException;
 import java.sql.*;
 
 public class DBUtils {
+    static QueryUtility queryUtils=  new QueryUtility();
+    private static final String DBURL = queryUtils.getDBURL();
+    private static final String DBNAME = queryUtils.getDBNAME();
+    private  static final String PASS = queryUtils.getPASS();
 
-    public  static void changeScene(ActionEvent event, String fxmlFile, String title, String username ){
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username){
         Parent root = null;
         if(username !=null){
             try {
@@ -39,13 +44,12 @@ public class DBUtils {
 
     public static void SignUp(ActionEvent event, String name, String username, String password){
         Connection connection = null;
-        PreparedStatement psInsert = null;
-        PreparedStatement psCheckUserExist = null;
         ResultSet resultSet = null;
 
         try{
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mancala", "root", "123456");
-            psCheckUserExist = connection.prepareStatement("SELECT password from user where username= ?");
+            final String LOGIN_QUERY = queryUtils.getLOGIN_QUERY();
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement psCheckUserExist = connection.prepareStatement(LOGIN_QUERY);
             psCheckUserExist.setString(1, username);
             resultSet = psCheckUserExist.executeQuery();
             if(resultSet.isBeforeFirst()){
@@ -54,11 +58,12 @@ public class DBUtils {
                 alert.setContentText("You cannot use this username.");
                 alert.show();
             } else {
-                psInsert = connection.prepareStatement("INSERT INTO user (username, password, name) VALUES (?,?, ?)");
+                final String SIGNUP_QUERY = queryUtils.getSIGNUP();
+                PreparedStatement psInsert = connection.prepareStatement(SIGNUP_QUERY);
                 psInsert.setString(1, username);
                 psInsert.setString(2, password);
                 psInsert.setString(3, name);
-                psInsert.executeQuery();
+                psInsert.executeUpdate();
                 changeScene(event, "logged-in.fxml", "welcome to the Game", username);
             }
 
@@ -68,20 +73,6 @@ public class DBUtils {
             if (resultSet != null){
                 try{
                     resultSet.close();
-                } catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-            if (psCheckUserExist != null){
-                try{
-                    psCheckUserExist.close();
-                } catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
-            if (psInsert != null){
-                try{
-                    psInsert.close();
                 } catch (SQLException e){
                     e.printStackTrace();
                 }
@@ -98,15 +89,13 @@ public class DBUtils {
 
     public static void logInUser(ActionEvent event, String username, String password){
         Connection connection = null;
-        PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try{
-            System.out.println(username);
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mancala", "root", "123456");
-            connection.prepareStatement("SELECT password FROM user WHERE username= ?");
+            final String LOGIN_QUERY = queryUtils.getLOGIN_QUERY();
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_QUERY);
             preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
-            System.out.println(resultSet);
             if (!resultSet.isBeforeFirst()){
                 System.out.println("User not found in the database");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -142,15 +131,9 @@ public class DBUtils {
                     e.printStackTrace();
                 }
             }
-            if(preparedStatement != null){
-                try {
-                    preparedStatement.close();
-                } catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }
         }
 
 
     }
+
 }
