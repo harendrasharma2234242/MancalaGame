@@ -12,7 +12,7 @@
             <Image url="@../../../../images/mancala.jpg" />
          </image>
       </ImageView>
-      <ImageView fitHeight="89.0" fitWidth="97.0" layoutX="263.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: #8AADDF;">
+      <ImageView fitHeight="89.0" fitWidth="97.0" layoutX="263.0" pickOnBounds="true" preserveRatio="true" style="-fx-opacity: #8AADDF;">
          <image>
             <Image url="@../../../../images/lock.PNG" />
          </image>
