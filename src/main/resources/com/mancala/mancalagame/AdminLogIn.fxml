@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.AdminLogInController">
+    <children>
+        <ImageView fitHeight="68.0" fitWidth="83.0" layoutX="356.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../../images/admin.jpg" />
+            </image>
+        </ImageView>
+        <Label contentDisplay="CENTER" layoutX="259.0" layoutY="145.0" text="USERNAME" textFill="WHITE">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0" />
+            </font>
+        </Label>
+        <Label contentDisplay="CENTER" layoutX="259.0" layoutY="223.0" text="PASSWORD" textFill="#f3f3f3">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0" />
+            </font>
+        </Label>
+        <TextField fx:id="ad_username" layoutX="382.0" layoutY="140.0" promptText="USERNAME">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="ad_password" layoutX="382.0" layoutY="218.0" promptText="PASSWORD">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0" />
+            </font>
+        </TextField>
+        <Button fx:id="btn_logging" layoutX="433.0" layoutY="304.0" mnemonicParsing="false" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Login" textFill="#f6f5f5">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Button>
+        <AnchorPane prefHeight="400.0" prefWidth="174.0">
+            <children>
+                <ImageView fitHeight="389.0" fitWidth="290.0" layoutY="6.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/mancala.jpg" />
+                    </image>
+                </ImageView>
+            </children>
+        </AnchorPane>
+        <Button fx:id="btn_back" layoutX="277.0" layoutY="304.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="81.0" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Back" textFill="#f4f4f4">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="18.0" />
+            </font>
+        </Button>
+    </children>
+</Pane>

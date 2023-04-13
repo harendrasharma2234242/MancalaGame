@@ -10,32 +10,26 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Home implements Initializable {
 
     @FXML
-    private Button btn_logging;
-
+    private Button btn_player;
     @FXML
-    private TextField tf_username;
+    private Button btn_admin;
 
-    @FXML
-    private TextField tf_password;
-
-    @FXML
-    private Button btn_signup;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btn_logging.setOnAction(new EventHandler<ActionEvent>() {
+        btn_player.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.logInUser(event, tf_username.getText(), tf_password.getText());
+                UsersBean.changeScene(event,"playerLogIn.fxml", "Sign up",null );
             }
         });
-        btn_signup.setOnAction(new EventHandler<ActionEvent>() {
+        btn_admin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeScene(event,"sign-up.fxml", "Sign up",null );
+                UsersBean.changeScene(event,"AdminLogin.fxml", "Sign up",null );
             }
         });
     }
