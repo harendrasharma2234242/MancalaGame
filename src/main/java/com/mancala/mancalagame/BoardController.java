@@ -148,7 +148,7 @@ public class BoardController {
     }
     @FXML
     private void moveStones(int holeNumber) {
-//        gameWon();
+        gameWon();
 
         int chosenHoleCount = holes.get(holeNumber).getCount();
         holes.get(holeNumber).setCount(0);
@@ -162,7 +162,6 @@ public class BoardController {
         int curr = 0;
         int newHoleNumber = 0;
         for (i = 1; i <= chosenHoleCount; i++) {
-//            System.out.println("index: " + index);
             if (index == 12 && currentPlayer.getText().equals("2")) {
                 mancalas.get(1).setCount(mancalas.get(1).getCount() + 1);
                 mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
@@ -181,29 +180,27 @@ public class BoardController {
             } else if (index == 12) {
                 index = 0;
                 i--;
+            } else if (rightMancalaFlag <= index) {
+                curr = holes.get(index - rightMancalaFlag).getCount();
+                holes.get(index - rightMancalaFlag).setCount(curr + 1);
+                holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
+                newHoleNumber = index - rightMancalaFlag;
+                index++;
+                leftLastFilled = false;
+                rightLastFilled = false;
+                normalLastFilled = true;
             } else {
-                if (rightMancalaFlag <= index) {
-                    curr = holes.get(index - rightMancalaFlag).getCount();
-                    holes.get(index - rightMancalaFlag).setCount(curr + 1);
-                    holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
-                    newHoleNumber = index - rightMancalaFlag;
-                } else {
-                    curr = holes.get(11).getCount();
-                    holes.get(11).setCount(curr + 1);
-                    holeLabels.set(11, String.valueOf(curr + 1));
-                    newHoleNumber = 11;
-                }
-
+                curr = holes.get(11).getCount();
+                holes.get(11).setCount(curr + 1);
+                holeLabels.set(11, String.valueOf(curr + 1));
+                newHoleNumber = 11;
                 index++;
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
             }
         }
-        System.out.println("player: " + currentPlayer.getText());
-//        board.printHoles();
-//        board.printMancalas();
-        board.printBoard();
+
         setLabels();
 
         if (rightLastFilled || leftLastFilled) {
@@ -211,33 +208,15 @@ public class BoardController {
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
             moveStones(newHoleNumber);
-            System.out.println("continue turn");
-            System.out.println("player: " + currentPlayer.getText());
-//            board.printHoles();
-//            board.printMancalas();
-            board.printBoard();
         } else {
-            System.out.println("else");
             setCurrentPlayer();
+            notification.setText("");
         }
     }
 
     private void gameWon() {
-        int player1 = 0;
-        int player2 = 0;
-        for (int i = 0; i <= 5; i++) {
-            if (checkEmpty(i)) {
-                player1++;
-            }
-            if (checkEmpty(i+6)) {
-                player2++;
-            }
-        }
-        if (player1 == 6) {
-            notification.setText("Player 1 wins");
-        } else if (player2 == 6) {
-            notification.setText("Player 2 wins");
-        }
+        System.out.println("checked");
+
     }
     private boolean checkEmpty(int holeNumber) {
         return holes.get(holeNumber).getCount() != 0;
@@ -246,9 +225,7 @@ public class BoardController {
     private void onHole0Click() {
         holeNumber = 0;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -257,9 +234,7 @@ public class BoardController {
     private void onHole1Click() {
         holeNumber = 1;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -268,9 +243,7 @@ public class BoardController {
     private void onHole2Click() {
         holeNumber = 2;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -279,9 +252,7 @@ public class BoardController {
     private void onHole3Click() {
         holeNumber = 3;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -290,9 +261,7 @@ public class BoardController {
     private void onHole4Click() {
         holeNumber = 4;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -301,9 +270,7 @@ public class BoardController {
     private void onHole5Click() {
         holeNumber = 5;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -312,9 +279,7 @@ public class BoardController {
     private void onHole6Click() {
         holeNumber = 6;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -323,9 +288,7 @@ public class BoardController {
     private void onHole7Click() {
         holeNumber = 7;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -334,9 +297,7 @@ public class BoardController {
     private void onHole8Click() {
         holeNumber = 8;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -345,9 +306,7 @@ public class BoardController {
     private void onHole9Click() {
         holeNumber = 9;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -356,9 +315,7 @@ public class BoardController {
     private void onHole10Click() {
         holeNumber = 10;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
@@ -367,9 +324,7 @@ public class BoardController {
     private void onHole11Click() {
         holeNumber = 11;
         if (checkEmpty(holeNumber)) {
-//            setCurrentPlayer();
             moveStones(holeNumber);
-//            notification.setText("");
         } else {
             notification.setText("Choose a non-empty hole");
         }
