@@ -222,9 +222,6 @@ public class BoardController {
 
     private void gameEnd() {
         if (totalContents(holesPlayer1) == 0) {
-            System.out.println("p1 empty");
-            System.out.println("p1: " + totalContents(holesPlayer1));
-            System.out.println("p2: " + totalContents(holesPlayer2));
             mancalas.get(1).setCount(mancalas.get(1).getCount() + totalContents(holesPlayer2));
             mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
             for (Hole h : holes) {
@@ -234,9 +231,6 @@ public class BoardController {
             setLabels();
             getWinner();
         } else if (totalContents(holesPlayer2) == 0) {
-            System.out.println("p2 empty");
-            System.out.println("p1: " + totalContents(holesPlayer1));
-            System.out.println("p2: " + totalContents(holesPlayer2));
             mancalas.get(0).setCount(mancalas.get(0).getCount() + totalContents(holesPlayer1));
             mancalaLabels.set(0, String.valueOf(mancalas.get(0).getCount()));
             for (Hole h : holes) {
