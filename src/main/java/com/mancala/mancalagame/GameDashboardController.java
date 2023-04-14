@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoggedInController implements Initializable {
+public class GameDashboardController implements Initializable {
     @FXML
     private Button button_logout;
     @FXML
@@ -20,7 +20,7 @@ public class LoggedInController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeScene(event,"home.fxml", "log in", null);
+                UsersBean.changeScene(event,"playerLogIn.fxml", "log in", null);
             }
         });
     }

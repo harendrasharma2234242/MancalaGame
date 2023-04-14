@@ -12,7 +12,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 
-public class DBUtils {
+/**
+ *
+ */
+public class UsersBean {
     static QueryUtility queryUtils=  new QueryUtility();
     private static final String DBURL = queryUtils.getDBURL();
     private static final String DBNAME = queryUtils.getDBNAME();
@@ -22,16 +25,16 @@ public class DBUtils {
         Parent root = null;
         if(username !=null){
             try {
-                FXMLLoader loader = new FXMLLoader(DBUtils.class.getResource(fxmlFile));
+                FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                 root = loader.load();
-                LoggedInController loggedInController = loader.getController();
+                GameDashboardController loggedInController = loader.getController();
                 loggedInController.setUserInformation(username);
             } catch (IOException e){
                 e.printStackTrace();
             }
         } else {
             try {
-                root = FXMLLoader.load(DBUtils.class.getResource(fxmlFile));
+                root = FXMLLoader.load(UsersBean.class.getResource(fxmlFile));
             } catch (IOException e){
                 e.printStackTrace();
             }
@@ -64,7 +67,7 @@ public class DBUtils {
                 psInsert.setString(2, password);
                 psInsert.setString(3, name);
                 psInsert.executeUpdate();
-                changeScene(event, "logged-in.fxml", "welcome to the Game", username);
+                changeScene(event, "GameDashboard.fxml", "welcome to the Game", username);
             }
 
         } catch (SQLException e){
@@ -97,15 +100,19 @@ public class DBUtils {
             preparedStatement.setString(1, username);
             resultSet = preparedStatement.executeQuery();
             if (!resultSet.isBeforeFirst()){
-                System.out.println("User not found in the database");
+                System.out.println("Player not found in the database");
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setContentText("Provided credentials are incorrect.");
                 alert.show();
             } else {
                 while(resultSet.next()){
-                    String retrievedPassword = resultSet.getString("password");
-                    if (retrievedPassword.equals(password)){
-                        changeScene(event, "logged-in.fxml", "Welcome to the game", username);
+                    if (resultSet.getBoolean("is_Active") == false) {
+                        System.out.println("Player is not activated yet!");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Player is not activated yet!");
+                        alert.show();
+                    } else if (resultSet.getString("password").equals(password)) {
+                        changeScene(event, "GameDashboard.fxml", "Welcome to the game", username);
                     } else {
                         System.out.println("Password did not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -132,8 +139,53 @@ public class DBUtils {
                 }
             }
         }
-
-
+    }
+    public static void logInAdmin(ActionEvent event, String username, String password){
+        Connection connection = null;
+        ResultSet resultSet = null;
+        try{
+            final String LOGIN_QUERY = queryUtils.getAdminLoginQuery();
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_QUERY);
+            preparedStatement.setString(1, username);
+            resultSet = preparedStatement.executeQuery();
+            if (!resultSet.isBeforeFirst()){
+                System.out.println("Admin not found in the database");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText("Provided credentials are incorrect.");
+                alert.show();
+            } else {
+                while(resultSet.next()){
+                   if (resultSet.getString("password").equals(password)) {
+                        changeScene(event, "AdminDashboard.fxml", "Welcome to the game", username);
+                    } else {
+                        System.out.println("Password did not match");
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setContentText("Provided credentials are incorrect.");
+                        alert.show();
+                    }
+                }
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        } finally {
+            if(resultSet != null){
+                try {
+                    resultSet.close();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+            if(connection != null){
+                try {
+                    connection.close();
+                } catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
+
 }
+
