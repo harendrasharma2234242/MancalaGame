@@ -9,9 +9,9 @@ public class BoardControllerArcade extends BoardController {
     @FXML
     private void onDoublePointsClick() {
         isDouble = true;
-        doublePoints.setText("Double points activated");
+        doublePoints.setText("Double points used this turn");
         doublePoints.setDisable(true);
-        reactivateDoublePointsButton(true);
+//        reactivateDoublePointsButton(true);
     }
     @FXML
     private void onContinueTurnClick() {

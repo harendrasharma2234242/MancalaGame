@@ -71,10 +71,6 @@ public class BoardController {
     private Label mancalaLabel_P1;
     @FXML
     private Label mancalaLabel_P2;
-    @FXML
-    private Button traditional;
-    @FXML
-    private Button arcade;
     protected boolean isDouble = false;
     @FXML
     private final ArrayList<Hole> holes = new ArrayList<>();
@@ -86,6 +82,8 @@ public class BoardController {
     private Board board = new Board(holes, mancalas);
     @FXML
     protected Button doublePoints;
+
+    private boolean newTurn = true;
     @FXML
     private void setBoard() {
         start.setDisable(true);
@@ -167,15 +165,14 @@ public class BoardController {
 
         if (isDouble) {
             mancalas.get(index).setCount(mancalas.get(index).getCount() + 2);
-            System.out.println("double");
         } else {
             mancalas.get(index).setCount(mancalas.get(index).getCount() + 1);
-            System.out.println("single");
         }
         mancalaLabels.set(index, String.valueOf(mancalas.get(index).getCount()));
     }
     @FXML
     private void moveStones(int holeNumber) {
+        newTurn = false;
         int chosenHoleCount = holes.get(holeNumber).getCount();
         holes.get(holeNumber).setCount(0);
         holeLabels.set(holeNumber, "0");
@@ -229,20 +226,22 @@ public class BoardController {
 
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
+            newTurn = true;
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
             moveStones(newHoleNumber);
         } else {
             setCurrentPlayer();
             notification.setText("");
+            newTurn = true;
         }
+        reactivateDoublePointsButton(newTurn, isDouble);
         isDouble = false;
-        reactivateDoublePointsButton(false);
         gameEnd();
     }
 
-    protected void reactivateDoublePointsButton(boolean b) {
-        if (b) {
+    protected void reactivateDoublePointsButton(boolean newTurn, boolean isDouble) {
+        if (newTurn && isDouble) {
             doublePoints.setDisable(false);
             doublePoints.setText("Double points");
         }
