@@ -70,6 +70,10 @@ public class BoardController {
     @FXML
     private Label mancalaLabel_P2;
     @FXML
+    private Button traditional;
+    @FXML
+    private Button arcade;
+    @FXML
     private final ArrayList<Hole> holes = new ArrayList<>();
     private final ArrayList<Hole> holesPlayer1 = new ArrayList<>();
     private final ArrayList<Hole> holesPlayer2 = new ArrayList<>();

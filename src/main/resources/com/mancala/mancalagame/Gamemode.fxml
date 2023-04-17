@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.GamemodeController">
+    <children>
+        <Label layoutX="210.0" layoutY="119.0" text="Choose a game mode">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+        <Button fx:id="open" layoutX="253.0" layoutY="165.0" onAction="#switchToTraditional" prefHeight="26.0" prefWidth="106.0" text="Traditional" />
+      <Button layoutX="254.0" layoutY="210.0" mnemonicParsing="false" onAction="#switchToArcade" prefHeight="26.0" prefWidth="106.0" text="Arcade" />
+    </children>
+
+</AnchorPane>
