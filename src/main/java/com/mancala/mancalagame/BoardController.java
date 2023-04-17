@@ -42,6 +42,8 @@ public class BoardController {
     @FXML
     private ArrayList<String> mancalaLabels = new ArrayList<>();
     @FXML
+    private Button start;
+    @FXML
     private Label holeLabel0;
     @FXML
     private Label holeLabel1;
@@ -73,6 +75,7 @@ public class BoardController {
     private Button traditional;
     @FXML
     private Button arcade;
+    protected boolean isDouble = false;
     @FXML
     private final ArrayList<Hole> holes = new ArrayList<>();
     private final ArrayList<Hole> holesPlayer1 = new ArrayList<>();
@@ -82,7 +85,10 @@ public class BoardController {
     private int holeNumber;
     private Board board = new Board(holes, mancalas);
     @FXML
+    protected Button doublePoints;
+    @FXML
     private void setBoard() {
+        start.setDisable(true);
         button0.setDisable(false);
         button1.setDisable(false);
         button2.setDisable(false);
@@ -157,6 +163,17 @@ public class BoardController {
         mancalaLabel_P1.setText(mancalaLabels.get(0));
         mancalaLabel_P2.setText(mancalaLabels.get(1));
     }
+    private void fillMancala(int index) {
+
+        if (isDouble) {
+            mancalas.get(index).setCount(mancalas.get(index).getCount() + 2);
+            System.out.println("double");
+        } else {
+            mancalas.get(index).setCount(mancalas.get(index).getCount() + 1);
+            System.out.println("single");
+        }
+        mancalaLabels.set(index, String.valueOf(mancalas.get(index).getCount()));
+    }
     @FXML
     private void moveStones(int holeNumber) {
         int chosenHoleCount = holes.get(holeNumber).getCount();
@@ -172,15 +189,13 @@ public class BoardController {
         int newHoleNumber = 0;
         for (i = 1; i <= chosenHoleCount; i++) {
             if (index == 12 && currentPlayer.getText().equals("2")) {
-                mancalas.get(1).setCount(mancalas.get(1).getCount() + 1);
-                mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
+                fillMancala(1);
                 index = 0;
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
             } else if (index == 6 && currentPlayer.getText().equals("1")) {
-                mancalas.get(0).setCount(mancalas.get(0).getCount() + 1);
-                mancalaLabels.set(0, String.valueOf(mancalas.get(0).getCount()));
+                fillMancala(0);
                 index++;
                 rightMancalaFlag++;
                 leftLastFilled = false;
@@ -221,7 +236,16 @@ public class BoardController {
             setCurrentPlayer();
             notification.setText("");
         }
+        isDouble = false;
+        reactivateDoublePointsButton(false);
         gameEnd();
+    }
+
+    protected void reactivateDoublePointsButton(boolean b) {
+        if (b) {
+            doublePoints.setDisable(false);
+            doublePoints.setText("Double points");
+        }
     }
 
     private void gameEnd() {
@@ -251,6 +275,7 @@ public class BoardController {
         int score2 = mancalas.get(1).getCount();
         int winner;
         if (score1 < score2) {
+
             notification.setText("Player 2 wins!");
             winner = 2;
         } else if (score1 > score2) {
@@ -272,6 +297,7 @@ public class BoardController {
         button9.setDisable(true);
         button10.setDisable(true);
         button11.setDisable(true);
+
 
         return winner;
     }
