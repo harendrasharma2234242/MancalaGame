@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.AdminDashboard">
+   <opaqueInsets>
+      <Insets />
+   </opaqueInsets>
+   <effect>
+      <SepiaTone />
+   </effect>
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="274.0" layoutX="-29.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/mancala.jpg" />
+         </image>
+         <effect>
+            <DisplacementMap>
+               <mapData>
+                  <FloatMap />
+               </mapData>
+            </DisplacementMap>
+         </effect>
+      </ImageView>
+      <Label layoutX="283.0" layoutY="58.0" text="Admin Dashboard" textFill="#ffe3a7">
+         <font>
+            <Font name="Comic Sans MS" size="25.0" />
+         </font>
+      </Label>
+      <Button fx:id="frequent_users" layoutX="283.0" layoutY="218.0" mnemonicParsing="false" onAction="#frequentUsersPage" prefHeight="25.0" prefWidth="205.0" style="-fx-background-color: #ffe3a7;" text="Frequent Users" textFill="#916527">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+      <Button fx:id="powerup" layoutX="283.0" layoutY="293.0" mnemonicParsing="false" onAction="#powerupsPage" prefHeight="26.0" prefWidth="205.0" style="-fx-background-color: #ffe3a7;" text="Powerup/Special Stone Statistics" textFill="#916527">
+         <font>
+            <Font name="Comic Sans MS" size="12.0" />
+         </font></Button>
+      <Button fx:id="new_users" layoutX="281.0" layoutY="146.0" mnemonicParsing="false" onAction="#newUsersPage" prefHeight="26.0" prefWidth="206.0" style="-fx-background-color: #ffe3a7;" text="New User Requests" textFill="#916527">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Button>
+   </children>
+</AnchorPane>
