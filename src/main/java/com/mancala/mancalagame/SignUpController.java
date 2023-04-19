@@ -38,7 +38,7 @@ public class SignUpController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 if(!sp_name.getText().trim().isEmpty() && !sp_username.getText().trim().isEmpty() && !sp_password.getText().trim().isEmpty()){
-                    DBUtils.SignUp(event,sp_name.getText(), sp_username.getText(), sp_password.getText());
+                    UsersBean.SignUp(event,sp_name.getText(), sp_username.getText(), sp_password.getText());
                 } else {
                     System.out.println("Please fill in all information");
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -51,7 +51,7 @@ public class SignUpController implements Initializable {
         btn_loggedIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                DBUtils.changeScene(event, "home.fxml","Log in", null);
+                UsersBean.changeScene(event, "playerLogIn.fxml","Log in", null);
             }
         });
     }
