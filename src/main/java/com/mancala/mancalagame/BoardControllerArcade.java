@@ -31,10 +31,9 @@ public class BoardControllerArcade extends BoardController {
         double chance = Math.random();
         int option = -1;
         String[] specialStones = {"half hand", "switch sides", "reverse turn"};
-        if (chance <= 1) {
+        if (chance <= 0.1) {
             Random random = new Random();
-//            option = random.nextInt(3);
-            option = 2;
+            option = random.nextInt(3);
             String stone = specialStones[option];
             specialStone.setText(stone);
             if (option == 1) {
