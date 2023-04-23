@@ -35,7 +35,7 @@ public class BoardController {
     @FXML
     private Label currentPlayer;
     @FXML
-    private Label notification;
+    protected Label notification;
 
     @FXML
     private ArrayList<String> holeLabels = new ArrayList<>();
@@ -71,19 +71,23 @@ public class BoardController {
     private Label mancalaLabel_P1;
     @FXML
     private Label mancalaLabel_P2;
-    protected boolean isDouble = false;
     @FXML
     private final ArrayList<Hole> holes = new ArrayList<>();
     private final ArrayList<Hole> holesPlayer1 = new ArrayList<>();
     private final ArrayList<Hole> holesPlayer2 = new ArrayList<>();
     @FXML
     private final ArrayList<Mancala> mancalas = new ArrayList<>();
-    private int holeNumber;
+    protected int holeNumber;
     private Board board = new Board(holes, mancalas);
     @FXML
     protected Button doublePoints;
-
-    private boolean newTurn = true;
+    @FXML
+    protected Button continueTurn;
+    protected boolean isDoublePoints = false;
+    protected boolean isContinueTurn = false;
+    protected boolean normalSide = true;
+    protected boolean normalDirection = true;
+    protected boolean halfHand = false;
     @FXML
     private void setBoard() {
         start.setDisable(true);
@@ -163,21 +167,55 @@ public class BoardController {
     }
     private void fillMancala(int index) {
 
-        if (isDouble) {
+        if (isDoublePoints) {
             mancalas.get(index).setCount(mancalas.get(index).getCount() + 2);
         } else {
             mancalas.get(index).setCount(mancalas.get(index).getCount() + 1);
         }
         mancalaLabels.set(index, String.valueOf(mancalas.get(index).getCount()));
     }
+
+    private int switchSides(int holeNumber, boolean normalSide) {
+        if (!normalSide) {
+            holeNumber = 11 - holeNumber;
+        }
+//        System.out.println("change: " + holeNumber);
+        return holeNumber;
+    }
+
+    private int updateIndex(int index, boolean normalDirection) {
+//        System.out.println("before: " + index);
+        if (normalDirection) {
+            index++;
+        } else {
+            index--;
+        }
+        if (index < 0) {
+            index = 11;
+        } else if (index > 11) {
+            index = 0;
+        }
+//        System.out.println("after: " + index);
+        return index;
+    }
     @FXML
-    private void moveStones(int holeNumber) {
-        newTurn = false;
+    protected void moveStones(int holeNumber) {
+//        System.out.println("before: " + holeNumber);
+        holeNumber = switchSides(holeNumber, normalSide);
+        boolean newTurn = false;
         int chosenHoleCount = holes.get(holeNumber).getCount();
         holes.get(holeNumber).setCount(0);
         holeLabels.set(holeNumber, "0");
+        System.out.println("emptying: " + holeNumber + " to " + 0);
         int i = 1;
-        int index = i + holeNumber;
+        int index;
+        if (normalDirection) {
+            index = i + holeNumber;
+        } else if (holeNumber != 0) {
+            index = holeNumber - i;
+        } else {
+            index = 11;
+        }
         int rightMancalaFlag = 0;
         boolean normalLastFilled = false;
         boolean rightLastFilled = false;
@@ -191,22 +229,41 @@ public class BoardController {
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
-            } else if (index == 6 && currentPlayer.getText().equals("1")) {
+                System.out.println("l fill");
+            } else if (index == 6 && currentPlayer.getText().equals("1") && normalDirection) {
                 fillMancala(0);
-                index++;
+//                index++;
+                System.out.println("before r fill: " + index);
+                index = updateIndex(index, normalDirection);
+                System.out.println("after r fill: " + index);
                 rightMancalaFlag++;
+                leftLastFilled = false;
+                rightLastFilled = true;
+                normalLastFilled = false;
+            } else if (index == 5 && currentPlayer.getText().equals("1") && !normalDirection) {
+                fillMancala(0);
+//                index++;
+                curr = holes.get(index).getCount();
+                holes.get(index-rightMancalaFlag).setCount(curr + 1);
+                holeLabels.set(index-rightMancalaFlag, String.valueOf(curr + 1));
+                System.out.println("0. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
+                index = updateIndex(index, normalDirection);
+//                rightMancalaFlag++;
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
             } else if (index == 12) {
                 index = 0;
                 i--;
-            } else if (rightMancalaFlag <= index) {
+            } else if (rightMancalaFlag <= index && index != 11) {
                 curr = holes.get(index - rightMancalaFlag).getCount();
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
+                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 newHoleNumber = index - rightMancalaFlag;
-                index++;
+//                index++;
+//                System.out.println("1. update index");
+                index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
@@ -215,38 +272,62 @@ public class BoardController {
                 holes.get(11).setCount(curr + 1);
                 holeLabels.set(11, String.valueOf(curr + 1));
                 newHoleNumber = 11;
-                index++;
+//                index++;
+//                System.out.println("2. update index");
+                index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
+                System.out.println("2. filling: " + 11 + " to " + (curr + 1));
+
             }
         }
 
         setLabels();
+        board.printBoard();
+        System.out.println();
 
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
+            normalSide = true;
             newTurn = true;
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
+            normalSide = true;
             moveStones(newHoleNumber);
+        } else if (isContinueTurn) {
+            notification.setText("Power up! Take another turn");
+            continueTurn.setDisable(true);
+            System.out.println("here");
+//            isContinueTurn = false;
+            normalSide = true;
+            newTurn = true;
         } else {
             setCurrentPlayer();
             notification.setText("");
+            normalSide = true;
             newTurn = true;
         }
-        reactivateDoublePointsButton(newTurn, isDouble);
-        isDouble = false;
+        reactivateDoublePointsButton(newTurn);
+        reactivateContinueTurnButton(newTurn);
+        isDoublePoints = false;
+        isContinueTurn = false;
         gameEnd();
     }
 
-    protected void reactivateDoublePointsButton(boolean newTurn, boolean isDouble) {
-        if (newTurn && isDouble) {
+    protected void reactivateDoublePointsButton(boolean newTurn) {
+        if (newTurn && isDoublePoints) {
             doublePoints.setDisable(false);
             doublePoints.setText("Double points");
         }
     }
 
+    protected void reactivateContinueTurnButton(boolean newTurn) {
+        if (newTurn && isContinueTurn) {
+            continueTurn.setDisable(false);
+            continueTurn.setText("Continue turn");
+        }
+    }
     private void gameEnd() {
         if (totalContents(holesPlayer1) == 0) {
             mancalas.get(1).setCount(mancalas.get(1).getCount() + totalContents(holesPlayer2));
@@ -274,7 +355,6 @@ public class BoardController {
         int score2 = mancalas.get(1).getCount();
         int winner;
         if (score1 < score2) {
-
             notification.setText("Player 2 wins!");
             winner = 2;
         } else if (score1 > score2) {
@@ -296,8 +376,6 @@ public class BoardController {
         button9.setDisable(true);
         button10.setDisable(true);
         button11.setDisable(true);
-
-
         return winner;
     }
 
@@ -308,7 +386,7 @@ public class BoardController {
         }
         return total;
     }
-    private boolean checkEmpty(int holeNumber) {
+    protected boolean checkEmpty(int holeNumber) {
         return holes.get(holeNumber).getCount() != 0;
     }
     @FXML
