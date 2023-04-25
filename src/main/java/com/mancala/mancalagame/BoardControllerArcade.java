@@ -80,7 +80,7 @@ public class BoardControllerArcade extends BoardController {
         double chance = Math.random();
         int option = -1;
         String[] specialStones = {"half hand", "switch sides", "reverse turn"};
-        if (chance <= 0.8) {
+        if (chance <= 0.1) {
             Random random = new Random();
             option = random.nextInt(3);
             String stone = specialStones[option];
@@ -158,19 +158,16 @@ public class BoardControllerArcade extends BoardController {
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
                 System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 newHoleNumber = index - rightMancalaFlag;
-//                index++;
 //                System.out.println("1. update index");
                 index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
             } else {
-//                curr = holes.get(11).getCount();
                 curr = pickUpStones(11);
                 holes.get(11).setCount(curr + 1);
                 holeLabels.set(11, String.valueOf(curr + 1));
                 newHoleNumber = 11;
-//                index++;
 //                System.out.println("2. update index");
                 index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
