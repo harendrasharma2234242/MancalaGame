@@ -18,6 +18,7 @@ public class BoardControllerArcade extends BoardController {
     private boolean normalSide = true;
     private boolean normalDirection = true;
     private boolean halfHand = false;
+    private boolean newTurn = true;
     private int switchSides(int holeNumber, boolean normalSide) {
         if (!normalSide) {
             holeNumber = 11 - holeNumber;
@@ -26,7 +27,6 @@ public class BoardControllerArcade extends BoardController {
         return holeNumber;
     }
     private void fillMancala(int index) {
-
         if (isDoublePoints) {
             mancalas.get(index).setCount(mancalas.get(index).getCount() + 2);
         } else {
@@ -35,14 +35,14 @@ public class BoardControllerArcade extends BoardController {
         mancalaLabels.set(index, String.valueOf(mancalas.get(index).getCount()));
     }
     protected void reactivateDoublePointsButton(boolean newTurn) {
-        if (newTurn && isDoublePoints) {
+        if (newTurn) {
             doublePoints.setDisable(false);
             doublePoints.setText("Double points");
         }
     }
 
     protected void reactivateContinueTurnButton(boolean newTurn) {
-        if (newTurn && isContinueTurn) {
+        if (newTurn) {
             continueTurn.setDisable(false);
             continueTurn.setText("Continue turn");
         }
@@ -103,13 +103,13 @@ public class BoardControllerArcade extends BoardController {
             chosenHoleCount = holes.get(holeNumber).getCount();
             holes.get(holeNumber).setCount(0);
             holeLabels.set(holeNumber, "0");
-            System.out.println("emptying: " + holeNumber + " to " + 0);
+//            System.out.println("emptying: " + holeNumber + " to " + 0);
         } else {
             chosenHoleCount = Math.round((float) holes.get(holeNumber).getCount() / 2);
             int leftOver = holes.get(holeNumber).getCount() - (int) chosenHoleCount;
             holes.get(holeNumber).setCount(leftOver);
             holeLabels.set(holeNumber, Integer.toString(leftOver));
-            System.out.println("emptying: " + holeNumber + " to " + leftOver);
+//            System.out.println("emptying: " + holeNumber + " to " + leftOver);
         }
         return (int) chosenHoleCount;
     }
@@ -117,7 +117,7 @@ public class BoardControllerArcade extends BoardController {
 //        System.out.println("before: " + holeNumber);
         holeNumber = switchSides(holeNumber, normalSide);
         int chosenHoleCount = getStones(holeNumber);
-        boolean newTurn = false;
+        newTurn = false;
         int i = 1;
         int index;
         if (normalDirection) {
@@ -140,12 +140,12 @@ public class BoardControllerArcade extends BoardController {
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
-                System.out.println("l fill");
+//                System.out.println("l fill");
             } else if (index == 6 && currentPlayer.getText().equals("1") && normalDirection) {
                 fillMancala(0);
-                System.out.println("before r fill: " + index);
+//                System.out.println("before r fill: " + index);
                 index = updateIndex(index, normalDirection);
-                System.out.println("after r fill: " + index);
+//                System.out.println("after r fill: " + index);
                 rightMancalaFlag++;
                 leftLastFilled = false;
                 rightLastFilled = true;
@@ -155,7 +155,7 @@ public class BoardControllerArcade extends BoardController {
                 curr = pickUpStones(index);
                 holes.get(index-rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index-rightMancalaFlag, String.valueOf(curr + 1));
-                System.out.println("0. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
+//                System.out.println("0. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
                 rightLastFilled = true;
@@ -167,7 +167,7 @@ public class BoardControllerArcade extends BoardController {
                 curr = pickUpStones(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
-                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
+//                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 newHoleNumber = index - rightMancalaFlag;
 //                System.out.println("1. update index");
                 index = updateIndex(index, normalDirection);
@@ -184,14 +184,14 @@ public class BoardControllerArcade extends BoardController {
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
-                System.out.println("2. filling: " + 11 + " to " + (curr + 1));
+//                System.out.println("2. filling: " + 11 + " to " + (curr + 1));
 
             }
         }
 
         setLabels();
-        board.printBoard();
-        System.out.println();
+//        board.printBoard();
+//        System.out.println();
 
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
@@ -219,6 +219,41 @@ public class BoardControllerArcade extends BoardController {
         isDoublePoints = false;
         isContinueTurn = false;
         gameEnd();
+    }
+    private void setCurrentPlayer() {
+        newTurn = true;
+        reactivateDoublePointsButton(newTurn);
+        reactivateContinueTurnButton(newTurn);
+        if (currentPlayer.getText().equals("1")) {
+            currentPlayer.setText("2");
+            button0.setDisable(true);
+            button1.setDisable(true);
+            button2.setDisable(true);
+            button3.setDisable(true);
+            button4.setDisable(true);
+            button5.setDisable(true);
+            button6.setDisable(false);
+            button7.setDisable(false);
+            button8.setDisable(false);
+            button9.setDisable(false);
+            button10.setDisable(false);
+            button11.setDisable(false);
+
+        } else {
+            currentPlayer.setText("1");
+            button0.setDisable(false);
+            button1.setDisable(false);
+            button2.setDisable(false);
+            button3.setDisable(false);
+            button4.setDisable(false);
+            button5.setDisable(false);
+            button6.setDisable(true);
+            button7.setDisable(true);
+            button8.setDisable(true);
+            button9.setDisable(true);
+            button10.setDisable(true);
+            button11.setDisable(true);
+        }
     }
     @FXML
     private void onHole0Click() {

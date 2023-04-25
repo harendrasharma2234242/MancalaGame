@@ -9,29 +9,29 @@ import java.util.Collections;
 
 public class BoardController {
     @FXML
-    private Button button0;
+    protected Button button0;
     @FXML
-    private Button button1;
+    protected Button button1;
     @FXML
-    private Button button2;
+    protected Button button2;
     @FXML
-    private Button button3;
+    protected Button button3;
     @FXML
-    private Button button4;
+    protected Button button4;
     @FXML
-    private Button button5;
+    protected Button button5;
     @FXML
-    private Button button6;
+    protected Button button6;
     @FXML
-    private Button button7;
+    protected Button button7;
     @FXML
-    private Button button8;
+    protected Button button8;
     @FXML
-    private Button button9;
+    protected Button button9;
     @FXML
-    private Button button10;
+    protected Button button10;
     @FXML
-    private Button button11;
+    protected Button button11;
     @FXML
     protected Label currentPlayer;
     @FXML
@@ -108,7 +108,7 @@ public class BoardController {
             holesPlayer2.add(holes.get(i+6));
         }
     }
-    protected void setCurrentPlayer() {
+    private void setCurrentPlayer() {
         if (currentPlayer.getText().equals("1")) {
             currentPlayer.setText("2");
             button0.setDisable(true);
