@@ -97,14 +97,27 @@ public class BoardControllerArcade extends BoardController {
         }
         return option;
     }
-    protected void moveStones(int holeNumber) {
+    private int getStones(int holeNumber) {
+        float chosenHoleCount;
+        if (!halfHand) {
+            chosenHoleCount = holes.get(holeNumber).getCount();
+            holes.get(holeNumber).setCount(0);
+            holeLabels.set(holeNumber, "0");
+            System.out.println("emptying: " + holeNumber + " to " + 0);
+        } else {
+            chosenHoleCount = Math.round((float) holes.get(holeNumber).getCount() / 2);
+            int leftOver = holes.get(holeNumber).getCount() - (int) chosenHoleCount;
+            holes.get(holeNumber).setCount(leftOver);
+            holeLabels.set(holeNumber, Integer.toString(leftOver));
+            System.out.println("emptying: " + holeNumber + " to " + leftOver);
+        }
+        return (int) chosenHoleCount;
+    }
+    private void moveStones(int holeNumber) {
 //        System.out.println("before: " + holeNumber);
         holeNumber = switchSides(holeNumber, normalSide);
+        int chosenHoleCount = getStones(holeNumber);
         boolean newTurn = false;
-        int chosenHoleCount = holes.get(holeNumber).getCount();
-        holes.get(holeNumber).setCount(0);
-        holeLabels.set(holeNumber, "0");
-        System.out.println("emptying: " + holeNumber + " to " + 0);
         int i = 1;
         int index;
         if (normalDirection) {
@@ -130,7 +143,6 @@ public class BoardControllerArcade extends BoardController {
                 System.out.println("l fill");
             } else if (index == 6 && currentPlayer.getText().equals("1") && normalDirection) {
                 fillMancala(0);
-//                index++;
                 System.out.println("before r fill: " + index);
                 index = updateIndex(index, normalDirection);
                 System.out.println("after r fill: " + index);
@@ -140,7 +152,6 @@ public class BoardControllerArcade extends BoardController {
                 normalLastFilled = false;
             } else if (index == 5 && currentPlayer.getText().equals("1") && !normalDirection) {
                 fillMancala(0);
-//                index++;
                 curr = pickUpStones(index);
                 holes.get(index-rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index-rightMancalaFlag, String.valueOf(curr + 1));
