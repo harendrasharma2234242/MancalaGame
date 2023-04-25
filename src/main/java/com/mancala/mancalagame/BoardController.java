@@ -198,6 +198,16 @@ public class BoardController {
 //        System.out.println("after: " + index);
         return index;
     }
+
+    private int pickUpStones(int index) {
+        int curr;
+        if (!halfHand) {
+            curr = holes.get(index).getCount();
+        } else {
+            curr = Math.round((float) holes.get(index).getCount() / 2);
+        }
+        return curr;
+    }
     @FXML
     protected void moveStones(int holeNumber) {
 //        System.out.println("before: " + holeNumber);
@@ -243,12 +253,11 @@ public class BoardController {
             } else if (index == 5 && currentPlayer.getText().equals("1") && !normalDirection) {
                 fillMancala(0);
 //                index++;
-                curr = holes.get(index).getCount();
+                curr = pickUpStones(index);
                 holes.get(index-rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index-rightMancalaFlag, String.valueOf(curr + 1));
                 System.out.println("0. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 index = updateIndex(index, normalDirection);
-//                rightMancalaFlag++;
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
@@ -256,7 +265,7 @@ public class BoardController {
                 index = 0;
                 i--;
             } else if (rightMancalaFlag <= index && index != 11) {
-                curr = holes.get(index - rightMancalaFlag).getCount();
+                curr = pickUpStones(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
                 System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
@@ -268,7 +277,8 @@ public class BoardController {
                 rightLastFilled = false;
                 normalLastFilled = true;
             } else {
-                curr = holes.get(11).getCount();
+//                curr = holes.get(11).getCount();
+                curr = pickUpStones(11);
                 holes.get(11).setCount(curr + 1);
                 holeLabels.set(11, String.valueOf(curr + 1));
                 newHoleNumber = 11;
