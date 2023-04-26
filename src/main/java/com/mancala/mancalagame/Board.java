@@ -18,6 +18,7 @@ public class Board {
     public int getMancala(int holeNumber) {
         return mancalas.get(holeNumber).getCount();
     }
+
     public void printHoles() {
         for (int i = 11; i >= 6; i--) {
             System.out.print(holes.get(i).getCount() + " ");

@@ -84,6 +84,7 @@ public class BoardController {
     protected Button doublePoints;
 
     private boolean newTurn = true;
+
     @FXML
     private void setBoard() {
         start.setDisable(true);
@@ -109,9 +110,10 @@ public class BoardController {
         }
         for (int i = 0; i < 6; i++) {
             holesPlayer1.add(holes.get(i));
-            holesPlayer2.add(holes.get(i+6));
+            holesPlayer2.add(holes.get(i + 6));
         }
     }
+
     private void setCurrentPlayer() {
         if (currentPlayer.getText().equals("1")) {
             currentPlayer.setText("2");
@@ -161,6 +163,7 @@ public class BoardController {
         mancalaLabel_P1.setText(mancalaLabels.get(0));
         mancalaLabel_P2.setText(mancalaLabels.get(1));
     }
+
     private void fillMancala(int index) {
 
         if (isDouble) {
@@ -170,6 +173,7 @@ public class BoardController {
         }
         mancalaLabels.set(index, String.valueOf(mancalas.get(index).getCount()));
     }
+
     @FXML
     private void moveStones(int holeNumber) {
         newTurn = false;
@@ -308,9 +312,11 @@ public class BoardController {
         }
         return total;
     }
+
     private boolean checkEmpty(int holeNumber) {
         return holes.get(holeNumber).getCount() != 0;
     }
+
     @FXML
     private void onHole0Click() {
         holeNumber = 0;
@@ -320,6 +326,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole1Click() {
         holeNumber = 1;
@@ -329,6 +336,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole2Click() {
         holeNumber = 2;
@@ -338,6 +346,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole3Click() {
         holeNumber = 3;
@@ -347,6 +356,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole4Click() {
         holeNumber = 4;
@@ -356,6 +366,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole5Click() {
         holeNumber = 5;
@@ -365,6 +376,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole6Click() {
         holeNumber = 6;
@@ -374,6 +386,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole7Click() {
         holeNumber = 7;
@@ -383,6 +396,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole8Click() {
         holeNumber = 8;
@@ -392,6 +406,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole9Click() {
         holeNumber = 9;
@@ -401,6 +416,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole10Click() {
         holeNumber = 10;
@@ -410,6 +426,7 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
     @FXML
     private void onHole11Click() {
         holeNumber = 11;

@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 public class BoardControllerArcade extends BoardController {
     @FXML
     private Button continueTurn;
+
     @FXML
     private void onDoublePointsClick() {
         isDouble = true;
@@ -13,6 +14,7 @@ public class BoardControllerArcade extends BoardController {
         doublePoints.setDisable(true);
 //        reactivateDoublePointsButton(true);
     }
+
     @FXML
     private void onContinueTurnClick() {
 

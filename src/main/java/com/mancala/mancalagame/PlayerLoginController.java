@@ -22,6 +22,7 @@ public class PlayerLoginController implements Initializable {
     private Button btn_signup;
     @FXML
     private Button btn_back;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btn_logging.setOnAction(new EventHandler<ActionEvent>() {
@@ -33,13 +34,13 @@ public class PlayerLoginController implements Initializable {
         btn_signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event,"sign-up.fxml", "Sign up",null );
+                UsersBean.changeScene(event, "Sign-up.fxml", "Sign up", null);
             }
         });
         btn_back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event,"Home.fxml", "Sign up",null );
+                UsersBean.changeScene(event, "Home.fxml", "Sign up", null);
             }
         });
     }
