@@ -162,18 +162,6 @@ public class BoardController {
         mancalaLabels.set(index, String.valueOf(mancalas.get(index).getCount()));
     }
 
-    private int updateIndex(int index) {
-//        System.out.println("before: " + index);
-        index++;
-        if (index < 0) {
-            index = 11;
-        } else if (index > 11) {
-            index = 0;
-        }
-//        System.out.println("after: " + index);
-        return index;
-    }
-
     protected int pickUpStones(int index) {
         int curr;
         curr = holes.get(index).getCount();
@@ -194,16 +182,14 @@ public class BoardController {
         int newHoleNumber = 0;
         for (i = 1; i <= chosenHoleCount; i++) {
             if (index == 12 && currentPlayer.getText().equals("2")) {
-                mancalas.get(1).setCount(mancalas.get(1).getCount() + 1);
-                mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
+                fillMancala(1);
                 index = 0;
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
                 System.out.println("******l fill******");
             } else if (index == 6 && currentPlayer.getText().equals("1")) {
-                mancalas.get(0).setCount(mancalas.get(0).getCount() + 1);
-                mancalaLabels.set(0, String.valueOf(mancalas.get(0).getCount()));
+                fillMancala(0);
                 index++;
                 rightMancalaFlag++;
                 leftLastFilled = false;
@@ -214,7 +200,7 @@ public class BoardController {
                 index = 0;
                 i--;
             } else if (rightMancalaFlag <= index) {
-                curr = holes.get(index - rightMancalaFlag).getCount();
+                curr = pickUpStones(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
                 System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
@@ -224,7 +210,7 @@ public class BoardController {
                 rightLastFilled = false;
                 normalLastFilled = true;
             } else {
-                curr = holes.get(11).getCount();
+                curr = pickUpStones(11);
                 holes.get(11).setCount(curr + 1);
                 holeLabels.set(11, String.valueOf(curr + 1));
                 newHoleNumber = 11;

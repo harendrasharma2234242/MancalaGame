@@ -66,11 +66,6 @@ public class BoardControllerArcade extends BoardController {
         } else {
             index--;
         }
-        if (index < 0) {
-            index = 11;
-        } else if (index > 11) {
-            index = 0;
-        }
 //        System.out.println("after: " + index);
         return index;
     }
@@ -114,7 +109,6 @@ public class BoardControllerArcade extends BoardController {
         return (int) chosenHoleCount;
     }
     private void moveStones(int holeNumber) {
-//        System.out.println("before: " + holeNumber);
         holeNumber = switchSides(holeNumber, normalSide);
         int chosenHoleCount = getStones(holeNumber);
         newTurn = false;
@@ -140,12 +134,11 @@ public class BoardControllerArcade extends BoardController {
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
-//                System.out.println("l fill");
+                System.out.println("l fill");
             } else if (index == 6 && currentPlayer.getText().equals("1") && normalDirection) {
                 fillMancala(0);
-//                System.out.println("before r fill: " + index);
                 index = updateIndex(index, normalDirection);
-//                System.out.println("after r fill: " + index);
+                System.out.println("r fill");
                 rightMancalaFlag++;
                 leftLastFilled = false;
                 rightLastFilled = true;
@@ -155,7 +148,7 @@ public class BoardControllerArcade extends BoardController {
                 curr = pickUpStones(index);
                 holes.get(index-rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index-rightMancalaFlag, String.valueOf(curr + 1));
-//                System.out.println("0. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
+                System.out.println("0. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
                 rightLastFilled = true;
@@ -167,9 +160,8 @@ public class BoardControllerArcade extends BoardController {
                 curr = pickUpStones(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
-//                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
+                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 newHoleNumber = index - rightMancalaFlag;
-//                System.out.println("1. update index");
                 index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
                 rightLastFilled = false;
@@ -179,19 +171,18 @@ public class BoardControllerArcade extends BoardController {
                 holes.get(11).setCount(curr + 1);
                 holeLabels.set(11, String.valueOf(curr + 1));
                 newHoleNumber = 11;
-//                System.out.println("2. update index");
                 index = updateIndex(index, normalDirection);
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
-//                System.out.println("2. filling: " + 11 + " to " + (curr + 1));
+                System.out.println("2. filling: " + 11 + " to " + (curr + 1));
 
             }
         }
 
         setLabels();
-//        board.printBoard();
-//        System.out.println();
+        board.printBoard();
+        System.out.println();
 
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
@@ -204,13 +195,12 @@ public class BoardControllerArcade extends BoardController {
         } else if (isContinueTurn) {
             notification.setText("Power up! Take another turn");
             continueTurn.setDisable(true);
-            System.out.println("here");
-//            isContinueTurn = false;
             normalSide = true;
             newTurn = true;
         } else {
             setCurrentPlayer();
             notification.setText("");
+            System.out.println("**************next player");
             normalSide = true;
             newTurn = true;
         }
