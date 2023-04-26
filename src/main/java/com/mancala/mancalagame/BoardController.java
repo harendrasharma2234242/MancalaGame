@@ -120,6 +120,7 @@ public class BoardController {
             holesPlayer1.add(holes.get(i));
             holesPlayer2.add(holes.get(i+6));
         }
+        
     }
 
     /**

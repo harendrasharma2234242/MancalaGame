@@ -121,6 +121,8 @@ public class BoardControllerArcade extends BoardController {
     @FXML
     private int generateSpecialStones() {
         normalSide = true;
+        normalDirection = true;
+        halfHand = false;
         double chance = Math.random();
         int option = -1;
         String[] specialStones = {"half hand", "switch sides", "reverse turn"};
@@ -180,14 +182,18 @@ public class BoardControllerArcade extends BoardController {
         } else {
             index = 11;
         }
+        //flag to adjust which hole is looked at based on whether a mancala has been filled. Stops an offset occurring.
         int rightMancalaFlag = 0;
+        //flags to show how the last move ended. To know whether they gained a turn or not.
         boolean normalLastFilled = false;
         boolean rightLastFilled = false;
         boolean leftLastFilled = false;
+        // contents of current hole
         int curr = 0;
         int newHoleNumber = 0;
         for (i = 1; i <= chosenHoleCount; i++) {
             if (index == MANCALA_2_INDEX && currentPlayer.getText().equals("2")) {
+                //fill player 2's mancala if player 2 passes it
                 fillMancala(1);
                 index = FIRST_HOLE;
                 leftLastFilled = true;
@@ -195,6 +201,7 @@ public class BoardControllerArcade extends BoardController {
                 normalLastFilled = false;
                 System.out.println("l fill");
             } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals("1") && normalDirection) {
+                //fill player 1's mancala if player 1 passes it
                 fillMancala(0);
                 index = updateIndex(index, normalDirection);
                 System.out.println("r fill");
@@ -203,6 +210,7 @@ public class BoardControllerArcade extends BoardController {
                 rightLastFilled = true;
                 normalLastFilled = false;
             } else if (index == MANCALA_1_INDEX_REVERSE && currentPlayer.getText().equals("1") && !normalDirection) {
+                //fill player 1's mancala if player 1 passes it, but in reverse
                 fillMancala(0);
                 curr = pickUpStones(index);
                 holes.get(index-rightMancalaFlag).setCount(curr + 1);
@@ -213,9 +221,11 @@ public class BoardControllerArcade extends BoardController {
                 rightLastFilled = true;
                 normalLastFilled = false;
             } else if (index == MANCALA_2_INDEX) {
+                //player 1 skips player 2's mancala
                 index = FIRST_HOLE;
                 i--;
             } else if (rightMancalaFlag <= index && index != LAST_HOLE) {
+                //filling a normal hole
                 curr = pickUpStones(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
@@ -226,6 +236,7 @@ public class BoardControllerArcade extends BoardController {
                 rightLastFilled = false;
                 normalLastFilled = true;
             } else {
+                //filling the last hole
                 curr = pickUpStones(LAST_HOLE);
                 holes.get(LAST_HOLE).setCount(curr + 1);
                 holeLabels.set(LAST_HOLE, String.valueOf(curr + 1));
@@ -246,7 +257,6 @@ public class BoardControllerArcade extends BoardController {
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
             normalSide = true;
-//            newTurn = true;
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
             normalSide = true;
@@ -255,7 +265,6 @@ public class BoardControllerArcade extends BoardController {
             notification.setText("Power up! Take another turn");
             continueTurn.setDisable(true);
             normalSide = true;
-//            newTurn = true;
         } else {
             setCurrentPlayer();
             notification.setText("");
