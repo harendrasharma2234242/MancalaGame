@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class GamemodeController {
+public class GameModeController {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -19,13 +19,13 @@ public class GamemodeController {
 
     public void switchToTraditional(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("BoardTrad.fxml"));
-        Stage stage = (Stage)open.getScene().getWindow();
+        Stage stage = (Stage) open.getScene().getWindow();
         stage.setScene(new Scene(root, 750, 500));
     }
 
     public void switchToArcade(ActionEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("BoardArcade.fxml"));
-        Stage stage = (Stage)open.getScene().getWindow();
+        Stage stage = (Stage) open.getScene().getWindow();
         stage.setScene(new Scene(root, 750, 500));
     }
 }

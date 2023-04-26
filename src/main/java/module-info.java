@@ -11,4 +11,6 @@ module com.mancala.mancalagame {
 
     opens com.mancala.mancalagame to javafx.fxml;
     exports com.mancala.mancalagame;
+    exports com.mancala.mancalagame.opponent;
+    opens com.mancala.mancalagame.opponent to javafx.fxml;
 }

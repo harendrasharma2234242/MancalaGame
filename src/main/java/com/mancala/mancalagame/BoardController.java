@@ -7,40 +7,58 @@ import javafx.scene.control.Label;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The controller class for the traditional game.
+ * @author Alex Wadge
+ * @version 2.0
+ */
 public class BoardController {
+    protected static final int MANCALA_1_INDEX = 6;
+    protected static final int MANCALA_2_INDEX = 12;
+    protected static final int LAST_HOLE = 11;
+    protected static final int FIRST_HOLE = 0;
     @FXML
-    private Button button0;
+    protected final ArrayList<Hole> holes = new ArrayList<>();
+    private final ArrayList<Hole> holesPlayer1 = new ArrayList<>();
+    private final ArrayList<Hole> holesPlayer2 = new ArrayList<>();
     @FXML
-    private Button button1;
+    protected final ArrayList<Mancala> mancalas = new ArrayList<>();
+    protected int holeNumber;
+    protected Board board = new Board(holes, mancalas);
     @FXML
-    private Button button2;
+    protected Button button0;
     @FXML
-    private Button button3;
+    protected Button button1;
     @FXML
-    private Button button4;
+    protected Button button2;
     @FXML
-    private Button button5;
+    protected Button button3;
     @FXML
-    private Button button6;
+    protected Button button4;
     @FXML
-    private Button button7;
+    protected Button button5;
     @FXML
-    private Button button8;
+    protected Button button6;
     @FXML
-    private Button button9;
+    protected Button button7;
     @FXML
-    private Button button10;
+    protected Button button8;
     @FXML
-    private Button button11;
+    protected Button button9;
     @FXML
-    private Label currentPlayer;
+    protected Button button10;
     @FXML
-    private Label notification;
+    protected Button button11;
+    @FXML
+    protected Label currentPlayer;
+    @FXML
+    protected Label notification;
 
     @FXML
-    private ArrayList<String> holeLabels = new ArrayList<>();
+    protected ArrayList<String> holeLabels = new ArrayList<>();
     @FXML
-    private ArrayList<String> mancalaLabels = new ArrayList<>();
+    protected ArrayList<String> mancalaLabels = new ArrayList<>();
+
     @FXML
     private Button start;
     @FXML
@@ -71,19 +89,10 @@ public class BoardController {
     private Label mancalaLabel_P1;
     @FXML
     private Label mancalaLabel_P2;
-    protected boolean isDouble = false;
-    @FXML
-    private final ArrayList<Hole> holes = new ArrayList<>();
-    private final ArrayList<Hole> holesPlayer1 = new ArrayList<>();
-    private final ArrayList<Hole> holesPlayer2 = new ArrayList<>();
-    @FXML
-    private final ArrayList<Mancala> mancalas = new ArrayList<>();
-    private int holeNumber;
-    private Board board = new Board(holes, mancalas);
-    @FXML
-    protected Button doublePoints;
 
-    private boolean newTurn = true;
+    /**
+     * Initialise the game board with 4 stones per hole and buttons set.
+     */
     @FXML
     private void setBoard() {
         start.setDisable(true);
@@ -112,6 +121,10 @@ public class BoardController {
             holesPlayer2.add(holes.get(i+6));
         }
     }
+
+    /**
+     * Set the current player.
+     */
     private void setCurrentPlayer() {
         if (currentPlayer.getText().equals("1")) {
             currentPlayer.setText("2");
@@ -145,7 +158,10 @@ public class BoardController {
         }
     }
 
-    private void setLabels() {
+    /**
+     * Set the labels displayed on the game board.
+     */
+    protected void setLabels() {
         holeLabel0.setText(holeLabels.get(0));
         holeLabel1.setText(holeLabels.get(1));
         holeLabel2.setText(holeLabels.get(2));
@@ -161,93 +177,116 @@ public class BoardController {
         mancalaLabel_P1.setText(mancalaLabels.get(0));
         mancalaLabel_P2.setText(mancalaLabels.get(1));
     }
-    private void fillMancala(int index) {
 
-        if (isDouble) {
-            mancalas.get(index).setCount(mancalas.get(index).getCount() + 2);
-        } else {
-            mancalas.get(index).setCount(mancalas.get(index).getCount() + 1);
-        }
+    /**
+     * Fill mancalas when stones go past them.
+     * @param index Which mancala to fill.
+     */
+    private void fillMancala(int index) {
+        mancalas.get(index).setCount(mancalas.get(index).getCount() + 1);
         mancalaLabels.set(index, String.valueOf(mancalas.get(index).getCount()));
     }
+
+    /**
+     * Pick up the stones in a given hole.
+     * @param index Which hole to collect stones from.
+     * @return The number of stones in a hole.
+     */
+    protected int pickUpStones(int index) {
+        int curr;
+        curr = holes.get(index).getCount();
+        return curr;
+    }
+
+    /**
+     * Play a turn. Redistribute stones based on player's choices.
+     * @param holeNumber The hole the player chose to play.
+     */
     @FXML
     private void moveStones(int holeNumber) {
-        newTurn = false;
         int chosenHoleCount = holes.get(holeNumber).getCount();
         holes.get(holeNumber).setCount(0);
         holeLabels.set(holeNumber, "0");
         int i = 1;
         int index = i + holeNumber;
+        //flag to adjust which hole is looked at based on whether a mancala has been filled. Stops an offset occurring.
         int rightMancalaFlag = 0;
+        //flags to show how the last move ended. To know whether they gained a turn or not.
         boolean normalLastFilled = false;
         boolean rightLastFilled = false;
         boolean leftLastFilled = false;
+        // contents of current hole
         int curr = 0;
         int newHoleNumber = 0;
         for (i = 1; i <= chosenHoleCount; i++) {
-            if (index == 12 && currentPlayer.getText().equals("2")) {
+            if (index == MANCALA_2_INDEX && currentPlayer.getText().equals("2")) {
+                //fill player 2's mancala if player 2 passes it
                 fillMancala(1);
-                index = 0;
+                index = FIRST_HOLE;
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
-            } else if (index == 6 && currentPlayer.getText().equals("1")) {
+                System.out.println("******l fill******");
+            } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals("1")) {
+                //fill player 1's mancala if player 1 passes it
                 fillMancala(0);
                 index++;
                 rightMancalaFlag++;
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
-            } else if (index == 12) {
-                index = 0;
+                System.out.println("******r fill******");
+            } else if (index == MANCALA_2_INDEX) {
+                //player 1 skips player 2's mancala
+                index = FIRST_HOLE;
                 i--;
             } else if (rightMancalaFlag <= index) {
-                curr = holes.get(index - rightMancalaFlag).getCount();
+                //filling a normal hole
+                curr = pickUpStones(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
+                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 newHoleNumber = index - rightMancalaFlag;
                 index++;
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
             } else {
-                curr = holes.get(11).getCount();
-                holes.get(11).setCount(curr + 1);
-                holeLabels.set(11, String.valueOf(curr + 1));
-                newHoleNumber = 11;
+                //filling the last hole
+                curr = pickUpStones(LAST_HOLE);
+                holes.get(LAST_HOLE).setCount(curr + 1);
+                holeLabels.set(LAST_HOLE, String.valueOf(curr + 1));
+                newHoleNumber = LAST_HOLE;
                 index++;
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
+                System.out.println("2. filling: " + LAST_HOLE + " to " + (curr + 1));
+
             }
         }
 
         setLabels();
+        board.printBoard();
+        System.out.println();
 
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
-            newTurn = true;
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
             moveStones(newHoleNumber);
         } else {
             setCurrentPlayer();
+            System.out.println("*****************next player");
             notification.setText("");
-            newTurn = true;
         }
-        reactivateDoublePointsButton(newTurn, isDouble);
-        isDouble = false;
         gameEnd();
     }
 
-    protected void reactivateDoublePointsButton(boolean newTurn, boolean isDouble) {
-        if (newTurn && isDouble) {
-            doublePoints.setDisable(false);
-            doublePoints.setText("Double points");
-        }
-    }
-
-    private void gameEnd() {
+    /**
+     * Check whether the game has ended.
+     */
+    protected void gameEnd() {
         if (totalContents(holesPlayer1) == 0) {
             mancalas.get(1).setCount(mancalas.get(1).getCount() + totalContents(holesPlayer2));
             mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
@@ -269,12 +308,15 @@ public class BoardController {
         }
     }
 
+    /**
+     * Return which player won the game if the game ended.
+     * @return Which player won
+     */
     private int getWinner() {
         int score1 = mancalas.get(0).getCount();
         int score2 = mancalas.get(1).getCount();
         int winner;
         if (score1 < score2) {
-
             notification.setText("Player 2 wins!");
             winner = 2;
         } else if (score1 > score2) {
@@ -296,11 +338,14 @@ public class BoardController {
         button9.setDisable(true);
         button10.setDisable(true);
         button11.setDisable(true);
-
-
         return winner;
     }
 
+    /**
+     * Return the number of stones in a list of holes. Used to check if a player's side of the board is empty.
+     * @param holes ArrayList of holes to check the contents of.
+     * @return The sum of the contents of the holes given.
+     */
     private int totalContents(ArrayList<Hole> holes) {
         int total = 0;
         for (Hole h : holes) {
@@ -308,9 +353,19 @@ public class BoardController {
         }
         return total;
     }
-    private boolean checkEmpty(int holeNumber) {
+
+    /**
+     * Check if a specific hole is empty.
+     * @param holeNumber Which hole to check.
+     * @return boolean whether the hole was empty
+     */
+    protected boolean checkEmpty(int holeNumber) {
         return holes.get(holeNumber).getCount() != 0;
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 0.
+     */
     @FXML
     private void onHole0Click() {
         holeNumber = 0;
@@ -320,6 +375,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 1.
+     */
     @FXML
     private void onHole1Click() {
         holeNumber = 1;
@@ -329,6 +388,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 2.
+     */
     @FXML
     private void onHole2Click() {
         holeNumber = 2;
@@ -338,6 +401,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 3.
+     */
     @FXML
     private void onHole3Click() {
         holeNumber = 3;
@@ -347,6 +414,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 4.
+     */
     @FXML
     private void onHole4Click() {
         holeNumber = 4;
@@ -356,6 +427,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 5.
+     */
     @FXML
     private void onHole5Click() {
         holeNumber = 5;
@@ -365,6 +440,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 6.
+     */
     @FXML
     private void onHole6Click() {
         holeNumber = 6;
@@ -374,6 +453,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 7.
+     */
     @FXML
     private void onHole7Click() {
         holeNumber = 7;
@@ -383,6 +466,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 8.
+     */
     @FXML
     private void onHole8Click() {
         holeNumber = 8;
@@ -392,6 +479,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 9.
+     */
     @FXML
     private void onHole9Click() {
         holeNumber = 9;
@@ -401,6 +492,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 10.
+     */
     @FXML
     private void onHole10Click() {
         holeNumber = 10;
@@ -410,6 +505,10 @@ public class BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Set the hole that is chosen, connected with a button press. Starts a turn from hole 11.
+     */
     @FXML
     private void onHole11Click() {
         holeNumber = 11;

@@ -37,8 +37,8 @@ public class SignUpController implements Initializable {
         btn_signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(!sp_name.getText().trim().isEmpty() && !sp_username.getText().trim().isEmpty() && !sp_password.getText().trim().isEmpty()){
-                    UsersBean.SignUp(event,sp_name.getText(), sp_username.getText(), sp_password.getText());
+                if (!sp_name.getText().trim().isEmpty() && !sp_username.getText().trim().isEmpty() && !sp_password.getText().trim().isEmpty()) {
+                    UsersBean.SignUp(event, sp_name.getText(), sp_username.getText(), sp_password.getText());
                 } else {
                     System.out.println("Please fill in all information");
                     Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -51,7 +51,7 @@ public class SignUpController implements Initializable {
         btn_loggedIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "playerLogIn.fxml","Log in", null);
+                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Log in", null);
             }
         });
     }
