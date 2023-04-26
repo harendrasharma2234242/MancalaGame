@@ -38,6 +38,7 @@ public class BoardControllerArcade extends BoardController {
         if (newTurn) {
             doublePoints.setDisable(false);
             doublePoints.setText("Double points");
+            continueTurn.setDisable(false);
         }
     }
 
@@ -45,6 +46,7 @@ public class BoardControllerArcade extends BoardController {
         if (newTurn) {
             continueTurn.setDisable(false);
             continueTurn.setText("Continue turn");
+            doublePoints.setDisable(false);
         }
     }
     @FXML
@@ -52,12 +54,14 @@ public class BoardControllerArcade extends BoardController {
         isDoublePoints = true;
         doublePoints.setText("Double points used this turn");
         doublePoints.setDisable(true);
+        continueTurn.setDisable(true);
     }
     @FXML
     private void onContinueTurnClick() {
         isContinueTurn = true;
         continueTurn.setText("Continue turn used this turn");
         continueTurn.setDisable(true);
+        doublePoints.setDisable(true);
     }
     private int updateIndex(int index, boolean normalDirection) {
 //        System.out.println("before: " + index);
