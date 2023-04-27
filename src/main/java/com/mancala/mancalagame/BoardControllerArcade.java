@@ -172,7 +172,7 @@ public class BoardControllerArcade extends BoardController {
     private void moveStones(int holeNumber) {
         holeNumber = switchSides(holeNumber, normalSide);
         int chosenHoleCount = getStones(holeNumber);
-        newTurn = false;
+//        newTurn = false;
         int i = 1;
         int index;
         if (normalDirection) {
@@ -257,6 +257,7 @@ public class BoardControllerArcade extends BoardController {
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
             normalSide = true;
+//            newTurn = true;
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
             normalSide = true;
