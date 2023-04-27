@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
       prefWidth="600.0" style="-fx-background-color: Black;" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.PlayerLoginController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.usercontroller.PlayerLogin">
     <children>
         <ImageView fitHeight="60.0" fitWidth="54.0" layoutX="460.0" layoutY="24.0" pickOnBounds="true"
                    preserveRatio="true">

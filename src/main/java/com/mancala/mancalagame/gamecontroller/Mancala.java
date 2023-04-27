@@ -1,9 +1,9 @@
-package com.mancala.mancalagame;
+package com.mancala.mancalagame.gamecontroller;
 
-public class Hole {
+public class Mancala {
     private int count;
 
-    public Hole(int count) {
+    public Mancala(int count) {
         this.count = count;
     }
 

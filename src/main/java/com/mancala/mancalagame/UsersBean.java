@@ -1,6 +1,8 @@
 package com.mancala.mancalagame;
 
+import com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode;
 import com.mancala.mancalagame.query.QueryUtility;
+import com.mancala.mancalagame.query.Utility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -10,6 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.security.Key;
 import java.sql.*;
 
 /**
@@ -21,14 +24,14 @@ public class UsersBean {
     private static final String DBNAME = queryUtils.getDBNAME();
     private static final String PASS = queryUtils.getPASS();
 
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String sessionId) {
         Parent root = null;
         if (username != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                 root = loader.load();
-                GameDashboardController loggedInController = loader.getController();
-                loggedInController.setUserInformation(username);
+                OpponentAndGameMode loggedInController = loader.getController();
+                loggedInController.saveUser1(username, sessionId);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -67,7 +70,10 @@ public class UsersBean {
                 psInsert.setString(2, password);
                 psInsert.setString(3, name);
                 psInsert.executeUpdate();
-                changeScene(event, "GameDashboard.fxml", "welcome to the Game", username);
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setContentText("User has been registered. /nWait for admin confirmation for activation account.");
+                alert.show();
+                changeScene(event, "PlayerLogin.fxml", "Sign in", username, "");
             }
 
         } catch (SQLException e) {
@@ -112,7 +118,14 @@ public class UsersBean {
                         alert.setContentText("Player is not activated yet!");
                         alert.show();
                     } else if (resultSet.getString("password").equals(password)) {
-                        changeScene(event, "OpponentAndGameMode.fxml", "Choose", username);
+                        Utility utility = new Utility();
+                        String sessionId = utility.getRandomKey().toString();
+                        final String SET_SESSION = queryUtils.getSaveSession();
+                        preparedStatement = connection.prepareStatement(SET_SESSION);
+                        preparedStatement.setString(1, sessionId);
+                        preparedStatement.setString(2, username);
+                        preparedStatement.executeUpdate();
+                        changeScene(event, "OpponentAndGameMode.fxml", "Choose", username, sessionId);
                     } else {
                         System.out.println("Password did not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -158,7 +171,7 @@ public class UsersBean {
             } else {
                 while (resultSet.next()) {
                     if (resultSet.getString("password").equals(password)) {
-                        changeScene(event, "AdminDashboard.fxml", "Welcome to the game", username);
+                        changeScene(event, "AdminDashboard.fxml", "Welcome to the game", username, "");
                     } else {
                         System.out.println("Password did not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);

@@ -1,4 +1,4 @@
-package com.mancala.mancalagame;
+package com.mancala.mancalagame.gamecontroller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -25,6 +25,8 @@ public class BoardControllerArcade extends BoardController {
     private boolean normalDirection = true;
     private boolean halfHand = false;
     private boolean newTurn = true;
+    private String player1;
+    private String opponentPlayer;
 
     /**
      * Swap which side the player collects stones from if the switch sides stone has been generated.
@@ -192,7 +194,7 @@ public class BoardControllerArcade extends BoardController {
         int curr = 0;
         int newHoleNumber = 0;
         for (i = 1; i <= chosenHoleCount; i++) {
-            if (index == MANCALA_2_INDEX && currentPlayer.getText().equals("2")) {
+            if (index == MANCALA_2_INDEX && currentPlayer.getText().equals(opponentPlayer)) {
                 //fill player 2's mancala if player 2 passes it
                 fillMancala(1);
                 index = FIRST_HOLE;
@@ -200,7 +202,7 @@ public class BoardControllerArcade extends BoardController {
                 rightLastFilled = false;
                 normalLastFilled = false;
                 System.out.println("l fill");
-            } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals("1") && normalDirection) {
+            } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals(player1) && normalDirection) {
                 //fill player 1's mancala if player 1 passes it
                 fillMancala(0);
                 index = updateIndex(index, normalDirection);
@@ -209,7 +211,7 @@ public class BoardControllerArcade extends BoardController {
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
-            } else if (index == MANCALA_1_INDEX_REVERSE && currentPlayer.getText().equals("1") && !normalDirection) {
+            } else if (index == MANCALA_1_INDEX_REVERSE && currentPlayer.getText().equals(player1) && !normalDirection) {
                 //fill player 1's mancala if player 1 passes it, but in reverse
                 fillMancala(0);
                 curr = pickUpStones(index);
@@ -286,8 +288,8 @@ public class BoardControllerArcade extends BoardController {
         newTurn = true;
         reactivateDoublePointsButton(newTurn);
         reactivateContinueTurnButton(newTurn);
-        if (currentPlayer.getText().equals("1")) {
-            currentPlayer.setText("2");
+        if (currentPlayer.getText().equals(player1)) {
+            currentPlayer.setText(opponentPlayer);
             button0.setDisable(true);
             button1.setDisable(true);
             button2.setDisable(true);
@@ -302,7 +304,7 @@ public class BoardControllerArcade extends BoardController {
             button11.setDisable(false);
 
         } else {
-            currentPlayer.setText("1");
+            currentPlayer.setText(player1);
             button0.setDisable(false);
             button1.setDisable(false);
             button2.setDisable(false);
@@ -497,5 +499,10 @@ public class BoardControllerArcade extends BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
-
+    public void setPlayer(String player1, String player2){
+        this.player1 = player1;
+        this.opponentPlayer = player2;
+        this.currentPlayer.setText(player1);
+        System.out.println("Current player: "+this.currentPlayer.getText());
+    }
 }

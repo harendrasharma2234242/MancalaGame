@@ -1,4 +1,4 @@
-package com.mancala.mancalagame;
+package com.mancala.mancalagame.usercontroller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

@@ -1,4 +1,4 @@
-package com.mancala.mancalagame;
+package com.mancala.mancalagame.gamecontroller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -89,7 +89,8 @@ public class BoardController {
     private Label mancalaLabel_P1;
     @FXML
     private Label mancalaLabel_P2;
-
+    private String player1;
+    private String opponentPlayer;
     /**
      * Initialise the game board with 4 stones per hole and buttons set.
      */
@@ -126,8 +127,8 @@ public class BoardController {
      * Set the current player.
      */
     private void setCurrentPlayer() {
-        if (currentPlayer.getText().equals("1")) {
-            currentPlayer.setText("2");
+        if (currentPlayer.getText().equals(player1)) {
+            currentPlayer.setText(opponentPlayer);
             button0.setDisable(true);
             button1.setDisable(true);
             button2.setDisable(true);
@@ -142,7 +143,7 @@ public class BoardController {
             button11.setDisable(false);
 
         } else {
-            currentPlayer.setText("1");
+            currentPlayer.setText(player1);
             button0.setDisable(false);
             button1.setDisable(false);
             button2.setDisable(false);
@@ -219,7 +220,7 @@ public class BoardController {
         int curr = 0;
         int newHoleNumber = 0;
         for (i = 1; i <= chosenHoleCount; i++) {
-            if (index == MANCALA_2_INDEX && currentPlayer.getText().equals("2")) {
+            if (index == MANCALA_2_INDEX && currentPlayer.getText().equals(opponentPlayer)) {
                 //fill player 2's mancala if player 2 passes it
                 fillMancala(1);
                 index = FIRST_HOLE;
@@ -227,7 +228,7 @@ public class BoardController {
                 rightLastFilled = false;
                 normalLastFilled = false;
                 System.out.println("******l fill******");
-            } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals("1")) {
+            } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals(player1)) {
                 //fill player 1's mancala if player 1 passes it
                 fillMancala(0);
                 index++;
@@ -517,6 +518,12 @@ public class BoardController {
         } else {
             notification.setText("Choose a non-empty hole");
         }
+    }
+
+    public void setPlayer(String player1, String player2){
+        this.player1 = player1;
+        this.opponentPlayer = player2;
+        this.currentPlayer.setText(player1);
     }
 
 }
