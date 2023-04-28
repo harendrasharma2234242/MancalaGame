@@ -5,7 +5,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,13 +22,13 @@ public class Home implements Initializable {
         btn_player.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event,"playerLogIn.fxml", "Sign up",null );
+                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Player Log in", null, null);
             }
         });
         btn_admin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event,"AdminLogin.fxml", "Sign up",null );
+                UsersBean.changeScene(event, "AdminLogin.fxml", "Admin log in", null, null);
             }
         });
     }

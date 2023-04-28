@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400" prefWidth="600" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode">
+<VBox alignment="CENTER" layoutX="225.0" layoutY="76.0" prefWidth="150.0" spacing="20">
+    <HBox spacing="10" />
+    <HBox spacing="10" />
+</VBox>
+ <Button fx:id="startButton" visible="false"  layoutX="337.0" layoutY="263.0" onAction="#handleStartGame" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Start Game" />
+    <Button fx:id="secondPlayerLoginButton" visible="false"  layoutX="337.0" layoutY="263.0" onAction="#secondPlayerLogin" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Log in" />
+ <Label layoutX="257.0" layoutY="102.0" style="-fx-text-fill: white;" text="Game Mode:">
+      <font>
+         <Font name="Arial Rounded MT Bold" size="14.0" />
+      </font></Label>
+  <RadioButton fx:id="traditionalRadio" layoutX="271.0" layoutY="172.0" onAction="#handleGameModeSelection" text="Traditional" textFill="WHITE" />
+  <RadioButton fx:id="computerRadio" layoutX="414.0" layoutY="172.0" onAction="#handleOpponentSelection" text="Computer" textFill="WHITE" />
+  <RadioButton fx:id="humanRadio" layoutX="414.0" layoutY="138.0" onAction="#handleOpponentSelection" text="Human" textFill="WHITE" />
+ <Label layoutX="384.0" layoutY="102.0" style="-fx-text-fill: white;" text="Select Opponent:">
+      <font>
+         <Font name="Arial Rounded MT Bold" size="14.0" />
+      </font></Label>
+  <RadioButton fx:id="arcadeRadio" layoutX="271.0" layoutY="138.0" onAction="#handleGameModeSelection" text="Arcade" textFill="WHITE" />
+    <ImageView fitHeight="384.0" fitWidth="279.0" layoutX="-21.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+        <image>
+            <Image url="@../../../images/mancala.jpg" />
+        </image></ImageView>
+   <Label layoutX="271.0" layoutY="32.0" text="Welcome " textFill="#fefbfb">
+      <font>
+         <Font name="Arial Rounded MT Bold" size="14.0" />
+      </font>
+   </Label>
+   <Label fx:id="user1" layoutX="370.0" layoutY="32.0" textFill="WHITE">
+      <font>
+         <Font name="Arial Rounded MT Bold" size="14.0" />
+      </font>
+   </Label>
+    <Label fx:id="loginSession" visible="false" layoutX="370.0" layoutY="32.0" ></Label>
+
+</AnchorPane>
