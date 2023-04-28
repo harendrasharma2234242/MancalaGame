@@ -30,8 +30,10 @@ public class UsersBean {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                 root = loader.load();
-                OpponentAndGameMode loggedInController = loader.getController();
-                loggedInController.saveUser1(username, sessionId);
+                if (!fxmlFile.equals("PlayerLogin.fxml")){
+                    OpponentAndGameMode loggedInController = loader.getController();
+                    loggedInController.saveUser1(username, sessionId);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
