@@ -20,7 +20,11 @@
                 <Font name="Arial Rounded MT Bold" size="16.0" />
             </font>
         </Label>
-        <Label fx:id="notification" layoutX="275.0" layoutY="68.0" prefHeight="18.0" prefWidth="157.0" />
+    <Label fx:id="notification" layoutX="275.0" layoutY="68.0" prefHeight="18.0" prefWidth="157.0" >
+        <font>
+            <Font name="Arial Rounded MT Bold" size="14.0" />
+        </font>
+    </Label>
         <Circle fill="#dfe3e7" layoutX="155.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="235.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="585.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />

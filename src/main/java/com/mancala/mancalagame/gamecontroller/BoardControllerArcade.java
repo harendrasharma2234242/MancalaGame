@@ -279,7 +279,7 @@ public class BoardControllerArcade extends BoardController {
         reactivateContinueTurnButton(newTurn);
         isDoublePoints = false;
         isContinueTurn = false;
-        gameEnd();
+        gameEnd(player1, opponentPlayer);
     }
 
     /**

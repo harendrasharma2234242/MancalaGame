@@ -281,13 +281,13 @@ public class BoardController {
             System.out.println("*****************next player");
             notification.setText("");
         }
-        gameEnd();
+        gameEnd(player1, opponentPlayer);
     }
 
     /**
      * Check whether the game has ended.
      */
-    protected void gameEnd() {
+    protected void gameEnd(String mainPlayer, String opponentPlayer) {
         if (totalContents(holesPlayer1) == 0) {
             mancalas.get(1).setCount(mancalas.get(1).getCount() + totalContents(holesPlayer2));
             mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
@@ -296,7 +296,7 @@ public class BoardController {
             }
             Collections.fill(holeLabels, "0");
             setLabels();
-            getWinner();
+            getWinner(mainPlayer, opponentPlayer);
         } else if (totalContents(holesPlayer2) == 0) {
             mancalas.get(0).setCount(mancalas.get(0).getCount() + totalContents(holesPlayer1));
             mancalaLabels.set(0, String.valueOf(mancalas.get(0).getCount()));
@@ -305,7 +305,7 @@ public class BoardController {
             }
             Collections.fill(holeLabels, "0");
             setLabels();
-            getWinner();
+            getWinner(mainPlayer, opponentPlayer);
         }
     }
 
@@ -313,19 +313,19 @@ public class BoardController {
      * Return which player won the game if the game ended.
      * @return Which player won
      */
-    private int getWinner() {
+    private String getWinner(String mainPlayer, String opponentPlayer) {
         int score1 = mancalas.get(0).getCount();
         int score2 = mancalas.get(1).getCount();
-        int winner;
+        String winner;
         if (score1 < score2) {
-            notification.setText("Player 2 wins!");
-            winner = 2;
+            notification.setText(opponentPlayer + " wins!");
+            winner = opponentPlayer;
         } else if (score1 > score2) {
-            notification.setText("Player 1 wins!");
-            winner = 1;
+            notification.setText(mainPlayer + " wins!");
+            winner = mainPlayer;
         } else {
             notification.setText("It's a draw!");
-            winner = -1;
+            winner = "NA";
         }
         button0.setDisable(true);
         button1.setDisable(true);
