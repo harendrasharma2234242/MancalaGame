@@ -33,6 +33,7 @@
         <Circle fill="#dfe3e7" layoutX="414.0" layoutY="294.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="323.0" layoutY="294.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="235.0" layoutY="294.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
+        <Label fx:id="specialStone" text="test"/>
         <Label fx:id="holeLabel11" layoutX="151.0" layoutY="163.0" text="4">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0" />

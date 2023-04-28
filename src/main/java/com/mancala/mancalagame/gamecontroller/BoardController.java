@@ -17,7 +17,6 @@ public class BoardController {
     protected static final int MANCALA_2_INDEX = 12;
     protected static final int LAST_HOLE = 11;
     protected static final int FIRST_HOLE = 0;
-    private static final boolean CPU = false;
     @FXML
     protected final ArrayList<Hole> holes = new ArrayList<>();
     private final ArrayList<Hole> holesPlayer1 = new ArrayList<>();
@@ -92,7 +91,6 @@ public class BoardController {
     private Label mancalaLabel_P2;
     private String player1;
     private String opponentPlayer;
-//    private final ArrayList<Player> players = new ArrayList<>();
     /**
      * Initialise the game board with 4 stones per hole and buttons set.
      */
@@ -123,15 +121,13 @@ public class BoardController {
             holesPlayer1.add(holes.get(i));
             holesPlayer2.add(holes.get(i+6));
         }
-
     }
 
     /**
      * Set the current player.
      */
-
-    private void setCurrentPlayer(boolean CPU) {
-        if (currentPlayer.getText().equals(player1) && !CPU) {
+    private void setCurrentPlayer() {
+        if (currentPlayer.getText().equals(player1)) {
             currentPlayer.setText(opponentPlayer);
             button0.setDisable(true);
             button1.setDisable(true);
@@ -146,35 +142,6 @@ public class BoardController {
             button10.setDisable(false);
             button11.setDisable(false);
 
-        } else if (!CPU) {
-            currentPlayer.setText(player1);
-            button0.setDisable(false);
-            button1.setDisable(false);
-            button2.setDisable(false);
-            button3.setDisable(false);
-            button4.setDisable(false);
-            button5.setDisable(false);
-            button6.setDisable(true);
-            button7.setDisable(true);
-            button8.setDisable(true);
-            button9.setDisable(true);
-            button10.setDisable(true);
-            button11.setDisable(true);
-
-        } else if (currentPlayer.getText().equals(player1)) {
-            currentPlayer.setText("CPU");
-            button0.setDisable(true);
-            button1.setDisable(true);
-            button2.setDisable(true);
-            button3.setDisable(true);
-            button4.setDisable(true);
-            button5.setDisable(true);
-            button6.setDisable(true);
-            button7.setDisable(true);
-            button8.setDisable(true);
-            button9.setDisable(true);
-            button10.setDisable(true);
-            button11.setDisable(true);
         } else {
             currentPlayer.setText(player1);
             button0.setDisable(false);
@@ -310,7 +277,7 @@ public class BoardController {
             notification.setText("Ended in a non-empty hole - turn continues");
             moveStones(newHoleNumber);
         } else {
-            setCurrentPlayer(CPU);
+            setCurrentPlayer();
             System.out.println("*****************next player");
             notification.setText("");
         }

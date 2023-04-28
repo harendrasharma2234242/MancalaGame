@@ -25,7 +25,7 @@ public class OpponentLogInBean {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                 root = loader.load();
-                if (gameMode == "arcade"){
+                if (gameMode.equals("arcade")){
                     BoardControllerArcade game = loader.getController();
                     game.setPlayer(player1, player2);
                 } else {
@@ -70,7 +70,7 @@ public class OpponentLogInBean {
                         alert.setContentText("Player is not activated yet!");
                         alert.show();
                     } else if (resultSet.getString("password").equals(password)) {
-                        if (gameMode == "arcade"){
+                        if (gameMode.equals("arcade")){
                             changeScene(event,"BoardArcade.fxml", "Game Mode", player1, username, gameMode);
                         } else {
                             changeScene(event,"BoardTrad.fxml", "Game Mode", player1, username, gameMode);
