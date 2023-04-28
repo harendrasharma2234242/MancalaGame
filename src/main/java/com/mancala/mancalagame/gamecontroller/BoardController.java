@@ -91,6 +91,7 @@ public class BoardController {
     private Label mancalaLabel_P2;
     private String player1;
     private String opponentPlayer;
+    private String logIn_Session;
     /**
      * Initialise the game board with 4 stones per hole and buttons set.
      */
@@ -520,10 +521,11 @@ public class BoardController {
         }
     }
 
-    public void setPlayer(String player1, String player2){
+    public void setPlayer(String player1, String player2, String loginSession){
         this.player1 = player1;
         this.opponentPlayer = player2;
         this.currentPlayer.setText(player1);
+        this.logIn_Session = loginSession;
     }
 
 }

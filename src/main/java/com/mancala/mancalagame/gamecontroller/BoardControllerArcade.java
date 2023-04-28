@@ -28,6 +28,7 @@ public class BoardControllerArcade extends BoardController {
     private String player1;
     private String opponentPlayer;
 
+
     /**
      * Swap which side the player collects stones from if the switch sides stone has been generated.
      * @param holeNumber which hole the player chose
@@ -500,10 +501,10 @@ public class BoardControllerArcade extends BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
-    public void setPlayer(String player1, String player2){
+    public void setPlayer(String player1, String player2, String loginSession){
         this.player1 = player1;
         this.opponentPlayer = player2;
         this.currentPlayer.setText(player1);
-        System.out.println("Current player: "+this.currentPlayer.getText());
+
     }
 }
