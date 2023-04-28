@@ -1,4 +1,4 @@
-package com.mancala.mancalagame;
+package com.mancala.mancalagame.gamecontroller;
 
 import java.util.ArrayList;
 

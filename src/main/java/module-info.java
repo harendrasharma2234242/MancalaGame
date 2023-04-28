@@ -11,6 +11,12 @@ module com.mancala.mancalagame {
 
     opens com.mancala.mancalagame to javafx.fxml;
     exports com.mancala.mancalagame;
-    exports com.mancala.mancalagame.opponent;
-    opens com.mancala.mancalagame.opponent to javafx.fxml;
+    exports com.mancala.mancalagame.opponentcontroller;
+    opens com.mancala.mancalagame.opponentcontroller to javafx.fxml;
+    exports com.mancala.mancalagame.usercontroller;
+    opens com.mancala.mancalagame.usercontroller to javafx.fxml;
+    exports com.mancala.mancalagame.admincontroller;
+    opens com.mancala.mancalagame.admincontroller to javafx.fxml;
+    exports com.mancala.mancalagame.gamecontroller;
+    opens com.mancala.mancalagame.gamecontroller to javafx.fxml;
 }

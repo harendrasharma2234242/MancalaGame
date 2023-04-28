@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.BoardController">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.gamecontroller.BoardController">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#939453" height="200.0" layoutX="108.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" width="526.0" />
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfe3e7" height="200.0" layoutX="50.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />

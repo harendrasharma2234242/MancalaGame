@@ -1,5 +1,6 @@
-package com.mancala.mancalagame;
+package com.mancala.mancalagame.usercontroller;
 
+import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -10,7 +11,7 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class PlayerLoginController implements Initializable {
+public class PlayerLogin implements Initializable {
 
     @FXML
     private Button btn_logging;
@@ -34,13 +35,13 @@ public class PlayerLoginController implements Initializable {
         btn_signup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Sign-up.fxml", "Sign up", null);
+                UsersBean.changeScene(event, "Sign-up.fxml", "Sign up", null, null);
             }
         });
         btn_back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Home.fxml", "Sign up", null);
+                UsersBean.changeScene(event, "Home.fxml", "Sign up", null, null);
             }
         });
     }

@@ -9,7 +9,7 @@
 <?import javafx.scene.image.Image?>
 <AnchorPane prefHeight="399.0" prefWidth="598.0" style="-fx-background-color: Black;"
             xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.mancala.mancalagame.SignUpController">
+            fx:controller="com.mancala.mancalagame.usercontroller.SignUp">
     <children>
         <Button fx:id="btn_loggedIn" layoutX="452.0" layoutY="339.0" mnemonicParsing="false"
                 style="-fx-background-color: transparent;" text="login" textFill="#f0f0f4" underline="true">
