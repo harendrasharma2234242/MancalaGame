@@ -1,5 +1,6 @@
 package com.mancala.mancalagame.gamecontroller;
 
+import com.mancala.mancalagame.MancalaGameBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -91,12 +92,14 @@ public class BoardController {
     private Label mancalaLabel_P2;
     private String player1;
     private String opponentPlayer;
-    private String logIn_Session;
+    protected String gameSessionId;
+    MancalaGameBean mancalaGameBean = new MancalaGameBean();
     /**
      * Initialise the game board with 4 stones per hole and buttons set.
      */
     @FXML
     private void setBoard() {
+        mancalaGameBean.updateGameStatus("Inprogress", gameSessionId);
         start.setDisable(true);
         button0.setDisable(false);
         button1.setDisable(false);
@@ -329,6 +332,7 @@ public class BoardController {
             notification.setText("It's a draw!");
             winner = "NA";
         }
+        mancalaGameBean.declareWinner("Finish", winner, gameSessionId);
         button0.setDisable(true);
         button1.setDisable(true);
         button2.setDisable(true);
@@ -525,7 +529,8 @@ public class BoardController {
         this.player1 = player1;
         this.opponentPlayer = player2;
         this.currentPlayer.setText(player1);
-        this.logIn_Session = loginSession;
+        this.gameSessionId = loginSession;
+        mancalaGameBean.initiateGame(player1, player2, "Traditional", loginSession);
     }
 
 }

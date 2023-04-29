@@ -1,5 +1,6 @@
 package com.mancala.mancalagame.gamecontroller;
 
+import com.mancala.mancalagame.MancalaGameBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +28,7 @@ public class BoardControllerArcade extends BoardController {
     private boolean newTurn = true;
     private String player1;
     private String opponentPlayer;
+    //private String gameSessionId;
 
 
     /**
@@ -84,6 +86,7 @@ public class BoardControllerArcade extends BoardController {
      */
     @FXML
     private void onDoublePointsClick() {
+        mancalaGameBean.updateSpecialCases("doublePoint", gameSessionId);
         isDoublePoints = true;
         doublePoints.setText("Double points used this turn");
         doublePoints.setDisable(true);
@@ -96,6 +99,7 @@ public class BoardControllerArcade extends BoardController {
      */
     @FXML
     private void onContinueTurnClick() {
+        mancalaGameBean.updateSpecialCases("continueTurn", gameSessionId);
         isContinueTurn = true;
         continueTurn.setText("Continue turn used this turn");
         continueTurn.setDisable(true);
@@ -133,6 +137,7 @@ public class BoardControllerArcade extends BoardController {
             Random random = new Random();
             option = random.nextInt(3);
             String stone = specialStones[option];
+            mancalaGameBean.updateSpecialCases(stone, gameSessionId);
             specialStone.setText(stone);
             if (option == 1) {
                 normalSide = false;
@@ -505,6 +510,7 @@ public class BoardControllerArcade extends BoardController {
         this.player1 = player1;
         this.opponentPlayer = player2;
         this.currentPlayer.setText(player1);
-
+        this.gameSessionId = loginSession;
+        mancalaGameBean.initiateGame(player1, player2, "Arcade", loginSession);
     }
 }

@@ -27,14 +27,13 @@ public class MancalaGameBean {
             preparedStatement.setString(2, opponentPlayer);
             preparedStatement.setString(3, gameMode);
             preparedStatement.setString(4, gameSessionId);
-
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
     }
-    /**updateGameStatus method id used for update game status when game is start OR draw*/
+    /**updateGameStatus method is used for update game status when game is start OR draw*/
     public void  updateGameStatus(String gameStatus, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();
@@ -43,6 +42,7 @@ public class MancalaGameBean {
             PreparedStatement preparedStatement = connection.prepareStatement(startGameQuery);
             preparedStatement.setString(1, gameStatus);
             preparedStatement.setString(2, gameSessionId);
+            System.out.println(preparedStatement);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -64,31 +64,57 @@ public class MancalaGameBean {
         }
     }
 
-    /**updateSpecialPoints method is used for update game special points like continue turn or double stone*/
-    public void updateSpecialPoints(String specialPointName, String gameSessionId){
+    /**updateSpecialPoints method is used for update game special points like continue turn or double stone
+     * @param gameSessionId the ID of the game being played
+     * @param specialPointName which special stone is used
+     * */
+    public void updateSpecialCases(String specialPointName, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();
             ResultSet resultSet = null;
             String updateDoublePointQuery = gameQuery.updateDoublePoint();
             String updateContinueTurnQuery = gameQuery.updateContinueTurn();
+            String updateReverseTurnQuery = gameQuery.updateReverseTurn();
+            String updateHalfHandQuery = gameQuery.updateHalfHand();
+            String updateSwitchSideQuery = gameQuery.updateSwitchSide();
             String getData = gameQuery.getGame();
             connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
             PreparedStatement gameStatement = connection.prepareStatement(getData);
             gameStatement.setString(1, gameSessionId);
             resultSet = gameStatement.executeQuery();
-            if (resultSet.isBeforeFirst()){
-                if (specialPointName.equals("continueTurn")){
-                    PreparedStatement continueStatement = connection.prepareStatement(updateContinueTurnQuery);
-                    int continueTurn = resultSet.getInt("continueTurn");
-                    continueStatement.setInt(1, continueTurn+1);
-                    continueStatement.setString(2, gameSessionId);
-                    continueStatement.executeUpdate();
-                } else if (specialPointName.equals("doubleStone")) {
-                    PreparedStatement doubleStatement = connection.prepareStatement(updateDoublePointQuery);
-                    int doubleTurn = resultSet.getInt("doublePoint");
-                    doubleStatement.setInt(1, doubleTurn+1);
-                    doubleStatement.setString(2, gameSessionId);
-                    doubleStatement.executeUpdate();
+            if (resultSet.isBeforeFirst()) {
+                while (resultSet.next()) {
+                    if (specialPointName.equals("continueTurn")) {
+                        PreparedStatement continueStatement = connection.prepareStatement(updateContinueTurnQuery);
+                        int continueTurn = resultSet.getInt("continueTurn");
+                        continueStatement.setInt(1, continueTurn + 1);
+                        continueStatement.setString(2, gameSessionId);
+                        continueStatement.executeUpdate();
+                    } else if (specialPointName.equals("doublePoint")) {
+                        PreparedStatement doubleStatement = connection.prepareStatement(updateDoublePointQuery);
+                        int doubleTurn = resultSet.getInt("doublePoint");
+                        doubleStatement.setInt(1, doubleTurn + 1);
+                        doubleStatement.setString(2, gameSessionId);
+                        doubleStatement.executeUpdate();
+                    } else if (specialPointName.equals("reverse turn")) {
+                        PreparedStatement reverseStatement = connection.prepareStatement(updateReverseTurnQuery);
+                        int reverseTurn = resultSet.getInt("reverseTurn");
+                        reverseStatement.setInt(1, reverseTurn + 1);
+                        reverseStatement.setString(2, gameSessionId);
+                        reverseStatement.executeUpdate();
+                    } else if (specialPointName.equals("switch sides")) {
+                        PreparedStatement switchSideStatement = connection.prepareStatement(updateSwitchSideQuery);
+                        int switchSide = resultSet.getInt("switchSide");
+                        switchSideStatement.setInt(1, switchSide + 1);
+                        switchSideStatement.setString(2, gameSessionId);
+                        switchSideStatement.executeUpdate();
+                    } else if (specialPointName.equals("half hand")) {
+                        PreparedStatement halfHandStatement = connection.prepareStatement(updateHalfHandQuery);
+                        int halfHand = resultSet.getInt("halfHand");
+                        halfHandStatement.setInt(1, halfHand + 1);
+                        halfHandStatement.setString(2, gameSessionId);
+                        halfHandStatement.executeUpdate();
+                    }
                 }
             }
 
