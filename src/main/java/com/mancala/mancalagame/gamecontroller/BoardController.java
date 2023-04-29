@@ -313,19 +313,19 @@ public class BoardController {
      * Return which player won the game if the game ended.
      * @return Which player won
      */
-    private int getWinner() {
+    private String getWinner() {
         int score1 = mancalas.get(0).getCount();
         int score2 = mancalas.get(1).getCount();
-        int winner;
+        String winner;
         if (score1 < score2) {
-            notification.setText("Player 2 wins!");
-            winner = 2;
+            notification.setText(opponentPlayer + " wins!");
+            winner = opponentPlayer;
         } else if (score1 > score2) {
-            notification.setText("Player 1 wins!");
-            winner = 1;
+            notification.setText(player1 + " wins!");
+            winner = player1;
         } else {
             notification.setText("It's a draw!");
-            winner = -1;
+            winner = "NA";
         }
         button0.setDisable(true);
         button1.setDisable(true);
@@ -341,7 +341,6 @@ public class BoardController {
         button11.setDisable(true);
         return winner;
     }
-
     /**
      * Return the number of stones in a list of holes. Used to check if a player's side of the board is empty.
      * @param holes ArrayList of holes to check the contents of.
