@@ -275,17 +275,22 @@ public class BoardControllerArcade extends BoardController {
             continueTurn.setDisable(true);
             normalSide = true;
             newTurn = false;
+            reactivateDoublePointsButton(newTurn);
+            reactivateContinueTurnButton(newTurn);
+            isDoublePoints = false;
+            isContinueTurn = false;
         } else {
             setCurrentPlayer();
             notification.setText("");
             System.out.println("**************next player");
             normalSide = true;
             newTurn = true;
+            reactivateDoublePointsButton(newTurn);
+            reactivateContinueTurnButton(newTurn);
+            isDoublePoints = false;
+            isContinueTurn = false;
         }
-        reactivateDoublePointsButton(newTurn);
-        reactivateContinueTurnButton(newTurn);
-        isDoublePoints = false;
-        isContinueTurn = false;
+
         gameEnd(player1, opponentPlayer);
     }
 
