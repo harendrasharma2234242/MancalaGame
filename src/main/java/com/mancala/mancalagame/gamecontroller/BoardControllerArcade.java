@@ -265,7 +265,7 @@ public class BoardControllerArcade extends BoardController {
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
             normalSide = true;
-//            newTurn = true;
+            newTurn = true;
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
             normalSide = true;
@@ -274,6 +274,7 @@ public class BoardControllerArcade extends BoardController {
             notification.setText("Power up! Take another turn");
             continueTurn.setDisable(true);
             normalSide = true;
+            newTurn = false;
         } else {
             setCurrentPlayer();
             notification.setText("");
