@@ -2,7 +2,8 @@ package com.mancala.mancalagame;
 
 import com.mancala.mancalagame.gamecontroller.BoardController;
 import com.mancala.mancalagame.gamecontroller.BoardControllerArcade;
-import com.mancala.mancalagame.query.QueryUtility;
+import com.mancala.mancalagame.query.UsersQuery;
+import com.mancala.mancalagame.utility.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,12 +15,17 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 
+/**This is user bean class for opponent user log in
+ * @author Harendra Sharma
+ * @version 1.0
+ * */
 public class OpponentLogInBean {
-    static QueryUtility queryUtils = new QueryUtility();
-    private static final String DBURL = queryUtils.getDBURL();
-    private static final String DBNAME = queryUtils.getDBNAME();
-    private static final String PASS = queryUtils.getPASS();
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String player1, String player2, String gameMode) {
+    static UsersQuery queryUtils = new UsersQuery();
+    static DBConnection dbConnection = new DBConnection();
+    private static final String DBURL = dbConnection.getDBURL();
+    private static final String DBNAME = dbConnection.getDBNAME();
+    private static final String PASS = dbConnection.getPASS();
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String player1, String player2, String gameMode, String loginSession) {
         Parent root = null;
         if (player1 != null) {
             try {
@@ -27,10 +33,10 @@ public class OpponentLogInBean {
                 root = loader.load();
                 if (gameMode.equals("arcade")){
                     BoardControllerArcade game = loader.getController();
-                    game.setPlayer(player1, player2);
+                    game.setPlayer(player1, player2, loginSession);
                 } else {
                     BoardController traditional = loader.getController();
-                    traditional.setPlayer(player1, player2);
+                    traditional.setPlayer(player1, player2, loginSession);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -47,8 +53,8 @@ public class OpponentLogInBean {
         stage.setScene(new Scene(root, 750, 500));
         stage.show();
     }
-
-    public static void logInUser(ActionEvent event, String username, String password, String player1, String gameMode) {
+    /** This logInUser method is used for opponent log in and will route user to game mode based on the choice*/
+    public static void logInUser(ActionEvent event, String username, String password, String player1, String gameMode, String loginSession) {
         Connection connection = null;
         ResultSet resultSet = null;
         try {
@@ -71,9 +77,9 @@ public class OpponentLogInBean {
                         alert.show();
                     } else if (resultSet.getString("password").equals(password)) {
                         if (gameMode.equals("arcade")){
-                            changeScene(event,"BoardArcade.fxml", "Game Mode", player1, username, gameMode);
+                            changeScene(event,"BoardArcade.fxml", "Game Mode", player1, username, gameMode, loginSession);
                         } else {
-                            changeScene(event,"BoardTrad.fxml", "Game Mode", player1, username, gameMode);
+                            changeScene(event,"BoardTrad.fxml", "Game Mode", player1, username, gameMode, loginSession);
                         }
 
                     } else {

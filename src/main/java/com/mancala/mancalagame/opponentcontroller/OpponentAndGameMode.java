@@ -121,9 +121,9 @@ public class OpponentAndGameMode implements Initializable {
                     gameMode = "traditional";
                 }
                 if (gameMode.equals("arcade")){
-                    OpponentLogInBean.changeScene(event,"BoardArcade.fxml", "Game Mode", player1, "CPU", gameMode);
+                    OpponentLogInBean.changeScene(event,"BoardArcade.fxml", "Game Mode", player1, "CPU", gameMode, loginSession.getText());
                 } else {
-                    OpponentLogInBean.changeScene(event,"BoardTrad.fxml", "Game Mode", player1, "CPU", gameMode);
+                    OpponentLogInBean.changeScene(event,"BoardTrad.fxml", "Game Mode", player1, "CPU", gameMode, loginSession.getText());
                 }
             }
         });

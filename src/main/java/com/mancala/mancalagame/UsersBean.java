@@ -1,8 +1,9 @@
 package com.mancala.mancalagame;
 
 import com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode;
-import com.mancala.mancalagame.query.QueryUtility;
-import com.mancala.mancalagame.query.Utility;
+import com.mancala.mancalagame.query.UsersQuery;
+import com.mancala.mancalagame.utility.DBConnection;
+import com.mancala.mancalagame.utility.Utility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,17 +13,17 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.security.Key;
 import java.sql.*;
 
 /**
  *
  */
 public class UsersBean {
-    static QueryUtility queryUtils = new QueryUtility();
-    private static final String DBURL = queryUtils.getDBURL();
-    private static final String DBNAME = queryUtils.getDBNAME();
-    private static final String PASS = queryUtils.getPASS();
+    static UsersQuery queryUtils = new UsersQuery();
+    static DBConnection dbConnection = new DBConnection();
+    private static final String DBURL = dbConnection.getDBURL();
+    private static final String DBNAME = dbConnection.getDBNAME();
+    private static final String PASS = dbConnection.getPASS();
 
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String sessionId) {
         Parent root = null;

@@ -11,8 +11,12 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The controller class for the Player sign-in, sing-up.
+ * @author Harendra Sharma
+ * @version 1.0
+ */
 public class PlayerLogin implements Initializable {
-
     @FXML
     private Button btn_logging;
     @FXML
@@ -24,6 +28,9 @@ public class PlayerLogin implements Initializable {
     @FXML
     private Button btn_back;
 
+    /**
+     * Log in, signup and back button functionality under initialize method.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btn_logging.setOnAction(new EventHandler<ActionEvent>() {

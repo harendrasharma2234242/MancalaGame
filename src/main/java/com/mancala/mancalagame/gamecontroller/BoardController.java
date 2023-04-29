@@ -91,6 +91,7 @@ public class BoardController {
     private Label mancalaLabel_P2;
     private String player1;
     private String opponentPlayer;
+    private String logIn_Session;
     /**
      * Initialise the game board with 4 stones per hole and buttons set.
      */
@@ -281,13 +282,13 @@ public class BoardController {
             System.out.println("*****************next player");
             notification.setText("");
         }
-        gameEnd();
+        gameEnd(player1, opponentPlayer);
     }
 
     /**
      * Check whether the game has ended.
      */
-    protected void gameEnd() {
+    protected void gameEnd(String mainPlayer, String opponentPlayer) {
         if (totalContents(holesPlayer1) == 0) {
             mancalas.get(1).setCount(mancalas.get(1).getCount() + totalContents(holesPlayer2));
             mancalaLabels.set(1, String.valueOf(mancalas.get(1).getCount()));
@@ -296,7 +297,7 @@ public class BoardController {
             }
             Collections.fill(holeLabels, "0");
             setLabels();
-            getWinner();
+            getWinner(mainPlayer, opponentPlayer);
         } else if (totalContents(holesPlayer2) == 0) {
             mancalas.get(0).setCount(mancalas.get(0).getCount() + totalContents(holesPlayer1));
             mancalaLabels.set(0, String.valueOf(mancalas.get(0).getCount()));
@@ -305,7 +306,7 @@ public class BoardController {
             }
             Collections.fill(holeLabels, "0");
             setLabels();
-            getWinner();
+            getWinner(mainPlayer, opponentPlayer);
         }
     }
 
@@ -313,7 +314,8 @@ public class BoardController {
      * Return which player won the game if the game ended.
      * @return Which player won
      */
-    private String getWinner() {
+
+    private String getWinner(String mainPlayer, String opponentPlayer) {
         int score1 = mancalas.get(0).getCount();
         int score2 = mancalas.get(1).getCount();
         String winner;
@@ -321,8 +323,8 @@ public class BoardController {
             notification.setText(opponentPlayer + " wins!");
             winner = opponentPlayer;
         } else if (score1 > score2) {
-            notification.setText(player1 + " wins!");
-            winner = player1;
+            notification.setText(mainPlayer + " wins!");
+            winner = mainPlayer;
         } else {
             notification.setText("It's a draw!");
             winner = "NA";
@@ -519,10 +521,11 @@ public class BoardController {
         }
     }
 
-    public void setPlayer(String player1, String player2){
+    public void setPlayer(String player1, String player2, String loginSession){
         this.player1 = player1;
         this.opponentPlayer = player2;
         this.currentPlayer.setText(player1);
+        this.logIn_Session = loginSession;
     }
 
 }

@@ -24,7 +24,7 @@
         <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
         </font>
-            </Label>
+    </Label>
         <Circle fill="#dfe3e7" layoutX="155.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="235.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="585.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />

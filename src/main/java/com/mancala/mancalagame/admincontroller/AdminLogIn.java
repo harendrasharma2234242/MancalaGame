@@ -10,7 +10,11 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
+/**
+ * This AdminLogIn controller is used for admin log in.
+ * @author Harendra Sharma
+ * @version 1.0
+ * */
 public class AdminLogIn implements Initializable {
     @FXML
     private Button btn_back;
@@ -28,6 +32,10 @@ public class AdminLogIn implements Initializable {
      * @param url
      * @param resourceBundle
      */
+
+    /** In this initialize method, we have two buttons btn_logging and btn_back,
+     * 1. btn_loggin:- Admin log in,
+     * 2. btn_back: back to main game screen*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btn_logging.setOnAction(new EventHandler<ActionEvent>() {
