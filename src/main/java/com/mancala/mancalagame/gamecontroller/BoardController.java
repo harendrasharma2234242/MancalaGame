@@ -94,8 +94,8 @@ public class BoardController {
     protected String opponentPlayer;
     protected String gameSessionId;
     MancalaGameBean mancalaGameBean = new MancalaGameBean();
-    private int count = 0;
-    private boolean cpuSecondTurn = false;
+
+    protected boolean cpuSecondTurn = false;
     /**
      * Initialise the game board with 4 stones per hole and buttons set.
      */
@@ -165,22 +165,18 @@ public class BoardController {
             button11.setDisable(true);
         }
         System.out.println("new: " + currentPlayer.getText());
-        computerTurn(false, opponentPlayer);
+        computerTurn(opponentPlayer);
     }
 
-    private void computerTurn(boolean endInMancala, String opponentPlayer) {
-//        System.out.println("cpu turn current: " +currentPlayer.getText());
-//        System.out.println(opponentPlayer);
-
+    private void computerTurn(String opponentPlayer) {
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
-            count++;
-            System.out.println("cpusecond: " + cpuSecondTurn + " count: " + count);
+            System.out.println("cpusecond: " + cpuSecondTurn);
             int computerChoice = computerChoice();
             notification.setText("CPU chose hole " + computerChoice);
             moveStones(computerChoice);
             if (cpuSecondTurn) {
                 cpuSecondTurn = false;
-                System.out.println("cpu needs another turn: " + count);
+                System.out.println("cpu needs another turn");
                 setCurrentPlayer();
             }
         }
@@ -320,7 +316,7 @@ public class BoardController {
             if (currentPlayer.getText().equals("CPU")) {
                 System.out.println("cpu needs another turn second");
                 cpuSecondTurn = true;
-                computerTurn(true, opponentPlayer);
+                computerTurn(opponentPlayer);
             }
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");

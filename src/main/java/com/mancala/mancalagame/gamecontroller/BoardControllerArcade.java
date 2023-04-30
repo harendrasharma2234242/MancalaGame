@@ -25,7 +25,9 @@ public class BoardControllerArcade extends BoardController {
     private boolean normalDirection = true;
     private boolean halfHand = false;
     private boolean newTurn = true;
-    private int lastFilled;
+    @FXML
+    private Label cpuPowerUp;
+    private boolean cpuPowerUpUsed = false;
 //    private String player1;
 //    private String opponentPlayer;
     //private String gameSessionId;
@@ -270,7 +272,7 @@ public class BoardControllerArcade extends BoardController {
             newTurn = true;
             if (currentPlayer.getText().equals("CPU")) {
 //                System.out.println("cpu needs another turn");
-                computerTurn(true, opponentPlayer);
+                computerTurn(opponentPlayer);
             }
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
@@ -285,6 +287,10 @@ public class BoardControllerArcade extends BoardController {
             reactivateContinueTurnButton(newTurn);
             isDoublePoints = false;
             isContinueTurn = false;
+            if (currentPlayer.getText().equals("CPU")) {
+                System.out.println("cpu continue turn *************************");
+                computerTurn(opponentPlayer);
+            }
         } else {
             System.out.println("**************next player");
             setCurrentPlayer();
@@ -322,6 +328,8 @@ public class BoardControllerArcade extends BoardController {
             button9.setDisable(false);
             button10.setDisable(false);
             button11.setDisable(false);
+            cpuPowerUp.setText("");
+
 
         } else {
             currentPlayer.setText(player1);
@@ -337,21 +345,47 @@ public class BoardControllerArcade extends BoardController {
             button9.setDisable(true);
             button10.setDisable(true);
             button11.setDisable(true);
+            cpuPowerUpUsed = false;
         }
         System.out.println("new: " + currentPlayer.getText());
-        computerTurn(false, opponentPlayer);
+        computerTurn(opponentPlayer);
     }
 
-    private void computerTurn(boolean endInMancala, String opponentPlayer) {
-//        System.out.println("cpu turn current: " +currentPlayer.getText());
-//        System.out.println(opponentPlayer);
+    private void computerTurn(String opponentPlayer) {
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
+            System.out.println("cpusecond: " + cpuSecondTurn);
             int computerChoice = computerChoice();
             notification.setText("CPU chose hole " + computerChoice);
+            if (!cpuPowerUpUsed) {
+                computerPowerUp();
+            }
             moveStones(computerChoice);
-            if (endInMancala) {
+            if (cpuSecondTurn) {
+                cpuSecondTurn = false;
+                System.out.println("cpu needs another turn");
                 setCurrentPlayer();
             }
+        }
+        cpuSecondTurn = false;
+    }
+
+    private void computerPowerUp() {
+        double chance = Math.random();
+        if (chance <= 1) {
+            Random random = new Random();
+            int option = random.nextInt(2);
+            if (option == 0) {
+                System.out.println("cpu double points");
+                cpuPowerUp.setText("CPU used double points");
+                onDoublePointsClick();
+            } else {
+                System.out.println("cpu continue turn");
+                cpuPowerUp.setText("CPU used continue turn");
+                onContinueTurnClick();
+            }
+            cpuPowerUpUsed = true;
+        } else {
+            cpuPowerUpUsed = false;
         }
     }
 
