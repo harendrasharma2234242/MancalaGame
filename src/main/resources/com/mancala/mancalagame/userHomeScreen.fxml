@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.UserHomeScreen">
+   <children>
+      <Label layoutX="267.0" layoutY="48.0" prefHeight="36.0" prefWidth="82.0" text="Hey, " textFill="#ffe3a7">
+         <font>
+            <Font name="Comic Sans MS" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="396.0" fitWidth="310.0" layoutX="-49.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/mancala.jpg" />
+         </image>
+      </ImageView>
+      <Button layoutX="289.0" layoutY="150.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" style="-fx-background-color: #ffe3a7;" text="New Game" textFill="#916527" />
+      <Button layoutX="289.0" layoutY="261.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="141.0" style="-fx-background-color: #ffe3a7;" text="View Profile" textFill="#916527" />
+      <Button layoutX="291.0" layoutY="207.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="141.0" style="-fx-background-color: #ffe3a7;" text="Leaderboard" textFill="#916527" />
+      <Label layoutX="331.0" layoutY="48.0" text="Username!" textFill="#ffe3a7">
+         <font>
+            <Font name="Comic Sans MS" size="25.0" />
+         </font>
+      </Label>
+      <Button layoutX="548.0" layoutY="2.0" mnemonicParsing="false" style="-fx-background-color: #ffe3a7;" text="Log Out" />
+   </children>
+</AnchorPane>

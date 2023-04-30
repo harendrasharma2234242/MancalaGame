@@ -33,7 +33,9 @@ public class MancalaGameBean {
         }
 
     }
-    /**updateGameStatus method is used for update game status when game is start OR draw*/
+    /**updateGameStatus method is used for update game status when game is start OR draw
+     * @param gameStatus  It includes current game status string.
+     * @param gameSessionId  this is game session id which is used for update game records*/
     public void  updateGameStatus(String gameStatus, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();
@@ -48,7 +50,10 @@ public class MancalaGameBean {
             e.printStackTrace();
         }
     }
-    /**declareWinner method is used for update game winner and status when game is finished*/
+    /**declareWinner method is used for update game winner and status when game is finished
+     * @param gameSessionId this is game session id which is used for update game records
+     * @param gameStatus t includes current game status string.
+     * @param username It is winner user name*/
     public void declareWinner(String gameStatus, String username, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();

@@ -12,7 +12,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 
 /**
@@ -25,7 +27,7 @@ public class UsersBean {
     private static final String DBNAME = dbConnection.getDBNAME();
     private static final String PASS = dbConnection.getPASS();
 
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String sessionId) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String sessionId, InputStream profileImage) {
         Parent root = null;
         if (username != null) {
             try {
@@ -33,7 +35,7 @@ public class UsersBean {
                 root = loader.load();
                 if (!fxmlFile.equals("PlayerLogin.fxml")){
                     OpponentAndGameMode loggedInController = loader.getController();
-                    loggedInController.saveUser1(username, sessionId);
+                    loggedInController.saveUser1(username, sessionId, profileImage);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -51,7 +53,7 @@ public class UsersBean {
         stage.show();
     }
 
-    public static void SignUp(ActionEvent event, String name, String username, String password) {
+    public static void SignUp(ActionEvent event, String name, String username, String password, InputStream profileImage) {
         Connection connection = null;
         ResultSet resultSet = null;
 
@@ -72,11 +74,12 @@ public class UsersBean {
                 psInsert.setString(1, username);
                 psInsert.setString(2, password);
                 psInsert.setString(3, name);
+                psInsert.setBlob(4, profileImage);
                 psInsert.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("User has been registered. /nWait for admin confirmation for activation account.");
                 alert.show();
-                changeScene(event, "PlayerLogin.fxml", "Sign in", username, "");
+                changeScene(event, "PlayerLogin.fxml", "Sign in", username, "", null);
             }
 
         } catch (SQLException e) {
@@ -123,12 +126,13 @@ public class UsersBean {
                     } else if (resultSet.getString("password").equals(password)) {
                         Utility utility = new Utility();
                         String sessionId = utility.getRandomKey().toString();
+                        InputStream profileImage = resultSet.getBinaryStream("profileImage");
                         final String SET_SESSION = queryUtils.getSaveSession();
                         preparedStatement = connection.prepareStatement(SET_SESSION);
                         preparedStatement.setString(1, sessionId);
                         preparedStatement.setString(2, username);
                         preparedStatement.executeUpdate();
-                        changeScene(event, "OpponentAndGameMode.fxml", "Choose", username, sessionId);
+                        changeScene(event, "OpponentAndGameMode.fxml", "Choose", username, sessionId, profileImage);
                     } else {
                         System.out.println("Password did not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -174,7 +178,7 @@ public class UsersBean {
             } else {
                 while (resultSet.next()) {
                     if (resultSet.getString("password").equals(password)) {
-                        changeScene(event, "AdminDashboard.fxml", "Welcome to the game", username, "");
+                        changeScene(event, "AdminDashboard.fxml", "Welcome to the game", username, "", null);
                     } else {
                         System.out.println("Password did not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);

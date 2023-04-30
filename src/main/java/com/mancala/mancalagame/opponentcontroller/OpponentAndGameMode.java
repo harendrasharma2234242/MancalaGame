@@ -14,7 +14,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.stage.Stage;
-import java.io.IOException;
+
+import javax.swing.text.html.ImageView;
+import java.awt.*;
+import java.awt.image.ImageObserver;
+import java.awt.image.ImageProducer;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -39,6 +44,8 @@ public class OpponentAndGameMode implements Initializable {
 
     @FXML
     private Label loginSession;
+    @FXML
+    private ImageView userProfileImage;
 
     @FXML
     private void handleGameModeSelection(ActionEvent event) {
@@ -103,9 +110,26 @@ public class OpponentAndGameMode implements Initializable {
     }
 
     @FXML
-    public void saveUser1(String user, String sessionId){
+    public void saveUser1(String user, String sessionId, InputStream profileImage){
         user1.setText(user);
         loginSession.setText(sessionId);
+        if (profileImage != null){
+            try {
+                OutputStream outP = new FileOutputStream(new File("ProfileImage.jpg"));
+                byte [] content = new byte[1024];
+                int size = 0;
+                while ((size = profileImage.read(content)) != -1){
+                    outP.write(content, 0,size);
+                }
+                outP.close();
+                profileImage.close();
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
     }
 
     @Override

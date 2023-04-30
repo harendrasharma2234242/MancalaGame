@@ -8,6 +8,7 @@ module com.mancala.mancalagame {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires com.almasb.fxgl.all;
+    requires java.desktop;
 
     opens com.mancala.mancalagame to javafx.fxml;
     exports com.mancala.mancalagame;
