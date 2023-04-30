@@ -94,6 +94,8 @@ public class BoardController {
     protected String opponentPlayer;
     protected String gameSessionId;
     MancalaGameBean mancalaGameBean = new MancalaGameBean();
+    private int count = 0;
+    private boolean cpuSecondTurn = false;
     /**
      * Initialise the game board with 4 stones per hole and buttons set.
      */
@@ -169,14 +171,20 @@ public class BoardController {
     private void computerTurn(boolean endInMancala, String opponentPlayer) {
 //        System.out.println("cpu turn current: " +currentPlayer.getText());
 //        System.out.println(opponentPlayer);
+
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
+            count++;
+            System.out.println("cpusecond: " + cpuSecondTurn + " count: " + count);
             int computerChoice = computerChoice();
             notification.setText("CPU chose hole " + computerChoice);
             moveStones(computerChoice);
-            if (endInMancala) {
+            if (cpuSecondTurn) {
+                cpuSecondTurn = false;
+                System.out.println("cpu needs another turn: " + count);
                 setCurrentPlayer();
             }
         }
+        cpuSecondTurn = false;
     }
 
     protected int computerChoice() {
@@ -184,8 +192,12 @@ public class BoardController {
         int max = 11;
         int computerChoice = (int) ((Math.random() * (max - min)) + min);
         System.out.println("cpu choice: " + computerChoice);
-        if (!checkEmpty(computerChoice)) {
-            computerChoice();
+//        if (!checkEmpty(computerChoice)) {
+//            computerChoice();
+////            return -1;
+//        }
+        while (!checkEmpty(computerChoice)) {
+            computerChoice = (int) ((Math.random() * (max - min)) + min);
         }
         return computerChoice;
     }
@@ -306,7 +318,8 @@ public class BoardController {
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
             if (currentPlayer.getText().equals("CPU")) {
-//                System.out.println("cpu needs another turn");
+                System.out.println("cpu needs another turn second");
+                cpuSecondTurn = true;
                 computerTurn(true, opponentPlayer);
             }
         } else if (normalLastFilled && curr != 0) {
