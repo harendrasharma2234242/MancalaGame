@@ -160,53 +160,5 @@ public class UsersBean {
             }
         }
     }
-
-    public static void logInAdmin(ActionEvent event, String username, String password) {
-        Connection connection = null;
-        ResultSet resultSet = null;
-        try {
-            final String LOGIN_QUERY = queryUtils.getAdminLoginQuery();
-            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
-            PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_QUERY);
-            preparedStatement.setString(1, username);
-            resultSet = preparedStatement.executeQuery();
-            if (!resultSet.isBeforeFirst()) {
-                System.out.println("Admin not found in the database");
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Provided credentials are incorrect.");
-                alert.show();
-            } else {
-                while (resultSet.next()) {
-                    if (resultSet.getString("password").equals(password)) {
-                        changeScene(event, "AdminDashboard.fxml", "Welcome to the game", username, "", null);
-                    } else {
-                        System.out.println("Password did not match");
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setContentText("Provided credentials are incorrect.");
-                        alert.show();
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-
 }
 
