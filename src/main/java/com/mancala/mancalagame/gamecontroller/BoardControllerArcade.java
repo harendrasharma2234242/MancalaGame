@@ -1,6 +1,5 @@
 package com.mancala.mancalagame.gamecontroller;
 
-import com.mancala.mancalagame.MancalaGameBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,8 +25,11 @@ public class BoardControllerArcade extends BoardController {
     private boolean normalDirection = true;
     private boolean halfHand = false;
     private boolean newTurn = true;
-    private String player1;
-    private String opponentPlayer;
+    @FXML
+    private Label cpuPowerUp;
+    private boolean cpuPowerUpUsed = false;
+//    private String player1;
+//    private String opponentPlayer;
     //private String gameSessionId;
 
 
@@ -91,6 +93,7 @@ public class BoardControllerArcade extends BoardController {
         doublePoints.setText("Double points used this turn");
         doublePoints.setDisable(true);
         continueTurn.setDisable(true);
+        System.out.println("double points");
     }
 
     /**
@@ -104,6 +107,7 @@ public class BoardControllerArcade extends BoardController {
         continueTurn.setText("Continue turn used this turn");
         continueTurn.setDisable(true);
         doublePoints.setDisable(true);
+        System.out.println("continue turn");
     }
 
     /**
@@ -136,6 +140,7 @@ public class BoardControllerArcade extends BoardController {
         if (chance <= 0.1) {
             Random random = new Random();
             option = random.nextInt(3);
+//            option = 1;
             String stone = specialStones[option];
             mancalaGameBean.updateSpecialCases(stone, gameSessionId);
             specialStone.setText(stone);
@@ -177,10 +182,10 @@ public class BoardControllerArcade extends BoardController {
      * Play a turn. Redistributes stones based on player's choices and special stone generation.
      * @param holeNumber The hole the player chose to play.
      */
+    @FXML
     private void moveStones(int holeNumber) {
         holeNumber = switchSides(holeNumber, normalSide);
         int chosenHoleCount = getStones(holeNumber);
-//        newTurn = false;
         int i = 1;
         int index;
         if (normalDirection) {
@@ -190,6 +195,7 @@ public class BoardControllerArcade extends BoardController {
         } else {
             index = 11;
         }
+
         //flag to adjust which hole is looked at based on whether a mancala has been filled. Stops an offset occurring.
         int rightMancalaFlag = 0;
         //flags to show how the last move ended. To know whether they gained a turn or not.
@@ -207,34 +213,32 @@ public class BoardControllerArcade extends BoardController {
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
-                System.out.println("l fill");
+                System.out.println("******l fill******");
             } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals(player1) && normalDirection) {
                 //fill player 1's mancala if player 1 passes it
                 fillMancala(0);
                 index = updateIndex(index, normalDirection);
-                System.out.println("r fill");
                 rightMancalaFlag++;
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
+                System.out.println("******r fill******");
             } else if (index == MANCALA_1_INDEX_REVERSE && currentPlayer.getText().equals(player1) && !normalDirection) {
                 //fill player 1's mancala if player 1 passes it, but in reverse
                 fillMancala(0);
-                curr = pickUpStones(index);
-                holes.get(index-rightMancalaFlag).setCount(curr + 1);
-                holeLabels.set(index-rightMancalaFlag, String.valueOf(curr + 1));
-                System.out.println("0. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 index = updateIndex(index, normalDirection);
+                rightMancalaFlag++;
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
+                System.out.println("******r fill****** reverse");
             } else if (index == MANCALA_2_INDEX) {
                 //player 1 skips player 2's mancala
                 index = FIRST_HOLE;
                 i--;
-            } else if (rightMancalaFlag <= index && index != LAST_HOLE) {
+            } else if (rightMancalaFlag <= index) {
                 //filling a normal hole
-                curr = pickUpStones(index - rightMancalaFlag);
+                curr = getCount(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
                 System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
@@ -245,7 +249,7 @@ public class BoardControllerArcade extends BoardController {
                 normalLastFilled = true;
             } else {
                 //filling the last hole
-                curr = pickUpStones(LAST_HOLE);
+                curr = getCount(LAST_HOLE);
                 holes.get(LAST_HOLE).setCount(curr + 1);
                 holeLabels.set(LAST_HOLE, String.valueOf(curr + 1));
                 newHoleNumber = LAST_HOLE;
@@ -266,6 +270,10 @@ public class BoardControllerArcade extends BoardController {
             notification.setText("Take another turn!");
             normalSide = true;
             newTurn = true;
+            if (currentPlayer.getText().equals("CPU")) {
+//                System.out.println("cpu needs another turn");
+                computerTurn(opponentPlayer);
+            }
         } else if (normalLastFilled && curr != 0) {
             notification.setText("Ended in a non-empty hole - turn continues");
             normalSide = true;
@@ -279,10 +287,15 @@ public class BoardControllerArcade extends BoardController {
             reactivateContinueTurnButton(newTurn);
             isDoublePoints = false;
             isContinueTurn = false;
+            if (currentPlayer.getText().equals("CPU")) {
+                System.out.println("cpu continue turn *************************");
+                computerTurn(opponentPlayer);
+            }
         } else {
-            setCurrentPlayer();
-            notification.setText("");
             System.out.println("**************next player");
+            setCurrentPlayer();
+//            notification.setText("");
+
             normalSide = true;
             newTurn = true;
             reactivateDoublePointsButton(newTurn);
@@ -290,7 +303,6 @@ public class BoardControllerArcade extends BoardController {
             isDoublePoints = false;
             isContinueTurn = false;
         }
-
         gameEnd(player1, opponentPlayer);
     }
 
@@ -298,6 +310,7 @@ public class BoardControllerArcade extends BoardController {
      * Set the current player and reset power-up buttons for new turn.
      */
     private void setCurrentPlayer() {
+        System.out.println("current: " +currentPlayer.getText());
         newTurn = true;
         reactivateDoublePointsButton(newTurn);
         reactivateContinueTurnButton(newTurn);
@@ -315,6 +328,8 @@ public class BoardControllerArcade extends BoardController {
             button9.setDisable(false);
             button10.setDisable(false);
             button11.setDisable(false);
+            cpuPowerUp.setText("");
+
 
         } else {
             currentPlayer.setText(player1);
@@ -330,6 +345,47 @@ public class BoardControllerArcade extends BoardController {
             button9.setDisable(true);
             button10.setDisable(true);
             button11.setDisable(true);
+            cpuPowerUpUsed = false;
+        }
+        System.out.println("new: " + currentPlayer.getText());
+        computerTurn(opponentPlayer);
+    }
+
+    private void computerTurn(String opponentPlayer) {
+        if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
+            System.out.println("cpusecond: " + cpuSecondTurn);
+            int computerChoice = computerChoice();
+            notification.setText("CPU chose hole " + computerChoice);
+            if (!cpuPowerUpUsed) {
+                computerPowerUp();
+            }
+            moveStones(computerChoice);
+            if (cpuSecondTurn) {
+                cpuSecondTurn = false;
+                System.out.println("cpu needs another turn");
+                setCurrentPlayer();
+            }
+        }
+        cpuSecondTurn = false;
+    }
+
+    private void computerPowerUp() {
+        double chance = Math.random();
+        if (chance <= 1) {
+            Random random = new Random();
+            int option = random.nextInt(2);
+            if (option == 0) {
+                System.out.println("cpu double points");
+                cpuPowerUp.setText("CPU used double points");
+                onDoublePointsClick();
+            } else {
+                System.out.println("cpu continue turn");
+                cpuPowerUp.setText("CPU used continue turn");
+                onContinueTurnClick();
+            }
+            cpuPowerUpUsed = true;
+        } else {
+            cpuPowerUpUsed = false;
         }
     }
 
