@@ -18,37 +18,37 @@ import java.util.ResourceBundle;
  */
 public class PlayerLogin implements Initializable {
     @FXML
-    private Button btn_logging;
+    private Button btnLogging;
     @FXML
-    private TextField tf_username;
+    private TextField userName;
     @FXML
-    private TextField tf_password;
+    private TextField password;
     @FXML
-    private Button btn_signup;
+    private Button btnSignup;
     @FXML
-    private Button btn_back;
+    private Button btnBack;
 
     /**
      * Log in, signup and back button functionality under initialize method.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btn_logging.setOnAction(new EventHandler<ActionEvent>() {
+        btnLogging.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.logInUser(event, tf_username.getText(), tf_password.getText());
+                UsersBean.logInUser(event, userName.getText(), password.getText());
             }
         });
-        btn_signup.setOnAction(new EventHandler<ActionEvent>() {
+        btnSignup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Sign-up.fxml", "Sign up", null, null);
+                UsersBean.changeScene(event, "Sign-up.fxml", "Sign up", null, null, null);
             }
         });
-        btn_back.setOnAction(new EventHandler<ActionEvent>() {
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Home.fxml", "Sign up", null, null);
+                UsersBean.changeScene(event, "Home.fxml", "Sign up", null, null, null);
             }
         });
     }

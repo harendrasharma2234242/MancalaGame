@@ -5,10 +5,17 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -19,28 +26,38 @@ public class SignUp implements Initializable {
      */
 
     @FXML
-    private Button btn_signup;
+    private Button btnSignup;
 
     @FXML
-    private TextField sp_username;
+    private TextField userName;
 
     @FXML
-    private TextField sp_password;
+    private TextField password;
 
     @FXML
-    private Button btn_loggedIn;
+    private Button btnLoggedIn;
 
     @FXML
-    private TextField sp_name;
+    private TextField name;
+    @FXML
+    private Button uploadProfileImage;
+    private FileChooser fileChooser;
+    private File file;
+    private FileInputStream fis;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        btn_signup.setOnAction(new EventHandler<ActionEvent>() {
+        btnSignup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if (!sp_name.getText().trim().isEmpty() && !sp_username.getText().trim().isEmpty() && !sp_password.getText().trim().isEmpty()) {
-                    UsersBean.SignUp(event, sp_name.getText(), sp_username.getText(), sp_password.getText());
+                InputStream image = null;
+                if (fis != null){
+                    image = (InputStream) fis;
+                }
+                if (!name.getText().trim().isEmpty() && !userName.getText().trim().isEmpty() && !password.getText().trim().isEmpty()) {
+                    UsersBean.SignUp(event, name.getText(), userName.getText(), password.getText(),image);
                 } else {
+                    System.out.println("fis Value"+(InputStream)fis + " "+ (int) file.length());
                     System.out.println("Please fill in all information");
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setContentText("Please fill in all information to signup!");
@@ -49,11 +66,32 @@ public class SignUp implements Initializable {
 
             }
         });
-        btn_loggedIn.setOnAction(new EventHandler<ActionEvent>() {
+        btnLoggedIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Log in", null, null);
+                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Log in", null, null, null);
             }
         });
+        fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif", "*.jpeg")
+        );
+        uploadProfileImage.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                stage.setTitle("upload Image");
+                stage.show();
+                file = fileChooser.showOpenDialog(stage);
+                if (file != null){
+                    try {
+                        fis = new FileInputStream(file);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        });
+
     }
 }

@@ -1,5 +1,6 @@
 package com.mancala.mancalagame.admincontroller;
 
+import com.mancala.mancalagame.AdminBean;
 import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -41,13 +42,13 @@ public class AdminLogIn implements Initializable {
         btn_logging.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.logInAdmin(event, ad_username.getText(), ad_password.getText());
+                AdminBean.logInAdmin(event, ad_username.getText(), ad_password.getText());
             }
         });
         btn_back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Home.fxml", "Sign up", null, null);
+                AdminBean.changeScene(event, "Home.fxml", "Choose", null, null);
             }
         });
 

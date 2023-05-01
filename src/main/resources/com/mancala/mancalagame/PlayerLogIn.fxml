@@ -28,17 +28,17 @@
                 <Font name="Arial Rounded MT Bold" size="14.0"/>
             </font>
         </Label>
-        <TextField fx:id="tf_username" layoutX="411.0" layoutY="118.0" promptText="USERNAME">
+        <TextField fx:id="userName" layoutX="411.0" layoutY="118.0" promptText="USERNAME">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0"/>
             </font>
         </TextField>
-        <TextField fx:id="tf_password" layoutX="411.0" layoutY="183.0" promptText="PASSWORD">
+        <TextField fx:id="password" layoutX="411.0" layoutY="183.0" promptText="PASSWORD">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0"/>
             </font>
         </TextField>
-        <Button fx:id="btn_logging" layoutX="451.0" layoutY="249.0" mnemonicParsing="false"
+        <Button fx:id="btnLogging" layoutX="451.0" layoutY="249.0" mnemonicParsing="false"
                 style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Login" textFill="#f6f5f5">
             <font>
                 <Font name="Arial Rounded MT Bold" size="18.0"/>
@@ -49,7 +49,7 @@
                 <Font name="Arial Rounded MT Bold" size="14.0"/>
             </font>
         </Label>
-        <Button fx:id="btn_signup" layoutX="474.0" layoutY="309.0" mnemonicParsing="false"
+        <Button fx:id="btnSignup" layoutX="474.0" layoutY="309.0" mnemonicParsing="false"
                 style="-fx-background-color: rgba(0,0,0,0); -fx-cursor: hand;" text="Sign up!" textFill="#f5f5fb"
                 underline="true">
             <font>
@@ -66,7 +66,7 @@
                 </ImageView>
             </children>
         </AnchorPane>
-        <Button fx:id="btn_back" layoutX="329.0" layoutY="250.0" mnemonicParsing="false" prefHeight="34.0"
+        <Button fx:id="btnBack" layoutX="329.0" layoutY="250.0" mnemonicParsing="false" prefHeight="34.0"
                 prefWidth="73.0" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Back"
                 textFill="#f4f4f4">
             <font>
