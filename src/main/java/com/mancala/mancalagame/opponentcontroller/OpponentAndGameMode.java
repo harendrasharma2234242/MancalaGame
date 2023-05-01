@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import javax.swing.text.html.ImageView;
@@ -46,6 +47,7 @@ public class OpponentAndGameMode implements Initializable {
     private Label loginSession;
     @FXML
     private ImageView userProfileImage;
+
 
     @FXML
     private void handleGameModeSelection(ActionEvent event) {
@@ -152,4 +154,5 @@ public class OpponentAndGameMode implements Initializable {
             }
         });
     }
+
 }

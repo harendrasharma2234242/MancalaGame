@@ -20,6 +20,7 @@ public class FrequentUsers  implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 UsersBean.changeScene(event, "adminDashboard.fxml","Admin Dashboard", null, null, null);
+                System.out.println("here");
             }
         });
     }

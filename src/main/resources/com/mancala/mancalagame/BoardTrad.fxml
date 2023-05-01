@@ -21,7 +21,7 @@
                 <Font name="Arial Rounded MT Bold" size="18.0" />
             </font>
         </Label>
-        <Label fx:id="notification" layoutX="275.0" layoutY="68.0" prefHeight="18.0" prefWidth="157.0" textFill="white" >
+        <Label fx:id="notification" layoutX="275.0" layoutY="68.0" prefHeight="18.0" prefWidth="157.0" textFill="white">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0" />
             </font>
@@ -52,47 +52,47 @@
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel10" layoutX="231.0" layoutY="163.0" text="4">
+        <Label fx:id="holeLabel10" layoutX="231.0" layoutY="163.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel9" layoutX="319.0" layoutY="163.0" text="4">
+        <Label fx:id="holeLabel9" layoutX="319.0" layoutY="163.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel8" layoutX="410.0" layoutY="163.0" text="4">
+        <Label fx:id="holeLabel8" layoutX="410.0" layoutY="163.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel7" layoutX="499.0" layoutY="163.0" text="4">
+        <Label fx:id="holeLabel7" layoutX="499.0" layoutY="163.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel6" layoutX="581.0" layoutY="163.0" text="4">
+        <Label fx:id="holeLabel6" layoutX="581.0" layoutY="163.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel5" layoutX="581.0" layoutY="285.0" text="4">
+        <Label fx:id="holeLabel5" layoutX="581.0" layoutY="285.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel4" layoutX="499.0" layoutY="285.0" text="4">
+        <Label fx:id="holeLabel4" layoutX="499.0" layoutY="285.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel3" layoutX="410.0" layoutY="285.0" text="4">
+        <Label fx:id="holeLabel3" layoutX="410.0" layoutY="285.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel2" layoutX="319.0" layoutY="285.0" text="4">
+        <Label fx:id="holeLabel2" layoutX="319.0" layoutY="285.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel1" layoutX="231.0" layoutY="285.0" text="4">
+        <Label fx:id="holeLabel1" layoutX="231.0" layoutY="285.0">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
-        <Label fx:id="holeLabel0" layoutX="151.0" layoutY="285.0" text="4" textFill="#1f1e1e">
+        <Label fx:id="holeLabel0" layoutX="151.0" layoutY="285.0" textFill="#1f1e1e">
          <font>
             <Font name="Arial Rounded MT Bold" size="14.0" />
          </font></Label>
@@ -104,6 +104,12 @@
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font></Label>
+        <Label fx:id="instructions" layoutX="16.0" layoutY="14.0" text="Enter initial stone count then press start" textFill="WHITE" wrapText="true" />
+        <TextField fx:id="stoneCountEntry" layoutX="21.0" layoutY="41.0" promptText="Stone count">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0" />
+            </font>
+        </TextField>
         <Button fx:id="start" layoutX="231.0" layoutY="42.0" onAction="#setBoard" style="-fx-background-color: #6595D9;" text="Start" textFill="#f4f4f4">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />

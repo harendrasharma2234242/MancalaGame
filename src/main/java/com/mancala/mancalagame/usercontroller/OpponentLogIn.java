@@ -41,6 +41,7 @@ public class OpponentLogIn implements Initializable {
         player1.setText(player);
         game_mode.setText(gameMode);
         login_session.setText(loginSession);
+//        stoneCount.setText(String.valueOf(count));
     }
     /** This initialize method include two buttons actions
      * 1. Opponent log-in,

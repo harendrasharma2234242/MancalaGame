@@ -37,6 +37,7 @@ public class AdminDashboard implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 AdminBean.changeScene(event, "frequentUsers.fxml","Frequent Users", userName, null);
+
             }
         });
 

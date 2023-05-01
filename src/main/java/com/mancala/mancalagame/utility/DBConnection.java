@@ -6,7 +6,7 @@ package com.mancala.mancalagame.utility;
 public class DBConnection {
     private static final String DBURL = "jdbc:mysql://localhost:3306/mancala";
     private static final String DBNAME = "root";
-    private static final String PASS = "123456";
+    private static final String PASS = "";
     public String getDBURL() {
         return DBURL;
     }

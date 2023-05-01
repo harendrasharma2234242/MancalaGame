@@ -4,6 +4,7 @@ import com.mancala.mancalagame.MancalaGameBean;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,16 +91,21 @@ public class BoardController {
     private Label mancalaLabel_P1;
     @FXML
     private Label mancalaLabel_P2;
+    @FXML
+    private TextField stoneCountEntry;
     protected String player1;
     protected String opponentPlayer;
     protected String gameSessionId;
     MancalaGameBean mancalaGameBean = new MancalaGameBean();
+    private int stoneCount;
     private ArrayList<Integer> playedHolesP1 = new ArrayList<>();
     private ArrayList<Integer> playedHolesP2 = new ArrayList<>();
     @FXML
     protected Label played1;
     @FXML
     protected Label played2;
+    @FXML
+    protected Label instructions;
 
     protected boolean cpuSecondTurn = false;
     /**
@@ -108,6 +114,12 @@ public class BoardController {
     @FXML
     private void setBoard() {
         mancalaGameBean.updateGameStatus("Inprogress", gameSessionId);
+        try {
+            stoneCount = Integer.parseInt(stoneCountEntry.getText());
+        } catch (Exception e) {
+            stoneCount = 4;
+            instructions.setText("No number given - default 4 used");
+        }
         start.setDisable(true);
         button0.setDisable(false);
         button1.setDisable(false);
@@ -122,8 +134,9 @@ public class BoardController {
         button10.setDisable(true);
         button11.setDisable(true);
         for (int i = 0; i < 12; i++) {
-            holes.add(new Hole(4));
-            holeLabels.add("4");
+            System.out.println(stoneCount);
+            holes.add(new Hole(stoneCount));
+            holeLabels.add(String.valueOf(stoneCount));
         }
         for (int i = 0; i <= 2; i++) {
             mancalas.add(new Mancala(0));
@@ -133,7 +146,20 @@ public class BoardController {
             holesPlayer1.add(holes.get(i));
             holesPlayer2.add(holes.get(i+6));
         }
+        holeLabel0.setText(Integer.toString(stoneCount));
+        holeLabel1.setText(Integer.toString(stoneCount));
+        holeLabel2.setText(Integer.toString(stoneCount));
+        holeLabel3.setText(Integer.toString(stoneCount));
+        holeLabel4.setText(Integer.toString(stoneCount));
+        holeLabel5.setText(Integer.toString(stoneCount));
+        holeLabel6.setText(Integer.toString(stoneCount));
+        holeLabel7.setText(Integer.toString(stoneCount));
+        holeLabel8.setText(Integer.toString(stoneCount));
+        holeLabel9.setText(Integer.toString(stoneCount));
+        holeLabel10.setText(Integer.toString(stoneCount));
+        holeLabel11.setText(Integer.toString(stoneCount));
     }
+
 
     /**
      * Set the current player.
@@ -575,6 +601,8 @@ public class BoardController {
         this.currentPlayer.setText(player1);
         this.gameSessionId = loginSession;
         mancalaGameBean.initiateGame(player1, player2, "Traditional", loginSession);
+//        STONE_COUNT = count;
+//        System.out.println("count: " + count);
     }
 
 }

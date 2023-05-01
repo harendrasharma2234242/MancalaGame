@@ -565,5 +565,6 @@ public class BoardControllerArcade extends BoardController {
         this.currentPlayer.setText(player1);
         this.gameSessionId = loginSession;
         mancalaGameBean.initiateGame(player1, player2, "Arcade", loginSession);
+//        stoneCount = count;
     }
 }
