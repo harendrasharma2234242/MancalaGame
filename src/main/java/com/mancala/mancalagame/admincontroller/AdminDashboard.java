@@ -7,6 +7,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import java.net.URL;
+import java.sql.ResultSet;
+import java.util.List;
 import java.util.ResourceBundle;
 public class AdminDashboard implements Initializable {
     @FXML
@@ -26,28 +28,29 @@ public class AdminDashboard implements Initializable {
         new_users.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AdminBean.changeScene(event, "newUserRequests.fxml","New User Requests", userName);
+                List<List<String>> newUsers = AdminBean.newUsers();
+                AdminBean.changeScene(event, "newUserRequests.fxml","New User Requests", userName, newUsers);
             }
         });
 
         frequent_users.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AdminBean.changeScene(event, "frequentUsers.fxml","Frequent Users", userName);
+                AdminBean.changeScene(event, "frequentUsers.fxml","Frequent Users", userName, null);
             }
         });
 
         powerup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AdminBean.changeScene(event, "powerupStats.fxml","Powerup/Special Stone Statistics", userName);
+                AdminBean.changeScene(event, "powerupStats.fxml","Powerup/Special Stone Statistics", userName, null);
             }
         });
 
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                AdminBean.changeScene(event, "Home.fxml","Home", null);
+                AdminBean.changeScene(event, "Home.fxml","Home", null, null);
             }
         });
     }

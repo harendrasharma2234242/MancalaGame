@@ -1,6 +1,8 @@
 package com.mancala.mancalagame;
 
 import com.mancala.mancalagame.admincontroller.AdminDashboard;
+import com.mancala.mancalagame.admincontroller.NewUserRequests;
+import com.mancala.mancalagame.query.AdminQuery;
 import com.mancala.mancalagame.query.UsersQuery;
 import com.mancala.mancalagame.utility.DBConnection;
 import javafx.event.ActionEvent;
@@ -13,19 +15,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 /**
  *
  */
 public class AdminBean {
+
+    static AdminQuery adminQuery = new AdminQuery();
     static UsersQuery queryUtils = new UsersQuery();
     static DBConnection dbConnection = new DBConnection();
     private static final String DBURL = dbConnection.getDBURL();
     private static final String DBNAME = dbConnection.getDBNAME();
     private static final String PASS = dbConnection.getPASS();
 
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, List<List<String>> resultSet) {
         Parent root = null;
         if (username != null) {
             try {
@@ -34,6 +41,10 @@ public class AdminBean {
                 if (fxmlFile.equals("AdminDashboard.fxml")){
                     AdminDashboard adminDashboard = loader.getController();
                     adminDashboard.setUserName(username);
+                } else if (fxmlFile.equals("newUserRequests.fxml")) {
+
+                    NewUserRequests newUserRequests = loader.getController();
+                    newUserRequests.setNewUser(resultSet);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -67,7 +78,7 @@ public class AdminBean {
             } else {
                 while (resultSet.next()) {
                     if (resultSet.getString("password").equals(password)) {
-                        changeScene(event, "AdminDashboard.fxml", "Welcome to the dashboard", username);
+                        changeScene(event, "AdminDashboard.fxml", "Welcome to the dashboard", username, null);
                     } else {
                         System.out.println("Password did not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -86,6 +97,64 @@ public class AdminBean {
                     e.printStackTrace();
                 }
             }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static List<List<String>> newUsers(){
+        List<List<String>> listOfLists = new ArrayList<List<String>>();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        final String GET_NEW_USER = adminQuery.getGetNewUsers();
+        try {
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_NEW_USER);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.isBeforeFirst()){
+                while (resultSet.next()){
+                    ArrayList<String> users = new ArrayList<String>();
+                    users.add(resultSet.getString("username"));
+                    if (resultSet.getBoolean("is_Active")){
+                        users.add("1");
+                    } else {
+                        users.add("0");
+                    }
+                    int userId = resultSet.getInt("user_id");
+                    users.add(""+userId+"");
+                    listOfLists.add(users);
+                }
+            }
+            return listOfLists;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void updateUsers(int userId){
+        Connection connection = null;
+        final String ACTIVE_NEW_USER = adminQuery.updateUser();
+        try {
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(ACTIVE_NEW_USER);
+            preparedStatement.setInt(1, userId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
             if (connection != null) {
                 try {
                     connection.close();
