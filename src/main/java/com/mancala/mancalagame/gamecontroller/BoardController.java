@@ -94,6 +94,12 @@ public class BoardController {
     protected String opponentPlayer;
     protected String gameSessionId;
     MancalaGameBean mancalaGameBean = new MancalaGameBean();
+    private ArrayList<Integer> playedHolesP1 = new ArrayList<>();
+    private ArrayList<Integer> playedHolesP2 = new ArrayList<>();
+    @FXML
+    protected Label played1;
+    @FXML
+    protected Label played2;
 
     protected boolean cpuSecondTurn = false;
     /**
@@ -133,7 +139,6 @@ public class BoardController {
      * Set the current player.
      */
     private void setCurrentPlayer() {
-        System.out.println("current: " +currentPlayer.getText());
         if (currentPlayer.getText().equals(player1)) {
             currentPlayer.setText(opponentPlayer);
             button0.setDisable(true);
@@ -164,19 +169,15 @@ public class BoardController {
             button10.setDisable(true);
             button11.setDisable(true);
         }
-        System.out.println("new: " + currentPlayer.getText());
         computerTurn(opponentPlayer);
     }
 
     private void computerTurn(String opponentPlayer) {
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
-            System.out.println("cpusecond: " + cpuSecondTurn);
             int computerChoice = computerChoice();
-            notification.setText("CPU chose hole " + computerChoice);
             moveStones(computerChoice);
             if (cpuSecondTurn) {
                 cpuSecondTurn = false;
-                System.out.println("cpu needs another turn");
                 setCurrentPlayer();
             }
         }
@@ -187,11 +188,6 @@ public class BoardController {
         int min = 6;
         int max = 11;
         int computerChoice = (int) ((Math.random() * (max - min)) + min);
-        System.out.println("cpu choice: " + computerChoice);
-//        if (!checkEmpty(computerChoice)) {
-//            computerChoice();
-////            return -1;
-//        }
         while (!checkEmpty(computerChoice)) {
             computerChoice = (int) ((Math.random() * (max - min)) + min);
         }
@@ -234,7 +230,6 @@ public class BoardController {
      */
     protected int getCount(int index) {
         int curr;
-//        System.out.println(index);
         curr = holes.get(index).getCount();
         return curr;
     }
@@ -250,6 +245,11 @@ public class BoardController {
         holeLabels.set(holeNumber, "0");
         int i = 1;
         int index = i + holeNumber;
+        if (currentPlayer.getText().equals(player1)) {
+            playedHolesP1.add(index - 1);
+        } else {
+            playedHolesP2.add(index - 1);
+        }
         //flag to adjust which hole is looked at based on whether a mancala has been filled. Stops an offset occurring.
         int rightMancalaFlag = 0;
         //flags to show how the last move ended. To know whether they gained a turn or not.
@@ -267,7 +267,6 @@ public class BoardController {
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
-                System.out.println("******l fill******");
             } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals(player1)) {
                 //fill player 1's mancala if player 1 passes it
                 fillMancala(0);
@@ -276,7 +275,6 @@ public class BoardController {
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
-                System.out.println("******r fill******");
             } else if (index == MANCALA_2_INDEX) {
                 //player 1 skips player 2's mancala
                 index = FIRST_HOLE;
@@ -286,7 +284,6 @@ public class BoardController {
                 curr = getCount(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
-                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 newHoleNumber = index - rightMancalaFlag;
                 index++;
                 leftLastFilled = false;
@@ -302,31 +299,37 @@ public class BoardController {
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
-                System.out.println("2. filling: " + LAST_HOLE + " to " + (curr + 1));
 
             }
         }
 
         setLabels();
-        board.printBoard();
-        System.out.println();
 
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
+            played1.setText(player1 + " played: " + playedHolesP1.toString() + " last turn");
+            played2.setText(opponentPlayer + " played: " + playedHolesP2.toString() + " last turn");
             if (currentPlayer.getText().equals("CPU")) {
-                System.out.println("cpu needs another turn second");
                 cpuSecondTurn = true;
                 computerTurn(opponentPlayer);
             }
         } else if (normalLastFilled && curr != 0) {
-            notification.setText("Ended in a non-empty hole - turn continues");
+            played1.setText(player1 + " played: " + playedHolesP1.toString() + " last turn");
+            played2.setText(opponentPlayer + " played: " + playedHolesP2.toString() + " last turn");
             moveStones(newHoleNumber);
         } else {
-            System.out.println("*****************next player");
+            played1.setText(player1 + " played: " + playedHolesP1.toString() + " last turn");
+            played2.setText(opponentPlayer + " played: " + playedHolesP2.toString() + " last turn");
+            if (currentPlayer.getText().equals(player1)) {
+                playedHolesP2 = new ArrayList<Integer>();
+            } else {
+                playedHolesP1 = new ArrayList<Integer>();
+            }
+            notification.setText("");
             setCurrentPlayer();
-//            notification.setText("");
         }
         gameEnd(player1, opponentPlayer);
+
     }
 
     /**

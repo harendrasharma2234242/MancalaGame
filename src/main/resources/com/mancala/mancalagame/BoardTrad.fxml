@@ -26,6 +26,16 @@
                 <Font name="Arial Rounded MT Bold" size="14.0" />
             </font>
         </Label>
+        <Label fx:id="played1" layoutX="225.0" layoutY="400.0" textFill="white">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0" />
+            </font>
+        </Label>
+        <Label fx:id="played2" layoutX="225.0" layoutY="420.0" textFill="white">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="14.0" />
+            </font>
+        </Label>
         <Circle fill="#dfe3e7" layoutX="155.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="235.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="585.0" layoutY="172.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
