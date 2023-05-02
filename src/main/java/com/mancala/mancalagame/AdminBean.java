@@ -16,15 +16,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-
 /**
- *
+ * @author Harendra Sharma
+ * @version 1.0
+ * This Bean class is for admin related activity with database updates.
  */
 public class AdminBean {
-
     static AdminQuery adminQuery = new AdminQuery();
     static UsersQuery queryUtils = new UsersQuery();
     static DBConnection dbConnection = new DBConnection();
@@ -61,6 +60,11 @@ public class AdminBean {
         stage.setScene(new Scene(root, 600, 400));
         stage.show();
     }
+    /**
+     * loginAdmin method is made for admi log in
+     * @param username admin username
+     * @param password admin password
+     * */
     public static void logInAdmin(ActionEvent event, String username, String password) {
         Connection connection = null;
         ResultSet resultSet = null;
@@ -107,6 +111,10 @@ public class AdminBean {
         }
     }
 
+    /**
+     * newUsers method for getting in-active users who signed-up
+     * @return arraylist of users
+     * */
     public static List<List<String>> newUsers(){
         List<List<String>> listOfLists = new ArrayList<List<String>>();
         Connection connection = null;
@@ -134,6 +142,13 @@ public class AdminBean {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();
@@ -144,6 +159,10 @@ public class AdminBean {
         }
     }
 
+    /**
+     * updateUsers mehtod is for activate the users
+     * @param userId  this user int type userid
+     * */
     public static void updateUsers(int userId){
         Connection connection = null;
         final String ACTIVE_NEW_USER = adminQuery.updateUser();
@@ -155,6 +174,83 @@ public class AdminBean {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public static ArrayList<Integer> getAllSpecialStones(){
+        ArrayList<Integer> allStones = new ArrayList<>();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        final String GET_ALL_STONES = adminQuery.getGetAllSpecialCaseQuery();
+        try {
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_STONES);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.isBeforeFirst()){
+                while (resultSet.next()){
+                    allStones.add(resultSet.getInt("doublePoint"));
+                    allStones.add(resultSet.getInt("continueTurn"));
+                    allStones.add(resultSet.getInt("reverseTurn"));
+                    allStones.add(resultSet.getInt("switchSide"));
+                    allStones.add(resultSet.getInt("halfHand"));
+                }
+            }
+            return allStones;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public static List<List<String>> getFrequentUsers(){
+        List<List<String>> listOfLists = new ArrayList<List<String>>();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        final String QUERY = adminQuery.getFrequentUsersQuery();
+        try {
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement preparedStatement = connection.prepareStatement(QUERY);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.isBeforeFirst()){
+                while (resultSet.next()){
+                    ArrayList<String> users = new ArrayList<String>();
+                    users.add(resultSet.getString("username"));
+                    int count = resultSet.getInt("loginCount");
+                    users.add(String.valueOf(resultSet.getDate("lastLogin")));
+                    users.add(""+count+"");
+                    listOfLists.add(users);
+                }
+            }
+            return listOfLists;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             if (connection != null) {
                 try {
                     connection.close();

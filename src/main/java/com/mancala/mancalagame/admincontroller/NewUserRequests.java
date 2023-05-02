@@ -10,8 +10,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
-
 import javafx.scene.input.MouseEvent;
 import java.net.URL;
 import java.util.List;
@@ -35,7 +33,6 @@ public class NewUserRequests implements Initializable {
     public void setNewUser(List<List<String>> resultSet){
         for (int i= 0; i < resultSet.size(); i++){
             List<String> users = resultSet.get(i);
-            System.out.println();
             ColumnConstraints column1 = new ColumnConstraints(10, 20,387.0);
             ColumnConstraints column2 = new ColumnConstraints(267.0, 20,169.40000000000003);
             newUsers.getColumnConstraints().addAll(column1, column2);
