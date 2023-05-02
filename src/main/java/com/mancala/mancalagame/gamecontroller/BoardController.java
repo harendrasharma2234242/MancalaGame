@@ -1,6 +1,10 @@
 package com.mancala.mancalagame.gamecontroller;
 
 import com.mancala.mancalagame.MancalaGameBean;
+import com.mancala.mancalagame.OpponentAndGameModeBean;
+import com.mancala.mancalagame.UsersBean;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -55,6 +59,8 @@ public class BoardController {
     protected Label currentPlayer;
     @FXML
     protected Label notification;
+    @FXML
+    protected Button back;
 
     @FXML
     protected ArrayList<String> holeLabels = new ArrayList<>();
@@ -108,6 +114,19 @@ public class BoardController {
     protected Label instructions;
 
     protected boolean cpuSecondTurn = false;
+
+    /**
+     * Exit the game.
+     */
+    @FXML
+    protected void back() {
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", null, null, null);
+            }
+        });
+    }
     /**
      * Initialise the game board with stones in holes and buttons enable/disabled.
      */
