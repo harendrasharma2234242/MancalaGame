@@ -5,6 +5,7 @@ import com.mancala.mancalagame.gamecontroller.BoardControllerArcade;
 import com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode;
 import com.mancala.mancalagame.query.UsersQuery;
 import com.mancala.mancalagame.utility.DBConnection;
+import com.mancala.mancalagame.utility.Utility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -14,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 
 /**This is user bean class for opponent user log in
@@ -81,6 +83,14 @@ public class OpponentLogInBean {
                         alert.setContentText("Player is not activated yet!");
                         alert.show();
                     } else if (resultSet.getString("password").equals(password)) {
+                        Utility utility = new Utility();
+                        String sessionId = utility.getRandomKey().toString();
+                        InputStream profileImage = resultSet.getBinaryStream("profileImage");
+                        final String SET_SESSION = queryUtils.getSaveSession();
+                        preparedStatement = connection.prepareStatement(SET_SESSION);
+                        preparedStatement.setString(1, sessionId);
+                        preparedStatement.setString(2, username);
+                        preparedStatement.executeUpdate();
                         if (gameMode.equals("arcade")){
                             changeScene(event,"BoardArcade.fxml", "Game Mode", player1, username, gameMode, loginSession);
                         } else {
