@@ -11,10 +11,10 @@
                 <Font name="Comic Sans MS" size="25.0" />
             </font>
         </Label>
-        <GridPane layoutX="31.0" layoutY="63.0" prefHeight="34.0" prefWidth="532.0" style="-fx-background-color: #916527;">
+        <GridPane layoutX="30.0" layoutY="63.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="532.0" style="-fx-background-color: #916527;">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="407.0" minWidth="10.0" prefWidth="362.2" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="251.0" minWidth="10.0" prefWidth="170.59999999999997" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="407.0" minWidth="10.0" prefWidth="301.4" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="308.19999999999993" minWidth="10.0" prefWidth="230.60000000000002" />
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
