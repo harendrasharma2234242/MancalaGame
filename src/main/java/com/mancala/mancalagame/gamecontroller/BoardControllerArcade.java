@@ -404,7 +404,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole0Click() {
+    private void onHole0ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 0;
         if (checkEmpty(holeNumber)) {
@@ -419,7 +419,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole1Click() {
+    private void onHole1ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 1;
         if (checkEmpty(holeNumber)) {
@@ -434,7 +434,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole2Click() {
+    private void onHole2ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 2;
         if (checkEmpty(holeNumber)) {
@@ -449,7 +449,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole3Click() {
+    private void onHole3ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 3;
         if (checkEmpty(holeNumber)) {
@@ -464,7 +464,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole4Click() {
+    private void onHole4ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 4;
         if (checkEmpty(holeNumber)) {
@@ -479,7 +479,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole5Click() {
+    private void onHole5ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 5;
         if (checkEmpty(holeNumber)) {
@@ -494,7 +494,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole6Click() {
+    private void onHole6ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 6;
         if (checkEmpty(holeNumber)) {
@@ -509,7 +509,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole7Click() {
+    private void onHole7ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 7;
         if (checkEmpty(holeNumber)) {
@@ -524,7 +524,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole8Click() {
+    private void onHole8ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 8;
         if (checkEmpty(holeNumber)) {
@@ -539,7 +539,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole9Click() {
+    private void onHole9ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 9;
         if (checkEmpty(holeNumber)) {
@@ -554,7 +554,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole10Click() {
+    private void onHole10ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 10;
         if (checkEmpty(holeNumber)) {
@@ -569,7 +569,7 @@ public class BoardControllerArcade extends BoardController {
      * generation.
      */
     @FXML
-    private void onHole11Click() {
+    private void onHole11ClickArcade() {
         int stone = generateSpecialStones();
         holeNumber = 11;
         if (checkEmpty(holeNumber)) {

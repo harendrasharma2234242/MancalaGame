@@ -2,16 +2,17 @@ package com.mancala.mancalagame.gamecontroller;
 
 import com.mancala.mancalagame.MancalaGameBean;
 import com.mancala.mancalagame.OpponentAndGameModeBean;
-import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * The controller class for the traditional game.
@@ -103,7 +104,6 @@ public class BoardController {
     protected String opponentPlayer;
     protected String gameSessionId;
     MancalaGameBean mancalaGameBean = new MancalaGameBean();
-    private int stoneCount;
     private ArrayList<Integer> playedHolesP1 = new ArrayList<>();
     private ArrayList<Integer> playedHolesP2 = new ArrayList<>();
     @FXML
@@ -114,6 +114,10 @@ public class BoardController {
     protected Label instructions;
 
     protected boolean cpuSecondTurn = false;
+    @FXML
+    protected Label winnerLabel;
+    @FXML
+    protected Rectangle winnerBackground;
 
     /**
      * Exit the game.
@@ -133,6 +137,7 @@ public class BoardController {
     @FXML
     protected void setBoard() {
         mancalaGameBean.updateGameStatus("Inprogress", gameSessionId);
+        int stoneCount;
         try {
             stoneCount = Integer.parseInt(stoneCountEntry.getText());
         } catch (Exception e) {
@@ -239,13 +244,15 @@ public class BoardController {
      * @return the hole the computer chose to play.
      */
     protected int computerChoice() {
-        int min = 6;
-        int max = 11;
-        int computerChoice = (int) ((Math.random() * (max - min)) + min);
-        while (!checkEmpty(computerChoice)) {
-            computerChoice = (int) ((Math.random() * (max - min)) + min);
+        ArrayList<Integer> notEmpty = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            if (checkEmpty(i+6)) {
+                notEmpty.add(i+6);
+            }
         }
-        return computerChoice;
+        Random random = new Random();
+        int option = random.nextInt(notEmpty.size());
+        return notEmpty.get(option);
     }
 
     /**
@@ -446,6 +453,11 @@ public class BoardController {
         button9.setDisable(true);
         button10.setDisable(true);
         button11.setDisable(true);
+        winnerLabel.setVisible(true);
+        winnerLabel.setText(winner + " won!");
+        winnerBackground.setVisible(true);
+        back.setLayoutX(305);
+        back.setLayoutY(88);
         return winner;
     }
 

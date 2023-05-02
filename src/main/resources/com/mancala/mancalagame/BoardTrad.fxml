@@ -6,11 +6,16 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mancala.mancalagame.gamecontroller.BoardController">
+<AnchorPane prefHeight="300.0" prefWidth="500.0" style="-fx-background-color: black;"
+            xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.mancala.mancalagame.gamecontroller.BoardController">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#939453" height="200.0" layoutX="108.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" width="526.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfe3e7" height="200.0" layoutX="50.0" layoutY="138.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfe3e7" height="200.0" layoutX="634.0" layoutY="137.0" stroke="BLACK" strokeType="INSIDE" width="58.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#939453" height="200.0" layoutX="108.0" layoutY="137.0"
+                   stroke="BLACK" strokeType="INSIDE" width="526.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfe3e7" height="200.0" layoutX="50.0" layoutY="138.0"
+                   stroke="BLACK" strokeType="INSIDE" width="58.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dfe3e7" height="200.0" layoutX="634.0" layoutY="137.0"
+                   stroke="BLACK" strokeType="INSIDE" width="58.0" />
         <Label layoutX="305.0" layoutY="42.0" text="Current player: " textFill="#f8f8f8">
             <font>
                 <Font name="Arial Rounded MT Bold" size="18.0" />
@@ -104,77 +109,100 @@
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font></Label>
-        <Label fx:id="instructions" layoutX="16.0" layoutY="14.0" text="Enter initial stone count then press start" textFill="WHITE" wrapText="true" />
+        <Label fx:id="instructions" layoutX="16.0" layoutY="14.0" text="Enter initial stone count then press start"
+               textFill="WHITE" wrapText="true" />
         <TextField fx:id="stoneCountEntry" layoutX="21.0" layoutY="41.0" promptText="Stone count">
             <font>
                 <Font name="Arial Rounded MT Bold" size="14.0" />
             </font>
         </TextField>
-        <Button fx:id="start" layoutX="231.0" layoutY="42.0" onAction="#setBoard" style="-fx-background-color: #6595D9;" text="Start" textFill="#f4f4f4">
+        <Button fx:id="start" layoutX="231.0" layoutY="42.0" onAction="#setBoard"
+                style="-fx-background-color: #6595D9;" text="Start" textFill="#f4f4f4">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font></Button>
-        <Button fx:id="button11" disable="true" layoutX="121.0" layoutY="92.0" onAction="#onHole11Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 11" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button11" disable="true" layoutX="121.0" layoutY="92.0" onAction="#onHole11Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 11" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button10" disable="true" layoutX="201.0" layoutY="92.0" onAction="#onHole10Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 10" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button10" disable="true" layoutX="201.0" layoutY="92.0" onAction="#onHole10Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 10" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button9" disable="true" layoutX="289.0" layoutY="92.0" onAction="#onHole9Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 9" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button9" disable="true" layoutX="289.0" layoutY="92.0" onAction="#onHole9Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 9" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button8" disable="true" layoutX="380.0" layoutY="92.0" onAction="#onHole8Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 8" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button8" disable="true" layoutX="380.0" layoutY="92.0" onAction="#onHole8Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 8" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button7" disable="true" layoutX="469.0" layoutY="92.0" onAction="#onHole7Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 7" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button7" disable="true" layoutX="469.0" layoutY="92.0" onAction="#onHole7Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 7" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button6" disable="true" layoutX="551.0" layoutY="92.0" onAction="#onHole6Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 6" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button6" disable="true" layoutX="551.0" layoutY="92.0" onAction="#onHole6Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 6" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button0" disable="true" layoutX="121.0" layoutY="338.0" onAction="#onHole0Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button0" disable="true" layoutX="121.0" layoutY="338.0" onAction="#onHole0Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button1" disable="true" layoutX="201.0" layoutY="338.0" onAction="#onHole1Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 1" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button1" disable="true" layoutX="201.0" layoutY="338.0" onAction="#onHole1Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 1" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button2" disable="true" layoutX="289.0" layoutY="338.0" onAction="#onHole2Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 2" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button2" disable="true" layoutX="289.0" layoutY="338.0" onAction="#onHole2Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 2" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button3" disable="true" layoutX="380.0" layoutY="338.0" onAction="#onHole3Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 3" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button3" disable="true" layoutX="380.0" layoutY="338.0" onAction="#onHole3Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 3" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button4" disable="true" layoutX="469.0" layoutY="338.0" onAction="#onHole4Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 4" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button4" disable="true" layoutX="469.0" layoutY="338.0" onAction="#onHole4Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 4" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="button5" disable="true" layoutX="551.0" layoutY="338.0" onAction="#onHole5Click" prefHeight="42.0" prefWidth="67.0" text="Play hole 5" GridPane.columnIndex="1" GridPane.rowIndex="3">
+        <Button fx:id="button5" disable="true" layoutX="551.0" layoutY="338.0" onAction="#onHole5Click"
+                prefHeight="42.0" prefWidth="67.0" text="Play hole 5" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <font>
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="back" layoutX="620.0" layoutY="10.0" onAction="#back" prefHeight="20.0" prefWidth="50.0" text="Back">
+
+        <Rectangle fx:id="winnerBackground" arcHeight="5.0" arcWidth="5.0" fill="ffe3a7" height="460.0"
+                   stroke="BLACK" strokeType="INSIDE" visible="false" width="702.0" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Label fx:id="winnerLabel" layoutX="279.0" layoutY="200.0" text="player won" visible="false">
+         <font>
+            <Font size="30.0" />
+         </font></Label>
+        <Button fx:id="back" layoutX="620.0" layoutY="10.0" onAction="#back" prefHeight="20.0" prefWidth="50.0"
+                text="Back">
             <font>
                 <Font size="10.0" />
             </font>
