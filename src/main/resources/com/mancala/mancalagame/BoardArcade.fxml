@@ -47,7 +47,7 @@
         <Circle fill="#dfe3e7" layoutX="414.0" layoutY="294.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="323.0" layoutY="294.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
         <Circle fill="#dfe3e7" layoutX="235.0" layoutY="294.0" radius="29.0" stroke="BLACK" strokeType="INSIDE" />
-        <Label fx:id="specialStone" layoutX="346.0" layoutY="221.0" text="half hand" textFill="WHITE" />
+        <Label fx:id="specialStone" layoutX="285.0" layoutY="220.0" textFill="WHITE" />
         <Label fx:id="cpuPowerUp" layoutX="135.0" layoutY="33.0" prefHeight="42.0" prefWidth="91.0" textFill="WHITE" wrapText="true" />
         <Label fx:id="holeLabel11" layoutX="151.0" layoutY="163.0">
             <font>
@@ -111,7 +111,7 @@
                 <Font name="Arial Rounded MT Bold" size="14.0" />
             </font>
         </TextField>
-        <Button fx:id="start" layoutX="231.0" layoutY="42.0" onAction="#setBoard" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Start" textFill="#fcfafa">
+        <Button fx:id="start" layoutX="231.0" layoutY="42.0" onAction="#setBoardArcade" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Start" textFill="#fcfafa">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font></Button>
@@ -175,11 +175,11 @@
                 <Font size="10.0" />
             </font>
         </Button>
-        <Button fx:id="doublePoints" layoutX="581.0" layoutY="19.0" mnemonicParsing="false" onAction="#onDoublePointsClick" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Double points" textFill="#f4f2f2" wrapText="true">
+        <Button fx:id="doublePoints" layoutX="581.0" layoutY="19.0" mnemonicParsing="false" onAction="#onDoublePointsClick" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Double points" textFill="#f4f2f2" wrapText="true" disable="true">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font></Button>
-        <Button fx:id="continueTurn" layoutX="579.0" layoutY="57.0" mnemonicParsing="false" onAction="#onContinueTurnClick" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Continue turn" textFill="#f6f1f1" wrapText="true">
+        <Button fx:id="continueTurn" layoutX="579.0" layoutY="57.0" mnemonicParsing="false" onAction="#onContinueTurnClick" prefHeight="26.0" prefWidth="96.0" style="-fx-background-color: #6595D9; -fx-cursor: hand;" text="Continue turn" textFill="#f6f1f1" wrapText="true" disable="true">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font></Button>

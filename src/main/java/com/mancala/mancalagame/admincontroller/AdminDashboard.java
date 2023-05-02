@@ -10,6 +10,12 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.util.List;
 import java.util.ResourceBundle;
+
+/**
+ * The Hello Application class for Start the project.
+ * @author Harendra Sharma
+ * @version 1.0
+ */
 public class AdminDashboard implements Initializable {
     @FXML
     private Button new_users;
@@ -23,6 +29,7 @@ public class AdminDashboard implements Initializable {
     @FXML
     private Button back;
     private String userName;
+
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
         new_users.setOnAction(new EventHandler<ActionEvent>() {

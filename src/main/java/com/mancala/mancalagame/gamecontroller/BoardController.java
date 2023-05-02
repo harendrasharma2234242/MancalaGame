@@ -109,10 +109,10 @@ public class BoardController {
 
     protected boolean cpuSecondTurn = false;
     /**
-     * Initialise the game board with 4 stones per hole and buttons set.
+     * Initialise the game board with stones in holes and buttons enable/disabled.
      */
     @FXML
-    private void setBoard() {
+    protected void setBoard() {
         mancalaGameBean.updateGameStatus("Inprogress", gameSessionId);
         try {
             stoneCount = Integer.parseInt(stoneCountEntry.getText());
@@ -134,7 +134,6 @@ public class BoardController {
         button10.setDisable(true);
         button11.setDisable(true);
         for (int i = 0; i < 12; i++) {
-            System.out.println(stoneCount);
             holes.add(new Hole(stoneCount));
             holeLabels.add(String.valueOf(stoneCount));
         }
@@ -158,8 +157,10 @@ public class BoardController {
         holeLabel9.setText(Integer.toString(stoneCount));
         holeLabel10.setText(Integer.toString(stoneCount));
         holeLabel11.setText(Integer.toString(stoneCount));
-    }
 
+        stoneCountEntry.setVisible(false);
+        instructions.setVisible(false);
+    }
 
     /**
      * Set the current player.
@@ -198,6 +199,10 @@ public class BoardController {
         computerTurn(opponentPlayer);
     }
 
+    /**
+     * Starts a computer's turn if the current player is CPU.
+     * @param opponentPlayer the second player in the current game.
+     */
     private void computerTurn(String opponentPlayer) {
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
             int computerChoice = computerChoice();
@@ -210,6 +215,10 @@ public class BoardController {
         cpuSecondTurn = false;
     }
 
+    /**
+     * Computer's choice of hole to play.
+     * @return the hole the computer chose to play.
+     */
     protected int computerChoice() {
         int min = 6;
         int max = 11;
@@ -360,6 +369,8 @@ public class BoardController {
 
     /**
      * Check whether the game has ended.
+     * @param mainPlayer player 1 for the game
+     * @param opponentPlayer player 2 for the game
      */
     protected void gameEnd(String mainPlayer, String opponentPlayer) {
         if (totalContents(holesPlayer1) == 0) {
@@ -385,9 +396,10 @@ public class BoardController {
 
     /**
      * Return which player won the game if the game ended.
+     * @param mainPlayer player 1 for the game
+     * @param opponentPlayer player 2 for the game
      * @return Which player won
      */
-
     private String getWinner(String mainPlayer, String opponentPlayer) {
         int score1 = mancalas.get(0).getCount();
         int score2 = mancalas.get(1).getCount();
@@ -417,6 +429,7 @@ public class BoardController {
         button11.setDisable(true);
         return winner;
     }
+
     /**
      * Return the number of stones in a list of holes. Used to check if a player's side of the board is empty.
      * @param holes ArrayList of holes to check the contents of.
@@ -595,14 +608,18 @@ public class BoardController {
         }
     }
 
+    /**
+     * Initialises the game session and sets the strings of each player name
+     * @param player1 main player's username
+     * @param player2 opponent's username
+     * @param loginSession ID for the login session of player1
+     */
     public void setPlayer(String player1, String player2, String loginSession){
         this.player1 = player1;
         this.opponentPlayer = player2;
         this.currentPlayer.setText(player1);
         this.gameSessionId = loginSession;
         mancalaGameBean.initiateGame(player1, player2, "Traditional", loginSession);
-//        STONE_COUNT = count;
-//        System.out.println("count: " + count);
     }
 
 }

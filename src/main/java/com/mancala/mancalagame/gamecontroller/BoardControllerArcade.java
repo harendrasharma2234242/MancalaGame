@@ -123,6 +123,7 @@ public class BoardControllerArcade extends BoardController {
 
     /**
      * Generate special stones based on random chance.
+     * @return an ID for the stone generated, or -1 if none
      */
     @FXML
     private int generateSpecialStones() {
@@ -137,7 +138,7 @@ public class BoardControllerArcade extends BoardController {
             option = random.nextInt(3);
             String stone = specialStones[option];
             mancalaGameBean.updateSpecialCases(stone, gameSessionId);
-            specialStone.setText(stone);
+            specialStone.setText(currentPlayer.getText() + " picked up a " + stone + " stone!");
             if (option == 1) {
                 normalSide = false;
             } else if (option == 2) {
@@ -149,6 +150,16 @@ public class BoardControllerArcade extends BoardController {
             specialStone.setText("");
         }
         return option;
+    }
+
+    /**
+     * Set the board ready to be played. Extends traditional version. Enables/disables buttons and fills holes.
+     */
+    @FXML
+    private void setBoardArcade() {
+        setBoard();
+        continueTurn.setDisable(false);
+        doublePoints.setDisable(false);
     }
 
     /**
@@ -347,6 +358,11 @@ public class BoardControllerArcade extends BoardController {
         computerTurn(opponentPlayer);
     }
 
+    /**
+     * Starts a computer's turn if the current player is CPU. Allows CPU to use power ups via computerPowerUp().
+     * @param opponentPlayer the second player in the current game.
+     */
+
     private void computerTurn(String opponentPlayer) {
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
             int computerChoice = computerChoice();
@@ -362,6 +378,9 @@ public class BoardControllerArcade extends BoardController {
         cpuSecondTurn = false;
     }
 
+    /**
+     * Allows the computer to use continue turn and double points power ups. 20% chance of using either.
+     */
     private void computerPowerUp() {
         double chance = Math.random();
         if (chance <= 0.2) {
@@ -559,12 +578,18 @@ public class BoardControllerArcade extends BoardController {
             notification.setText("Choose a non-empty hole");
         }
     }
+
+    /**
+     * Initialises the game session and sets the strings of each player name
+     * @param player1 main player's username
+     * @param player2 opponent's username
+     * @param loginSession ID for the login session of player1
+     */
     public void setPlayer(String player1, String player2, String loginSession){
         this.player1 = player1;
         this.opponentPlayer = player2;
         this.currentPlayer.setText(player1);
         this.gameSessionId = loginSession;
         mancalaGameBean.initiateGame(player1, player2, "Arcade", loginSession);
-//        stoneCount = count;
     }
 }
