@@ -344,5 +344,61 @@ public class UsersBean {
         }
         return favourites;
     }
+
+    public static ArrayList<ArrayList<String>> orderByPercentage() {
+        ArrayList<String> allUsers = getAllUsers();
+        ArrayList<String> orderedByPercentage = allUsers;
+        ArrayList<String> percents = new ArrayList<>();
+
+        for (String user : allUsers) {
+            ArrayList<String> userData = UsersBean.getUserProfile(user);
+            percents.add(userData.get(5));
+        }
+
+        for (int i = 0; i < percents.size(); i++) {
+            for (int j = 0; j < percents.size(); j++) {
+                if (Float.parseFloat(percents.get(i))  > Float.parseFloat(percents.get(j))) {
+                    String tmp = percents.get(i);
+                    percents.set(i,percents.get(j)) ;
+                    percents.set(j,tmp);
+                    String tmpUser = allUsers.get(i);
+                    orderedByPercentage.set(i, allUsers.get(j));
+                    orderedByPercentage.set(j, tmpUser);
+                }
+            }
+        }
+        ArrayList<ArrayList<String>> listOfLists = new ArrayList<>();
+        listOfLists.add(orderedByPercentage);
+        listOfLists.add(percents);
+        return listOfLists;
+    }
+
+    public static ArrayList<ArrayList<String>> orderByWins() {
+        ArrayList<String> allUsers = getAllUsers();
+        ArrayList<String> orderedByTotalWins = allUsers;
+        ArrayList<String> wins = new ArrayList<>();
+
+        for (String user : allUsers) {
+            ArrayList<String> userData = UsersBean.getUserProfile(user);
+            wins.add(userData.get(3));
+        }
+
+        for (int i = 0; i < wins.size(); i++) {
+            for (int j = 0; j < wins.size(); j++) {
+                if (Float.parseFloat(wins.get(i))  > Float.parseFloat(wins.get(j))) {
+                    String tmp = wins.get(i);
+                    wins.set(i,wins.get(j)) ;
+                    wins.set(j,tmp);
+                    String tmpUser = allUsers.get(i);
+                    orderedByTotalWins.set(i, allUsers.get(j));
+                    orderedByTotalWins.set(j, tmpUser);
+                }
+            }
+        }
+        ArrayList<ArrayList<String>> listOfLists = new ArrayList<>();
+        listOfLists.add(orderedByTotalWins);
+        listOfLists.add(wins);
+        return listOfLists;
+    }
 }
 

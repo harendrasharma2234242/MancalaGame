@@ -30,6 +30,8 @@ public class PlayerProfileController implements Initializable{
     @FXML
     private Label totalLoss;
     @FXML
+    private Label position;
+    @FXML
     private Label winPercentage;
     @FXML
     private Button favePlayers;

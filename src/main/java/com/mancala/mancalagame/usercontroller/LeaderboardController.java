@@ -61,31 +61,10 @@ public class LeaderboardController implements Initializable {
 
         // Clear existing rows from the leaderboard grid pane
         leaderboardGridPane.getChildren().removeAll(leaderboardGridPane.getChildren());
-        ArrayList<String> allUsers = UsersBean.getAllUsers();
-
-        int totalWins;
-
-        ArrayList<String> orderedByTotalWins = allUsers;
-        ArrayList<Integer> wins = new ArrayList<>();
-
-        for (String user : allUsers) {
-            ArrayList<String> userData = UsersBean.getUserProfile(user);
-            wins.add(Integer.parseInt(userData.get(3)));
-        }
-
-
-        for (int i = 0; i < wins.size(); i++) {
-            for (int j = 0; j < wins.size(); j++) {
-                if (wins.get(i) > wins.get(j)) {
-                    int tmp = wins.get(i);
-                    wins.set(i,wins.get(j)) ;
-                    wins.set(j,tmp);
-                    String tmpUser = allUsers.get(i);
-                    orderedByTotalWins.set(i, allUsers.get(j));
-                    orderedByTotalWins.set(j, tmpUser);
-                }
-            }
-        }
+        float totalWins;
+        ArrayList<ArrayList<String>> listOfLists = UsersBean.orderByWins();
+        ArrayList<String> orderedByTotalWins = listOfLists.get(0);
+        ArrayList<String> wins = listOfLists.get(1);
 
         leaderboardGridPane.add(new Label("Profile image"), 0, 0);
         leaderboardGridPane.add(new Label("Username"), 1, 0);
@@ -96,8 +75,7 @@ public class LeaderboardController implements Initializable {
             // Here you would retrieve the player data for the ith player in the leaderboard
             // and use it to populate the UI elements below
             String user = orderedByTotalWins.get(i);
-            ArrayList<String> userData = UsersBean.getUserProfile(user);
-            totalWins = wins.get(i);
+            totalWins = Float.parseFloat(wins.get(i));
 //            ImageView profileImage = new ImageView("src/main/resources/images/ProfileImage.jpeg");
             CheckBox favoriteCheckBox1 = new CheckBox();
 
@@ -134,30 +112,11 @@ public class LeaderboardController implements Initializable {
 
         // Clear existing rows from the leaderboard grid pane
         leaderboardGridPane.getChildren().removeAll(leaderboardGridPane.getChildren());
-        ArrayList<String> allUsers = UsersBean.getAllUsers();
+
         float winPercentage;
-
-        ArrayList<String> orderedByPercentage = allUsers;
-        ArrayList<Float> percents = new ArrayList<>();
-
-        for (String user : allUsers) {
-            ArrayList<String> userData = UsersBean.getUserProfile(user);
-            percents.add(Float.valueOf(userData.get(5)));
-        }
-
-        for (int i = 0; i < percents.size(); i++) {
-            for (int j = 0; j < percents.size(); j++) {
-                if (percents.get(i) > percents.get(j)) {
-                    float tmp = percents.get(i);
-                    percents.set(i,percents.get(j)) ;
-                    percents.set(j,tmp);
-                    String tmpUser = allUsers.get(i);
-                    orderedByPercentage.set(i, allUsers.get(j));
-                    orderedByPercentage.set(j, tmpUser);
-                }
-            }
-        }
-
+        ArrayList<ArrayList<String>> listOfLists = UsersBean.orderByPercentage();
+        ArrayList<String> orderedByPercentage = listOfLists.get(0);
+        ArrayList<String> percents = listOfLists.get(1);
 
         leaderboardGridPane.add(new Label("Profile image"), 0, 0);
         leaderboardGridPane.add(new Label("Username"), 1, 0);
@@ -168,8 +127,7 @@ public class LeaderboardController implements Initializable {
             // Here you would retrieve the player data for the ith player in the leaderboard
             // and use it to populate the UI elements below
             String user = orderedByPercentage.get(i);
-            ArrayList<String> userData = UsersBean.getUserProfile(user);
-            winPercentage = percents.get(i);
+            winPercentage = Float.parseFloat(percents.get(i));
 //            ImageView profileImage = new ImageView("src/main/resources/images/ProfileImage.jpeg");
             CheckBox favoriteCheckBox1 = new CheckBox();
 
@@ -177,7 +135,6 @@ public class LeaderboardController implements Initializable {
             Label profileImageLabel = new Label("Profile Image");
             Label playerNameLabel = new Label(user);
             Label winPercentageLabel = new Label(String.valueOf(winPercentage));
-
 
             leaderboardGridPane.add(profileImageLabel, 0, i+1);
             leaderboardGridPane.add(playerNameLabel, 1, i+1);
