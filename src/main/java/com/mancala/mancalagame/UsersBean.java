@@ -38,9 +38,9 @@ public class UsersBean {
                     OpponentAndGameMode loggedInController = loader.getController();
                     loggedInController.saveUser1(username, sessionId, profileImage);
                 } else if (fxmlFile.equals("PlayerProfile.fxml")) {
+                    PlayerProfileController.userName(username);
                     FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                     root = loader.load();
-                    PlayerProfileController.userName(username);
                 } else if (fxmlFile.equals("Leaderboard.fxml")) {
                     FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                     root = loader.load();

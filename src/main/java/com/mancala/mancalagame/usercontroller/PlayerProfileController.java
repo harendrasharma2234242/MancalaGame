@@ -2,6 +2,7 @@ package com.mancala.mancalagame.usercontroller;
 
 import com.mancala.mancalagame.AdminBean;
 import com.mancala.mancalagame.OpponentAndGameModeBean;
+import com.mancala.mancalagame.OpponentLogInBean;
 import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -37,6 +38,7 @@ public class PlayerProfileController implements Initializable{
     private static String name;
 
     public void updateProfileData(String username){
+        System.out.println(username);
         ArrayList<String> userData = UsersBean.getUserProfile(username);
         playerUserName.setText(userData.get(0));
         lastLogin.setText(userData.get(1));
@@ -49,6 +51,7 @@ public class PlayerProfileController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        updateProfileData(name);
         favePlayers.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
