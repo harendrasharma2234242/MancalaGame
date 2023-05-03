@@ -1,7 +1,8 @@
-package com.mancala.mancalagame.opponentcontroller;
+package com.mancala.mancalagame.usercontroller;
 
 import com.mancala.mancalagame.OpponentAndGameModeBean;
 import com.mancala.mancalagame.OpponentLogInBean;
+import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -46,6 +47,8 @@ public class OpponentAndGameMode implements Initializable {
     private Label loginSession;
     @FXML
     private ImageView userProfileImage;
+    @FXML
+    private Button myProfile;
 
     @FXML
     private void handleGameModeSelection(ActionEvent event) {
@@ -149,6 +152,13 @@ public class OpponentAndGameMode implements Initializable {
                 } else {
                     OpponentLogInBean.changeScene(event,"BoardTrad.fxml", "Game Mode", player1, "CPU", gameMode, loginSession.getText());
                 }
+            }
+        });
+        myProfile.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                String userName = user1.getText();
+                UsersBean.changeScene(event, "PlayerProfile.fxml", "Choose", userName, "", null, null);
             }
         });
     }

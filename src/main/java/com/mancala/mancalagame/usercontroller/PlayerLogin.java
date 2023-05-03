@@ -42,13 +42,13 @@ public class PlayerLogin implements Initializable {
         btnSignup.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Sign-up.fxml", "Sign up", null, null, null);
+                UsersBean.changeScene(event, "Sign-up.fxml", "Sign up", null, null, null, null);
             }
         });
         btnBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Home.fxml", "Sign up", null, null, null);
+                UsersBean.changeScene(event, "Home.fxml", "Choose", null, null, null, null);
             }
         });
     }

@@ -22,13 +22,13 @@ public class Home implements Initializable {
         btn_player.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Player Log in", null, null, null);
+                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Player Log in", null, null, null, null);
             }
         });
         btn_admin.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "AdminLogin.fxml", "Admin log in", null, null, null);
+                UsersBean.changeScene(event, "AdminLogin.fxml", "Admin log in", null, null, null, null);
             }
         });
     }

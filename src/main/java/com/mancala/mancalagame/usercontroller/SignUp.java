@@ -69,7 +69,7 @@ public class SignUp implements Initializable {
         btnLoggedIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Log in", null, null, null);
+                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Log in", null, null, null, null);
             }
         });
         fileChooser = new FileChooser();

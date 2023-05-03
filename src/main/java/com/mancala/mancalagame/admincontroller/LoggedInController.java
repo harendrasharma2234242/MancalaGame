@@ -22,7 +22,7 @@ public class LoggedInController implements Initializable {
         button_logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event,"Home.fxml", "log in", null, null,null);
+                UsersBean.changeScene(event,"Home.fxml", "log in", null, null,null, null);
             }
         });
     }

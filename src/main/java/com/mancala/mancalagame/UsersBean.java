@@ -1,7 +1,8 @@
 package com.mancala.mancalagame;
 
-import com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode;
+import com.mancala.mancalagame.usercontroller.OpponentAndGameMode;
 import com.mancala.mancalagame.query.UsersQuery;
+import com.mancala.mancalagame.usercontroller.PlayerProfileController;
 import com.mancala.mancalagame.utility.DBConnection;
 import com.mancala.mancalagame.utility.Utility;
 import javafx.event.ActionEvent;
@@ -12,10 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,15 +28,18 @@ public class UsersBean {
     private static final String DBNAME = dbConnection.getDBNAME();
     private static final String PASS = dbConnection.getPASS();
 
-    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String sessionId, InputStream profileImage) {
+    public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String sessionId, InputStream profileImage, ArrayList<String> userProfileData) {
         Parent root = null;
         if (username != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                 root = loader.load();
-                if (!fxmlFile.equals("PlayerLogin.fxml")){
+                if (fxmlFile.equals("OpponentAndGameMode.fxml")){
                     OpponentAndGameMode loggedInController = loader.getController();
                     loggedInController.saveUser1(username, sessionId, profileImage);
+                } else if (fxmlFile.equals("PlayerProfile.fxml")) {
+                    PlayerProfileController playerProfileController = new PlayerProfileController();
+                    playerProfileController.updateProfileData(username);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -79,7 +83,7 @@ public class UsersBean {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setContentText("User has been registered. /nWait for admin confirmation for activation account.");
                 alert.show();
-                changeScene(event, "PlayerLogin.fxml", "Sign in", username, "", null);
+                changeScene(event, "PlayerLogin.fxml", "Sign in", username, "", null, null);
             }
 
         } catch (SQLException e) {
@@ -132,7 +136,7 @@ public class UsersBean {
                         preparedStatement.setString(1, sessionId);
                         preparedStatement.setString(2, username);
                         preparedStatement.executeUpdate();
-                        changeScene(event, "OpponentAndGameMode.fxml", "Choose", username, sessionId, profileImage);
+                        changeScene(event, "OpponentAndGameMode.fxml", "Choose", username, sessionId, profileImage, null);
                     } else {
                         System.out.println("Password did not match");
                         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -159,6 +163,51 @@ public class UsersBean {
                 }
             }
         }
+    }
+
+    public static ArrayList<String> getUserProfile(String username){
+        ArrayList<String> userProfileData = new ArrayList<>();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        final String PROFILE_QUERY = queryUtils.getUserProfileInfo();
+        try {
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement userProfileStatement = connection.prepareStatement(PROFILE_QUERY);
+            userProfileStatement.setString(1, username);
+            userProfileStatement.setString(2, username);
+            userProfileStatement.setString(3, username);
+            resultSet = userProfileStatement.executeQuery();
+            while (resultSet.next()){
+                userProfileData.add(resultSet.getString("username"));
+                userProfileData.add(String.valueOf(resultSet.getDate("lastLogin")));
+                userProfileData.add(String.valueOf(resultSet.getInt("totalGame")));
+                userProfileData.add(String.valueOf(resultSet.getInt("totalWin")));
+                int loss = resultSet.getInt("totalGame")-resultSet.getInt("totalWin");
+                userProfileData.add(String.valueOf(loss));
+                float totalWin = resultSet.getInt("totalWin");
+                float totalGame = resultSet.getInt("totalGame");
+                float winPercentage = (totalWin/totalGame)*100;
+                userProfileData.add(String.valueOf(winPercentage));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return userProfileData;
     }
 }
 

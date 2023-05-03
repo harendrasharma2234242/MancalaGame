@@ -18,7 +18,7 @@ public class UserHomeScreen {
         logout.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "Home.fxml","Home", null, null, null);
+                UsersBean.changeScene(event, "Home.fxml","Home", null, null, null, null);
             }
         });
     }

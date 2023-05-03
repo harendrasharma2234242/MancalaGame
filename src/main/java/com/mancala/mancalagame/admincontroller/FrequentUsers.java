@@ -32,7 +32,7 @@ public class FrequentUsers  implements Initializable {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "adminDashboard.fxml","Admin Dashboard", null, null, null);
+                UsersBean.changeScene(event, "adminDashboard.fxml","Admin Dashboard", null, null, null, null);
             }
         });
     }

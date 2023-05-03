@@ -1,6 +1,5 @@
 package com.mancala.mancalagame;
 
-import com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode;
 import com.mancala.mancalagame.usercontroller.OpponentLogIn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
