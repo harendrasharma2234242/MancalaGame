@@ -20,9 +20,9 @@ public class OpponentAndGameModeBean {
                 OpponentLogIn opponentLogIn = loader.getController();
                 opponentLogIn.setData(player1, gameMode, loginSession);
             }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle(title);
         stage.setScene(new Scene(root, 600, 400));

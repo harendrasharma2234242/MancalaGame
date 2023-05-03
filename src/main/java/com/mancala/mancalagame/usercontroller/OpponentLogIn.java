@@ -21,7 +21,7 @@ public class OpponentLogIn implements Initializable {
     @FXML
     private TextField player1;
     @FXML
-    private  TextField game_mode;
+    private TextField game_mode;
     @FXML
     private TextField tf_username;
 
@@ -37,7 +37,7 @@ public class OpponentLogIn implements Initializable {
     private TextField login_session;
 /** setData method is used to set the player, gameMode, and login session information in OpponentLogin fxml page
   */
-    public void setData (String player, String gameMode, String loginSession){
+    public void setData(String player, String gameMode, String loginSession){
         player1.setText(player);
         game_mode.setText(gameMode);
         login_session.setText(loginSession);

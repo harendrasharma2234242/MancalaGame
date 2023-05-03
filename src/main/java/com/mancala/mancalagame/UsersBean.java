@@ -1,8 +1,7 @@
 package com.mancala.mancalagame;
 
-import com.mancala.mancalagame.usercontroller.OpponentAndGameMode;
+import com.mancala.mancalagame.usercontroller.*;
 import com.mancala.mancalagame.query.UsersQuery;
-import com.mancala.mancalagame.usercontroller.PlayerProfileController;
 import com.mancala.mancalagame.utility.DBConnection;
 import com.mancala.mancalagame.utility.Utility;
 import javafx.event.ActionEvent;
@@ -32,15 +31,24 @@ public class UsersBean {
         Parent root = null;
         if (username != null) {
             try {
-                FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
-                System.out.println(fxmlFile);
-                root = loader.load();
+
                 if (fxmlFile.equals("OpponentAndGameMode.fxml")){
+                    FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
+                    root = loader.load();
                     OpponentAndGameMode loggedInController = loader.getController();
                     loggedInController.saveUser1(username, sessionId, profileImage);
                 } else if (fxmlFile.equals("PlayerProfile.fxml")) {
-                    PlayerProfileController playerProfileController = new PlayerProfileController();
-                    playerProfileController.updateProfileData(username);
+                    PlayerProfileController.userName(username);
+                    FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
+                    root = loader.load();
+                } else if (fxmlFile.equals("Leaderboard.fxml")) {
+                    FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
+                    root = loader.load();
+                    LeaderboardController.userName(username, sessionId, profileImage);
+                } else if (fxmlFile.equals("FavouriteUsers.fxml")) {
+                    FavouriteUsersController.userName(username, sessionId, profileImage);
+                    FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
+                    root = loader.load();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -82,7 +90,7 @@ public class UsersBean {
                 psInsert.setBlob(4, profileImage);
                 psInsert.executeUpdate();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("User has been registered. /nWait for admin confirmation for activation account.");
+                alert.setContentText("User has been registered. \nWait for admin confirmation for activation account.");
                 alert.show();
                 changeScene(event, "PlayerLogin.fxml", "Sign in", username, "", null, null);
             }
@@ -188,7 +196,12 @@ public class UsersBean {
                 float totalWin = resultSet.getInt("totalWin");
                 float totalGame = resultSet.getInt("totalGame");
                 float winPercentage = (totalWin/totalGame)*100;
-                userProfileData.add(String.valueOf(winPercentage));
+                if (totalGame == 0) {
+                    userProfileData.add("0.0");
+                } else {
+                    userProfileData.add(String.valueOf(winPercentage));
+                }
+
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -209,6 +222,127 @@ public class UsersBean {
             }
         }
         return userProfileData;
+    }
+
+    public static ArrayList<String> getAllUsers(){
+        ArrayList<String> userProfileData = new ArrayList<>();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        final String PROFILE_QUERY = queryUtils.getAllUsers();
+        try {
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement userProfileStatement = connection.prepareStatement(PROFILE_QUERY);
+            resultSet = userProfileStatement.executeQuery();
+            while (resultSet.next()) {
+                userProfileData.add(resultSet.getString("username"));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return userProfileData;
+    }
+
+    public static void addFavourite(String username1, String username2) {
+        Connection connection = null;
+        try {
+            ArrayList<String> existingFaves = getAllFavourites(username1);
+            if (!existingFaves.contains(username2)) {
+                final String FAVOURITE_QUERY = queryUtils.getFavourite();
+                connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+                PreparedStatement addFave = connection.prepareStatement(FAVOURITE_QUERY);
+                addFave.setString(1, username1);
+                addFave.setString(2, username2);
+                addFave.executeUpdate();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setContentText(username1 + " has already favourited " + username2);
+                alert.show();
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void removeFavourite(String username1, String username2) {
+        Connection connection = null;
+        ResultSet resultSet = null;
+        try {
+            final String FAVOURITE_QUERY = queryUtils.getUnfavourite();
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement removeFave = connection.prepareStatement(FAVOURITE_QUERY);
+            removeFave.setString(1, username1);
+            removeFave.setString(2, username2);
+            removeFave.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static ArrayList<String> getAllFavourites(String username1) {
+        ArrayList<String> favourites = new ArrayList<>();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        try {
+            final String FAVOURITE_QUERY = queryUtils.getAllFavourites();
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement faves = connection.prepareStatement(FAVOURITE_QUERY);
+            faves.setString(1, username1);
+            resultSet = faves.executeQuery();
+            while (resultSet.next()) {
+                favourites.add(resultSet.getString("username2"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return favourites;
     }
 }
 

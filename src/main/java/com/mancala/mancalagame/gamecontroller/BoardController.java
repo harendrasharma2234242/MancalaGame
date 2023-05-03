@@ -127,7 +127,7 @@ public class BoardController {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", null, null, null);
+                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", player1, null, null);
             }
         });
     }
