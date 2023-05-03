@@ -3,17 +3,16 @@ package com.mancala.mancalagame;
 import java.util.ArrayList;
 
 public class Player extends User{
-    private ArrayList<String> favourites = new ArrayList<>();
-    public Player(String username, String firstName, String lastName, ArrayList<String> favourites) {
+    private ArrayList<Player> favourites = new ArrayList<>();
+    public Player(String username, String firstName, String lastName) {
         super(username, firstName, lastName);
-        this.favourites = favourites;
     }
 
-    public void addFavourite(String otherUser) {
+    public void addFavourite(Player otherUser) {
         favourites.add(otherUser);
     }
 
-    public void removeFavourite(String otherUser) {
+    public void removeFavourite(Player otherUser) {
         favourites.remove(otherUser);
     }
 }
