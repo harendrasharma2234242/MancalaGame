@@ -1,6 +1,9 @@
 package com.mancala.mancalagame.usercontroller;
 
+import com.almasb.fxgl.input.Input;
+import com.mancala.mancalagame.OpponentAndGameModeBean;
 import com.mancala.mancalagame.Player;
+import com.mancala.mancalagame.User;
 import com.mancala.mancalagame.UsersBean;
 import com.mancala.mancalagame.query.UsersQuery;
 import javafx.event.ActionEvent;
@@ -13,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
@@ -28,20 +32,25 @@ public class LeaderboardController implements Initializable {
     @FXML
     private GridPane leaderboardGridPane;
 
+    private static String username;
+    private static String sessionID;
+    private static InputStream profileImageStream;
     @FXML
-    private Button refreshButton;
+    private Button back;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refreshLeaderboardTotalWins();
-        // Set up refresh button to refresh leaderboard when clicked
-//        refreshButton.setOnAction(event -> refreshLeaderboard());
-//        refreshButton.setOnAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent event) {
-//                refreshLeaderboard();
-//            }
-//        });
+
+    }
+    @FXML
+    private void back() {
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                UsersBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", username, sessionID, profileImageStream, null);
+            }
+        });
     }
 
     @FXML
@@ -61,7 +70,6 @@ public class LeaderboardController implements Initializable {
 
         for (String user : allUsers) {
             ArrayList<String> userData = UsersBean.getUserProfile(user);
-            System.out.println(user);
             wins.add(Integer.parseInt(userData.get(3)));
         }
 
@@ -78,7 +86,7 @@ public class LeaderboardController implements Initializable {
                 }
             }
         }
-//        int i = 0;
+
         leaderboardGridPane.add(new Label("Profile image"), 0, 0);
         leaderboardGridPane.add(new Label("Username"), 1, 0);
         leaderboardGridPane.add(new Label("Total wins"), 2, 0);
@@ -91,7 +99,7 @@ public class LeaderboardController implements Initializable {
             ArrayList<String> userData = UsersBean.getUserProfile(user);
             totalWins = wins.get(i);
 //            ImageView profileImage = new ImageView("src/main/resources/images/ProfileImage.jpeg");
-            CheckBox favoriteCheckBox = new CheckBox();
+            CheckBox favoriteCheckBox1 = new CheckBox();
 
             // Add UI elements for the ith player to the leaderboard grid pane
             Label profileImageLabel = new Label("Profile Image");
@@ -102,8 +110,19 @@ public class LeaderboardController implements Initializable {
             leaderboardGridPane.add(profileImageLabel, 0, i+1);
             leaderboardGridPane.add(playerNameLabel, 1, i+1);
             leaderboardGridPane.add(totalWinsLabel, 2, i+1);
-            leaderboardGridPane.add(favoriteCheckBox, 3, i+1);
+            leaderboardGridPane.add(favoriteCheckBox1, 3, i+1);
 //            leaderboardGridPane.add(profileImage, 1, i+1);
+
+            favoriteCheckBox1.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (favoriteCheckBox1.isSelected()) {
+                        UsersBean.addFavourite(username, user);
+                    } else {
+                        UsersBean.removeFavourite(username, user);
+                    }
+                }
+            });
         }
     }
 
@@ -142,7 +161,7 @@ public class LeaderboardController implements Initializable {
 
         leaderboardGridPane.add(new Label("Profile image"), 0, 0);
         leaderboardGridPane.add(new Label("Username"), 1, 0);
-        leaderboardGridPane.add(new Label("Total wins"), 2, 0);
+        leaderboardGridPane.add(new Label("Win percentage"), 2, 0);
         leaderboardGridPane.add(new Label("Add favourite"), 3, 0);
         // Add new rows to the leaderboard grid pane
         for (int i = 0; i < orderedByPercentage.size(); i++) {
@@ -152,7 +171,7 @@ public class LeaderboardController implements Initializable {
             ArrayList<String> userData = UsersBean.getUserProfile(user);
             winPercentage = percents.get(i);
 //            ImageView profileImage = new ImageView("src/main/resources/images/ProfileImage.jpeg");
-            CheckBox favoriteCheckBox = new CheckBox();
+            CheckBox favoriteCheckBox1 = new CheckBox();
 
             // Add UI elements for the ith player to the leaderboard grid pane
             Label profileImageLabel = new Label("Profile Image");
@@ -163,29 +182,26 @@ public class LeaderboardController implements Initializable {
             leaderboardGridPane.add(profileImageLabel, 0, i+1);
             leaderboardGridPane.add(playerNameLabel, 1, i+1);
             leaderboardGridPane.add(winPercentageLabel, 2, i+1);
-            leaderboardGridPane.add(favoriteCheckBox, 3, i+1);
+            leaderboardGridPane.add(favoriteCheckBox1, 3, i+1);
 //            leaderboardGridPane.add(profileImage, 1, i+1);
-        }
-    }
-    @FXML
-    private void handleFavoriteCheckboxAction(ActionEvent event) {
-        // Here you would implement the logic to add/remove the selected player from
-        // the user's favorites list in your backend or data source
-        // For the sake of example, let's just print a message indicating which
-        // player was favorite/unfavored
 
-        CheckBox favoriteCheckBox = (CheckBox) event.getSource();
-        String playerName = ((Label) favoriteCheckBox.getParent().getChildrenUnmodifiable().get(1)).getText();
-
-        if (favoriteCheckBox.isSelected()) {
-            System.out.println("Player " + playerName + " was favorite");
-        } else {
-            System.out.println("Player " + playerName + " was unfavored");
+            favoriteCheckBox1.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent event) {
+                    if (favoriteCheckBox1.isSelected()) {
+                        UsersBean.addFavourite(username, user);
+                    } else {
+                        UsersBean.removeFavourite(username, user);
+                    }
+                }
+            });
         }
     }
 
+    public static void userName(String name, String session, InputStream image) {
+        username = name;
+        sessionID = session;
+        profileImageStream = image;
+    }
 
-//    public void addFavourite() {
-//        Player.addFavourite();
-//    }
 }

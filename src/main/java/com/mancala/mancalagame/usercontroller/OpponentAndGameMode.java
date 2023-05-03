@@ -44,6 +44,7 @@ public class OpponentAndGameMode implements Initializable {
     private Button myProfile;
     @FXML
     private Button leaderboard;
+    private static String name;
 
 
     @FXML
@@ -160,11 +161,13 @@ public class OpponentAndGameMode implements Initializable {
         leaderboard.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-//                String userName = user1.getText();
-                UsersBean.changeScene(event, "Leaderboard.fxml", "Leaderboard", null, null, null, null);
+                String userName = user1.getText();
+                UsersBean.changeScene(event, "Leaderboard.fxml", "Leaderboard", userName, null, null, null);
             }
         });
 
     }
-
+    public static void userName(String username) {
+        name = username;
+    }
 }

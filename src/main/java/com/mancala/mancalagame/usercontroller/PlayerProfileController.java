@@ -1,5 +1,7 @@
 package com.mancala.mancalagame.usercontroller;
 
+import com.mancala.mancalagame.AdminBean;
+import com.mancala.mancalagame.OpponentAndGameModeBean;
 import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +12,7 @@ import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class PlayerProfileController implements Initializable{
@@ -28,14 +31,13 @@ public class PlayerProfileController implements Initializable{
     @FXML
     private Label winPercentage;
     @FXML
-    private Button favPlayers;
+    private Button favePlayers;
+    @FXML
+    private Button back;
     private static String name;
 
     public void updateProfileData(String username){
         ArrayList<String> userData = UsersBean.getUserProfile(username);
-        for (String s : userData) {
-            System.out.println(s);
-        }
         playerUserName.setText(userData.get(0));
         lastLogin.setText(userData.get(1));
         finishedGame.setText(userData.get(2));
@@ -47,6 +49,19 @@ public class PlayerProfileController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        favePlayers.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                UsersBean.changeScene(event, "FavouriteUsers.fxml","Favourite Users", name,
+                        null,null,null);
+            }
+        });
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", name, null, null);
+            }
+        });
     }
 
     @FXML
@@ -57,6 +72,7 @@ public class PlayerProfileController implements Initializable{
     public static void userName(String username) {
         name = username;
     }
+
 
 
 }

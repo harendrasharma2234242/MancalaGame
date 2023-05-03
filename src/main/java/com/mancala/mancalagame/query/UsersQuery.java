@@ -11,6 +11,9 @@ public class UsersQuery {
             "LEFT JOIN loginsessions AS logins ON logins.username = u.username\n" +
             "WHERE u.username = ?";
     private static final String GET_ALL_USERS = "SELECT username FROM User WHERE is_admin = false AND is_Active = true";
+    private static final String FAVOURITE = "INSERT INTO favourites VALUES (?, ?)";
+    private static final String UNFAVOURITE = "DELETE FROM favourites WHERE (username1=? AND username2=?)";
+    private static final String GET_FAVOURITES = "SELECT username2 FROM favourites WHERE username1=?";
     public String getLOGIN_QUERY() {
         return LOGIN_QUERY;
     }
@@ -28,6 +31,18 @@ public class UsersQuery {
     }
     public String getAllUsers() {
         return GET_ALL_USERS;
+    }
+
+    public String getFavourite(){
+        return FAVOURITE;
+    }
+
+    public String getUnfavourite(){
+        return UNFAVOURITE;
+    }
+
+    public String getAllFavourites() {
+        return GET_FAVOURITES;
     }
 
 }
