@@ -97,6 +97,10 @@ public class LeaderboardController implements Initializable {
         System.out.println("wins: " + wins);
         System.out.println("ordered names from wins: " + orderedByTotalWins);
 //        int i = 0;
+        leaderboardGridPane.add(new Label("Profile image"), 0, 0);
+        leaderboardGridPane.add(new Label("Username"), 1, 0);
+        leaderboardGridPane.add(new Label("Total wins"), 2, 0);
+        leaderboardGridPane.add(new Label("Add favourite"), 3, 0);
         // Add new rows to the leaderboard grid pane
         for (int i = 0; i < orderedByTotalWins.size(); i++) {
             // Here you would retrieve the player data for the ith player in the leaderboard
@@ -114,10 +118,11 @@ public class LeaderboardController implements Initializable {
 //            Label winPercentageLabel = new Label(String.valueOf(winPercentage));
             Label totalWinsLabel = new Label(String.valueOf(totalWins));
 
-            leaderboardGridPane.add(profileImageLabel, 0, i);
-            leaderboardGridPane.add(playerNameLabel, 1, i);
-            leaderboardGridPane.add(totalWinsLabel, 2, i);
-            leaderboardGridPane.add(favoriteCheckBox, 3, i);
+
+            leaderboardGridPane.add(profileImageLabel, 0, i+1);
+            leaderboardGridPane.add(playerNameLabel, 1, i+1);
+            leaderboardGridPane.add(totalWinsLabel, 2, i+1);
+            leaderboardGridPane.add(favoriteCheckBox, 3, i+1);
 //            leaderboardGridPane.add(profileImage, 1, i+1);
         }
     }
