@@ -2,7 +2,7 @@ package com.mancala.mancalagame;
 
 import com.mancala.mancalagame.gamecontroller.BoardController;
 import com.mancala.mancalagame.gamecontroller.BoardControllerArcade;
-import com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode;
+import com.mancala.mancalagame.usercontroller.OpponentAndGameMode;
 import com.mancala.mancalagame.query.UsersQuery;
 import com.mancala.mancalagame.utility.DBConnection;
 import com.mancala.mancalagame.utility.Utility;

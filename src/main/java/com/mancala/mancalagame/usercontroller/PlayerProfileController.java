@@ -24,11 +24,16 @@ public class PlayerProfileController implements Initializable{
     private Label totalLoss;
     @FXML
     private Label winPercentage;
+    private static String name;
 
     public void updateProfileData(String username){
         ArrayList<String> userData = UsersBean.getUserProfile(username);
+        for (String s : userData) {
+            System.out.println(s);
+        }
         playerUserName.setText(userData.get(0));
         lastLogin.setText(userData.get(1));
+//        lastLogin.setText("last login");
         finishedGame.setText(userData.get(2));
         totalGames.setText(userData.get(2));
         totalWins.setText(userData.get(3));
@@ -39,5 +44,14 @@ public class PlayerProfileController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+    }
+
+    @FXML
+    public void test()  {
+        updateProfileData(name);
+    }
+
+    public static void userName(String username) {
+        name = username;
     }
 }

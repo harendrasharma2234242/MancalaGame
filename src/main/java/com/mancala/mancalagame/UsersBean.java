@@ -40,7 +40,8 @@ public class UsersBean {
                     loggedInController.saveUser1(username, sessionId, profileImage);
                 } else if (fxmlFile.equals("PlayerProfile.fxml")) {
                     PlayerProfileController playerProfileController = new PlayerProfileController();
-                    playerProfileController.updateProfileData(username);
+//                    playerProfileController.updateProfileData(username);
+                    PlayerProfileController.userName(username);
                 }
             } catch (IOException e) {
                 e.printStackTrace();
