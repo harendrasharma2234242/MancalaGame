@@ -47,5 +47,10 @@
          <Font name="Arial Rounded MT Bold" size="12.0" />
       </font>
    </Button>
+    <Button fx:id="leaderboard" layoutX="445.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: black; -fx-cursor: hand;" text="Leaderboard --&gt;" textFill="#ffe3a7" underline="true">
+        <font>
+            <Font name="Arial Rounded MT Bold" size="12.0" />
+        </font>
+    </Button>
 
 </AnchorPane>

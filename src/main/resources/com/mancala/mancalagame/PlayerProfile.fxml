@@ -54,12 +54,13 @@
             <font>
                 <Font size="10.0" />
             </font></Button>
-      <Button layoutX="417.0" layoutY="26.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: black; -fx-cursor: hand;" text="Favorite Players --&gt;" textFill="#ffe3a7" underline="true">
+      <Button fx:id="favPlayers" layoutX="417.0" layoutY="13.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="156.0" style="-fx-background-color: black; -fx-cursor: hand;" text="Favorite Players --&gt;" textFill="#ffe3a7" underline="true">
          <font>
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="playerUserName" text="test" layoutX="221.0" layoutY="64.0" textFill="#ffe3a7">
+
+      <Label fx:id="playerUserName" layoutX="221.0" layoutY="64.0" text="test" textFill="#ffe3a7">
          <font>
             <Font name="Arial Rounded MT Bold" size="18.0" />
          </font>
@@ -91,6 +92,6 @@
             <Font name="Arial Rounded MT Bold" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="test" text="test" onAction="#test"/>
+      <Button fx:id="test" onAction="#test" text="test" />
     </children>
 </AnchorPane>

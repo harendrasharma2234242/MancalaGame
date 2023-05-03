@@ -6,21 +6,13 @@ import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import javax.swing.text.html.ImageView;
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -50,6 +42,8 @@ public class OpponentAndGameMode implements Initializable {
     private ImageView userProfileImage;
     @FXML
     private Button myProfile;
+    @FXML
+    private Button leaderboard;
 
 
     @FXML
@@ -163,6 +157,14 @@ public class OpponentAndGameMode implements Initializable {
                 UsersBean.changeScene(event, "PlayerProfile.fxml", "Choose", userName, "", null, null);
             }
         });
+        leaderboard.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+//                String userName = user1.getText();
+                UsersBean.changeScene(event, "Leaderboard.fxml", "Leaderboard", null, null, null, null);
+            }
+        });
+
     }
 
 }

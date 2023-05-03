@@ -1,8 +1,11 @@
 package com.mancala.mancalagame.usercontroller;
 
 import com.mancala.mancalagame.UsersBean;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 import java.net.URL;
@@ -24,6 +27,8 @@ public class PlayerProfileController implements Initializable{
     private Label totalLoss;
     @FXML
     private Label winPercentage;
+    @FXML
+    private Button favPlayers;
     private static String name;
 
     public void updateProfileData(String username){
@@ -33,7 +38,6 @@ public class PlayerProfileController implements Initializable{
         }
         playerUserName.setText(userData.get(0));
         lastLogin.setText(userData.get(1));
-//        lastLogin.setText("last login");
         finishedGame.setText(userData.get(2));
         totalGames.setText(userData.get(2));
         totalWins.setText(userData.get(3));
@@ -43,7 +47,6 @@ public class PlayerProfileController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
     @FXML
@@ -54,4 +57,6 @@ public class PlayerProfileController implements Initializable{
     public static void userName(String username) {
         name = username;
     }
+
+
 }

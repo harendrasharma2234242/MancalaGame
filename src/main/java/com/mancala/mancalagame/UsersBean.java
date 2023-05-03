@@ -33,7 +33,6 @@ public class UsersBean {
         if (username != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
-                System.out.println(fxmlFile);
                 root = loader.load();
                 if (fxmlFile.equals("OpponentAndGameMode.fxml")){
                     OpponentAndGameMode loggedInController = loader.getController();
@@ -42,6 +41,8 @@ public class UsersBean {
                     PlayerProfileController playerProfileController = new PlayerProfileController();
 //                    playerProfileController.updateProfileData(username);
                     PlayerProfileController.userName(username);
+                } else if (fxmlFile.equals("Leaderboard.fxml")) {
+                    System.out.println("leaderboard loader");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -50,6 +51,7 @@ public class UsersBean {
             try {
                 root = FXMLLoader.load(UsersBean.class.getResource(fxmlFile));
             } catch (IOException e) {
+                System.out.println("else catch");
                 e.printStackTrace();
             }
         }
@@ -189,7 +191,45 @@ public class UsersBean {
                 float totalWin = resultSet.getInt("totalWin");
                 float totalGame = resultSet.getInt("totalGame");
                 float winPercentage = (totalWin/totalGame)*100;
-                userProfileData.add(String.valueOf(winPercentage));
+                if (totalGame == 0) {
+                    userProfileData.add("0.0");
+                } else {
+                    userProfileData.add(String.valueOf(winPercentage));
+                }
+
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return userProfileData;
+    }
+
+    public static ArrayList<String> getAllUsers(){
+        ArrayList<String> userProfileData = new ArrayList<>();
+        Connection connection = null;
+        ResultSet resultSet = null;
+        final String PROFILE_QUERY = queryUtils.getAllUsers();
+        try {
+            connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
+            PreparedStatement userProfileStatement = connection.prepareStatement(PROFILE_QUERY);
+            resultSet = userProfileStatement.executeQuery();
+            while (resultSet.next()) {
+                userProfileData.add(resultSet.getString("username"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
