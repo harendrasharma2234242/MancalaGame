@@ -1,12 +1,18 @@
 package com.mancala.mancalagame.gamecontroller;
 
 import com.mancala.mancalagame.MancalaGameBean;
+import com.mancala.mancalagame.OpponentAndGameModeBean;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.shape.Rectangle;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 /**
  * The controller class for the traditional game.
@@ -54,6 +60,8 @@ public class BoardController {
     protected Label currentPlayer;
     @FXML
     protected Label notification;
+    @FXML
+    protected Button back;
 
     @FXML
     protected ArrayList<String> holeLabels = new ArrayList<>();
@@ -90,18 +98,52 @@ public class BoardController {
     private Label mancalaLabel_P1;
     @FXML
     private Label mancalaLabel_P2;
+    @FXML
+    private TextField stoneCountEntry;
     protected String player1;
     protected String opponentPlayer;
     protected String gameSessionId;
     MancalaGameBean mancalaGameBean = new MancalaGameBean();
+    private ArrayList<Integer> playedHolesP1 = new ArrayList<>();
+    private ArrayList<Integer> playedHolesP2 = new ArrayList<>();
+    @FXML
+    protected Label played1;
+    @FXML
+    protected Label played2;
+    @FXML
+    protected Label instructions;
 
     protected boolean cpuSecondTurn = false;
+    @FXML
+    protected Label winnerLabel;
+    @FXML
+    protected Rectangle winnerBackground;
+
     /**
-     * Initialise the game board with 4 stones per hole and buttons set.
+     * Exit the game.
      */
     @FXML
-    private void setBoard() {
+    protected void back() {
+        back.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", null, null, null);
+            }
+        });
+    }
+    /**
+     * Initialise the game board with stones in holes and buttons enable/disabled.
+     */
+    @FXML
+    protected void setBoard() {
         mancalaGameBean.updateGameStatus("Inprogress", gameSessionId);
+        int stoneCount;
+        try {
+            stoneCount = Integer.parseInt(stoneCountEntry.getText());
+        } catch (Exception e) {
+            stoneCount = 4;
+            instructions.setText("No number given - default 4 used");
+        }
         start.setDisable(true);
         button0.setDisable(false);
         button1.setDisable(false);
@@ -116,8 +158,8 @@ public class BoardController {
         button10.setDisable(true);
         button11.setDisable(true);
         for (int i = 0; i < 12; i++) {
-            holes.add(new Hole(4));
-            holeLabels.add("4");
+            holes.add(new Hole(stoneCount));
+            holeLabels.add(String.valueOf(stoneCount));
         }
         for (int i = 0; i <= 2; i++) {
             mancalas.add(new Mancala(0));
@@ -127,13 +169,27 @@ public class BoardController {
             holesPlayer1.add(holes.get(i));
             holesPlayer2.add(holes.get(i+6));
         }
+        holeLabel0.setText(Integer.toString(stoneCount));
+        holeLabel1.setText(Integer.toString(stoneCount));
+        holeLabel2.setText(Integer.toString(stoneCount));
+        holeLabel3.setText(Integer.toString(stoneCount));
+        holeLabel4.setText(Integer.toString(stoneCount));
+        holeLabel5.setText(Integer.toString(stoneCount));
+        holeLabel6.setText(Integer.toString(stoneCount));
+        holeLabel7.setText(Integer.toString(stoneCount));
+        holeLabel8.setText(Integer.toString(stoneCount));
+        holeLabel9.setText(Integer.toString(stoneCount));
+        holeLabel10.setText(Integer.toString(stoneCount));
+        holeLabel11.setText(Integer.toString(stoneCount));
+
+        stoneCountEntry.setVisible(false);
+        instructions.setVisible(false);
     }
 
     /**
      * Set the current player.
      */
     private void setCurrentPlayer() {
-        System.out.println("current: " +currentPlayer.getText());
         if (currentPlayer.getText().equals(player1)) {
             currentPlayer.setText(opponentPlayer);
             button0.setDisable(true);
@@ -164,38 +220,39 @@ public class BoardController {
             button10.setDisable(true);
             button11.setDisable(true);
         }
-        System.out.println("new: " + currentPlayer.getText());
         computerTurn(opponentPlayer);
     }
 
+    /**
+     * Starts a computer's turn if the current player is CPU.
+     * @param opponentPlayer the second player in the current game.
+     */
     private void computerTurn(String opponentPlayer) {
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
-            System.out.println("cpusecond: " + cpuSecondTurn);
             int computerChoice = computerChoice();
-            notification.setText("CPU chose hole " + computerChoice);
             moveStones(computerChoice);
             if (cpuSecondTurn) {
                 cpuSecondTurn = false;
-                System.out.println("cpu needs another turn");
                 setCurrentPlayer();
             }
         }
         cpuSecondTurn = false;
     }
 
+    /**
+     * Computer's choice of hole to play.
+     * @return the hole the computer chose to play.
+     */
     protected int computerChoice() {
-        int min = 6;
-        int max = 11;
-        int computerChoice = (int) ((Math.random() * (max - min)) + min);
-        System.out.println("cpu choice: " + computerChoice);
-//        if (!checkEmpty(computerChoice)) {
-//            computerChoice();
-////            return -1;
-//        }
-        while (!checkEmpty(computerChoice)) {
-            computerChoice = (int) ((Math.random() * (max - min)) + min);
+        ArrayList<Integer> notEmpty = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            if (checkEmpty(i+6)) {
+                notEmpty.add(i+6);
+            }
         }
-        return computerChoice;
+        Random random = new Random();
+        int option = random.nextInt(notEmpty.size());
+        return notEmpty.get(option);
     }
 
     /**
@@ -234,7 +291,6 @@ public class BoardController {
      */
     protected int getCount(int index) {
         int curr;
-//        System.out.println(index);
         curr = holes.get(index).getCount();
         return curr;
     }
@@ -250,6 +306,11 @@ public class BoardController {
         holeLabels.set(holeNumber, "0");
         int i = 1;
         int index = i + holeNumber;
+        if (currentPlayer.getText().equals(player1)) {
+            playedHolesP1.add(index - 1);
+        } else {
+            playedHolesP2.add(index - 1);
+        }
         //flag to adjust which hole is looked at based on whether a mancala has been filled. Stops an offset occurring.
         int rightMancalaFlag = 0;
         //flags to show how the last move ended. To know whether they gained a turn or not.
@@ -267,7 +328,6 @@ public class BoardController {
                 leftLastFilled = true;
                 rightLastFilled = false;
                 normalLastFilled = false;
-                System.out.println("******l fill******");
             } else if (index == MANCALA_1_INDEX && currentPlayer.getText().equals(player1)) {
                 //fill player 1's mancala if player 1 passes it
                 fillMancala(0);
@@ -276,7 +336,6 @@ public class BoardController {
                 leftLastFilled = false;
                 rightLastFilled = true;
                 normalLastFilled = false;
-                System.out.println("******r fill******");
             } else if (index == MANCALA_2_INDEX) {
                 //player 1 skips player 2's mancala
                 index = FIRST_HOLE;
@@ -286,7 +345,6 @@ public class BoardController {
                 curr = getCount(index - rightMancalaFlag);
                 holes.get(index - rightMancalaFlag).setCount(curr + 1);
                 holeLabels.set(index - rightMancalaFlag, String.valueOf(curr + 1));
-                System.out.println("1. filling: " + (index - rightMancalaFlag) + " to " + (curr + 1));
                 newHoleNumber = index - rightMancalaFlag;
                 index++;
                 leftLastFilled = false;
@@ -302,35 +360,43 @@ public class BoardController {
                 leftLastFilled = false;
                 rightLastFilled = false;
                 normalLastFilled = true;
-                System.out.println("2. filling: " + LAST_HOLE + " to " + (curr + 1));
 
             }
         }
 
         setLabels();
-        board.printBoard();
-        System.out.println();
 
         if (rightLastFilled || leftLastFilled) {
             notification.setText("Take another turn!");
+            played1.setText(player1 + " played: " + playedHolesP1.toString() + " last turn");
+            played2.setText(opponentPlayer + " played: " + playedHolesP2.toString() + " last turn");
             if (currentPlayer.getText().equals("CPU")) {
-                System.out.println("cpu needs another turn second");
                 cpuSecondTurn = true;
                 computerTurn(opponentPlayer);
             }
         } else if (normalLastFilled && curr != 0) {
-            notification.setText("Ended in a non-empty hole - turn continues");
+            played1.setText(player1 + " played: " + playedHolesP1.toString() + " last turn");
+            played2.setText(opponentPlayer + " played: " + playedHolesP2.toString() + " last turn");
             moveStones(newHoleNumber);
         } else {
-            System.out.println("*****************next player");
+            played1.setText(player1 + " played: " + playedHolesP1.toString() + " last turn");
+            played2.setText(opponentPlayer + " played: " + playedHolesP2.toString() + " last turn");
+            if (currentPlayer.getText().equals(player1)) {
+                playedHolesP2 = new ArrayList<Integer>();
+            } else {
+                playedHolesP1 = new ArrayList<Integer>();
+            }
+            notification.setText("");
             setCurrentPlayer();
-//            notification.setText("");
         }
         gameEnd(player1, opponentPlayer);
+
     }
 
     /**
      * Check whether the game has ended.
+     * @param mainPlayer player 1 for the game
+     * @param opponentPlayer player 2 for the game
      */
     protected void gameEnd(String mainPlayer, String opponentPlayer) {
         if (totalContents(holesPlayer1) == 0) {
@@ -356,9 +422,10 @@ public class BoardController {
 
     /**
      * Return which player won the game if the game ended.
+     * @param mainPlayer player 1 for the game
+     * @param opponentPlayer player 2 for the game
      * @return Which player won
      */
-
     private String getWinner(String mainPlayer, String opponentPlayer) {
         int score1 = mancalas.get(0).getCount();
         int score2 = mancalas.get(1).getCount();
@@ -386,8 +453,14 @@ public class BoardController {
         button9.setDisable(true);
         button10.setDisable(true);
         button11.setDisable(true);
+        winnerLabel.setVisible(true);
+        winnerLabel.setText(winner + " won!");
+        winnerBackground.setVisible(true);
+        back.setLayoutX(305);
+        back.setLayoutY(88);
         return winner;
     }
+
     /**
      * Return the number of stones in a list of holes. Used to check if a player's side of the board is empty.
      * @param holes ArrayList of holes to check the contents of.
@@ -566,6 +639,12 @@ public class BoardController {
         }
     }
 
+    /**
+     * Initialises the game session and sets the strings of each player name
+     * @param player1 main player's username
+     * @param player2 opponent's username
+     * @param loginSession ID for the login session of player1
+     */
     public void setPlayer(String player1, String player2, String loginSession){
         this.player1 = player1;
         this.opponentPlayer = player2;

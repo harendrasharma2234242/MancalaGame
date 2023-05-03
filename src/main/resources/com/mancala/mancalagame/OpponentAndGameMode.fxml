@@ -10,8 +10,8 @@
     <HBox spacing="10" />
     <HBox spacing="10" />
 </VBox>
- <Button fx:id="startButton" layoutX="323.0" layoutY="305.0" onAction="#handleStartGame" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Start Game" visible="false" />
-    <Button fx:id="secondPlayerLoginButton" layoutX="337.0" layoutY="305.0" onAction="#secondPlayerLogin" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Log in" visible="false" />
+ <Button fx:id="startButton" layoutX="430.0" layoutY="305.0" onAction="#handleStartGame" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Start Game" visible="false" />
+    <Button fx:id="secondPlayerLoginButton" layoutX="430.0" layoutY="305.0" onAction="#secondPlayerLogin" style="-fx-background-color: skyblue; -fx-text-fill: black;" text="Log in" visible="false" />
  <Label layoutX="243.0" layoutY="147.0" style="-fx-text-fill: white;" text="Game Mode:">
       <font>
          <Font name="Arial Rounded MT Bold" size="14.0" />

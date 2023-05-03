@@ -33,6 +33,7 @@ public class UsersBean {
         if (username != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
+                System.out.println(fxmlFile);
                 root = loader.load();
                 if (fxmlFile.equals("OpponentAndGameMode.fxml")){
                     OpponentAndGameMode loggedInController = loader.getController();

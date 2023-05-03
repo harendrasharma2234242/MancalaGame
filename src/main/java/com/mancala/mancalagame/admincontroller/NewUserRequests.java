@@ -33,8 +33,8 @@ public class NewUserRequests implements Initializable {
     public void setNewUser(List<List<String>> resultSet){
         for (int i= 0; i < resultSet.size(); i++){
             List<String> users = resultSet.get(i);
-            ColumnConstraints column1 = new ColumnConstraints(10, 20,387.0);
-            ColumnConstraints column2 = new ColumnConstraints(267.0, 20,169.40000000000003);
+            ColumnConstraints column1 = new ColumnConstraints(10, 20,300);
+            ColumnConstraints column2 = new ColumnConstraints(300, 20,300);
             newUsers.getColumnConstraints().addAll(column1, column2);
             RowConstraints row = new RowConstraints(30);
             newUsers.getRowConstraints().addAll(row);

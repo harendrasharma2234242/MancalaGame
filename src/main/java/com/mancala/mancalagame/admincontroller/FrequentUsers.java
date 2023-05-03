@@ -50,9 +50,9 @@ public class FrequentUsers  implements Initializable {
             Label lastLogin = new Label();
             lastLogin.setText(users.get(2));
 
-            frequentUsersId.setConstraints(username, 1, i);
+            frequentUsersId.setConstraints(username, 0, i);
             frequentUsersId.setConstraints(loginCount, 2, i);
-            frequentUsersId.setConstraints(lastLogin, 3, i);
+            frequentUsersId.setConstraints(lastLogin, 1, i);
             frequentUsersId.getChildren().addAll(username, loginCount, lastLogin);
         }
     }

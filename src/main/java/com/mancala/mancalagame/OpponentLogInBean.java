@@ -2,8 +2,10 @@ package com.mancala.mancalagame;
 
 import com.mancala.mancalagame.gamecontroller.BoardController;
 import com.mancala.mancalagame.gamecontroller.BoardControllerArcade;
+import com.mancala.mancalagame.opponentcontroller.OpponentAndGameMode;
 import com.mancala.mancalagame.query.UsersQuery;
 import com.mancala.mancalagame.utility.DBConnection;
+import com.mancala.mancalagame.utility.Utility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -13,6 +15,7 @@ import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 
 /**This is user bean class for opponent user log in
@@ -25,17 +28,21 @@ public class OpponentLogInBean {
     private static final String DBURL = dbConnection.getDBURL();
     private static final String DBNAME = dbConnection.getDBNAME();
     private static final String PASS = dbConnection.getPASS();
+
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String player1, String player2, String gameMode, String loginSession) {
         Parent root = null;
         if (player1 != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                 root = loader.load();
+                System.out.println("here");
                 if (gameMode.equals("arcade")){
                     BoardControllerArcade game = loader.getController();
                     game.setPlayer(player1, player2, loginSession);
                 } else {
+                    System.out.println("here1");
                     BoardController traditional = loader.getController();
+                    System.out.println("change scene: ");
                     traditional.setPlayer(player1, player2, loginSession);
                 }
             } catch (IOException e) {
@@ -76,6 +83,14 @@ public class OpponentLogInBean {
                         alert.setContentText("Player is not activated yet!");
                         alert.show();
                     } else if (resultSet.getString("password").equals(password)) {
+                        Utility utility = new Utility();
+                        String sessionId = utility.getRandomKey().toString();
+                        InputStream profileImage = resultSet.getBinaryStream("profileImage");
+                        final String SET_SESSION = queryUtils.getSaveSession();
+                        preparedStatement = connection.prepareStatement(SET_SESSION);
+                        preparedStatement.setString(1, sessionId);
+                        preparedStatement.setString(2, username);
+                        preparedStatement.executeUpdate();
                         if (gameMode.equals("arcade")){
                             changeScene(event,"BoardArcade.fxml", "Game Mode", player1, username, gameMode, loginSession);
                         } else {
@@ -109,4 +124,7 @@ public class OpponentLogInBean {
             }
         }
     }
+//    public static int getStoneCount() {
+//        return STONE_COUNT;
+//    }
 }
