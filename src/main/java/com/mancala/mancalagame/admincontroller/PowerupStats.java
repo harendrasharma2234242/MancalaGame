@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,10 +17,26 @@ public class PowerupStats implements Initializable {
 
     @FXML
     private Button back;
+    @FXML
+    private Label continueTurnUses;
+    @FXML
+    private Label doublePointsUses;
+    @FXML
+    private Label halfHandUses;
+    @FXML
+    private Label reverseTurnUses;
+    @FXML
+    private Label switchSidesUses;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         ArrayList<Integer> powerStone =  AdminBean.getAllSpecialStones();
+        if (powerStone.size() !=0){
+            doublePointsUses.setText(String.valueOf(powerStone.get(0)));
+            continueTurnUses.setText(String.valueOf(powerStone.get(1)));
+            reverseTurnUses.setText(String.valueOf(powerStone.get(2)));
+            switchSidesUses.setText(String.valueOf(powerStone.get(3)));
+            halfHandUses.setText(String.valueOf(powerStone.get(4)));
+        }
 
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override

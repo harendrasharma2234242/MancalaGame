@@ -63,14 +63,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <Label text="Continue Turn" >
+                <Label text="Continue Turn">
                     <font>
-                        <Font name = "Comic SansMS"/>
+                        <Font name="Comic SansMS" />
                     </font></Label>
                 <Label text="Double Points" GridPane.rowIndex="1">
                     <font>
-                        <Font name = "Comic SansMS"/>
+                        <Font name="Comic SansMS" />
                     </font></Label>
+                <Label fx:id="continueTurnUses"  GridPane.columnIndex="1" />
+                <Label fx:id="doublePointsUses"  GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
         </GridPane>
         <GridPane layoutX="219.0" layoutY="225.0" prefHeight="102.0" prefWidth="315.0" style="-fx-background-color: #ffe3a7;">
@@ -87,14 +89,18 @@
                 <Label text="Half Hand" />
                 <Label text="Reverse Turn" GridPane.rowIndex="1">
                     <font>
-                        <Font name = "Comic SansMS"/>
+                        <Font name="Comic SansMS" />
                     </font></Label>
                 <Label text="Switch Sides" GridPane.rowIndex="2">
                     <font>
-                        <Font name = "Comic SansMS"/>
+                        <Font name="Comic SansMS" />
                     </font></Label>
+                <Label fx:id="halfHandUses"  GridPane.columnIndex="1" />
+                <Label fx:id="reverseTurnUses"  GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <Label fx:id="switchSidesUses"  GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
         <Button layoutX="-241.0" layoutY="72.0" mnemonicParsing="false" text="Button" />
-        <Button fx:id="back" layoutX="-3.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="39.0" style="-fx-background-color: #fee3a7;" text="&lt;---" />   </children>
+        <Button fx:id="back" layoutX="-3.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="39.0" style="-fx-background-color: #fee3a7;" text="&lt;---" />
+        <Label layoutX="46.0" layoutY="36.0" text="Label" />   </children>
 </AnchorPane>
