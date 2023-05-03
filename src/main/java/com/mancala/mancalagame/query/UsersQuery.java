@@ -10,7 +10,7 @@ public class UsersQuery {
     private static final String GET_USER_PROFILE = "SELECT u.username, u.profileImage, MAX(logins.logInDateTime) AS lastLogin, (SELECT COUNT(player1) FROM gamerecord WHERE player1 = ?) AS totalGame, (SELECT COUNT(winner) FROM gamerecord WHERE winner = ?) AS totalWin FROM USER AS u\n" +
             "LEFT JOIN loginsessions AS logins ON logins.username = u.username\n" +
             "WHERE u.username = ?";
-    private static final String GET_ALL_USERS = "SELECT username FROM User WHERE is_admin = false";
+    private static final String GET_ALL_USERS = "SELECT username FROM User WHERE is_admin = false AND is_Active = true";
     public String getLOGIN_QUERY() {
         return LOGIN_QUERY;
     }

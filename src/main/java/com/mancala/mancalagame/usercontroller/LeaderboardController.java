@@ -34,7 +34,6 @@ public class LeaderboardController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refreshLeaderboard();
-
         // Set up refresh button to refresh leaderboard when clicked
 //        refreshButton.setOnAction(event -> refreshLeaderboard());
 //        refreshButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -58,8 +57,8 @@ public class LeaderboardController implements Initializable {
         int totalWins;
         float winPercentage;
 
-        ArrayList<String> orderedPercentage = allUsers;
-        ArrayList<String> orderedTotalWins = allUsers;
+        ArrayList<String> orderedByPercentage = allUsers;
+        ArrayList<String> orderedByTotalWins = allUsers;
         ArrayList<Integer> wins = new ArrayList<>();
         ArrayList<Float> percents = new ArrayList<>();
 
@@ -77,8 +76,8 @@ public class LeaderboardController implements Initializable {
                     percents.set(i,percents.get(j)) ;
                     percents.set(j,tmp);
                     String tmpUser = allUsers.get(i);
-                    orderedPercentage.set(i, allUsers.get(j));
-                    orderedPercentage.set(j, tmpUser);
+                    orderedByPercentage.set(i, allUsers.get(j));
+                    orderedByPercentage.set(j, tmpUser);
                 }
             }
         }
@@ -90,32 +89,34 @@ public class LeaderboardController implements Initializable {
                     wins.set(i,wins.get(j)) ;
                     wins.set(j,tmp);
                     String tmpUser = allUsers.get(i);
-                    orderedTotalWins.set(i, allUsers.get(j));
-                    orderedTotalWins.set(j, tmpUser);
+                    orderedByTotalWins.set(i, allUsers.get(j));
+                    orderedByTotalWins.set(j, tmpUser);
                 }
             }
         }
-        System.out.println(percents);
-        System.out.println(orderedPercentage);
+        System.out.println("wins: " + wins);
+        System.out.println("ordered names from wins: " + orderedByTotalWins);
 //        int i = 0;
         // Add new rows to the leaderboard grid pane
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < orderedByTotalWins.size(); i++) {
             // Here you would retrieve the player data for the ith player in the leaderboard
             // and use it to populate the UI elements below
-            String user = orderedPercentage.get(i);
+            String user = orderedByTotalWins.get(i);
             ArrayList<String> userData = UsersBean.getUserProfile(user);
             winPercentage = percents.get(i);
+            totalWins = wins.get(i);
 //            ImageView profileImage = new ImageView("src/main/resources/images/ProfileImage.jpeg");
             CheckBox favoriteCheckBox = new CheckBox();
 
             // Add UI elements for the ith player to the leaderboard grid pane
             Label profileImageLabel = new Label("Profile Image");
             Label playerNameLabel = new Label(user);
-            Label winPercentageLabel = new Label(String.valueOf(winPercentage));
+//            Label winPercentageLabel = new Label(String.valueOf(winPercentage));
+            Label totalWinsLabel = new Label(String.valueOf(totalWins));
 
             leaderboardGridPane.add(profileImageLabel, 0, i);
             leaderboardGridPane.add(playerNameLabel, 1, i);
-            leaderboardGridPane.add(winPercentageLabel, 2, i);
+            leaderboardGridPane.add(totalWinsLabel, 2, i);
             leaderboardGridPane.add(favoriteCheckBox, 3, i);
 //            leaderboardGridPane.add(profileImage, 1, i+1);
         }

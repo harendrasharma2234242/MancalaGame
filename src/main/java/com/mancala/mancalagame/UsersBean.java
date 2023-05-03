@@ -41,13 +41,12 @@ public class UsersBean {
                     PlayerProfileController playerProfileController = new PlayerProfileController();
 //                    playerProfileController.updateProfileData(username);
                     PlayerProfileController.userName(username);
-                } else if (fxmlFile.equals("Leaderboard.fxml")) {
-                    System.out.println("leaderboard loader");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
+            System.out.println("file: " + fxmlFile);
             try {
                 root = FXMLLoader.load(UsersBean.class.getResource(fxmlFile));
             } catch (IOException e) {
