@@ -12,6 +12,7 @@ public class DBConnection {
      * Get database url query
      * @return database url query
      */
+
     public String getDBURL() {
         return DBURL;
     }

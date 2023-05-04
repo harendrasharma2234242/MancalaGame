@@ -24,7 +24,7 @@ public class AdminDashboard implements Initializable {
     @FXML
     private Button powerup;
     @FXML
-    private Button back;
+    private Button logOut;
     private String userName;
 
     /**
@@ -56,7 +56,7 @@ public class AdminDashboard implements Initializable {
             }
         });
 
-        back.setOnAction(new EventHandler<ActionEvent>() {
+        logOut.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 AdminBean.changeScene(event, "Home.fxml","Home", null, null);

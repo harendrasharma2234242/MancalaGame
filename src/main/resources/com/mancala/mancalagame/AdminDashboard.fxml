@@ -41,9 +41,7 @@
          <font>
             <Font name="Comic Sans MS Bold" size="12.0" />
          </font></Button>
-      <Button fx:id="back" layoutX="-3.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="39.0" style="-fx-background-color: #fee3a7;" text="&lt;">
-         <font>
-            <Font name="Arial Rounded MT Bold" size="18.0" />
-         </font></Button>
+      <Button fx:id="logOut" layoutX="-3.0" layoutY="-6.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="60.0" style="-fx-background-color: #fee3a7;" text="Log out">
+        </Button>
    </children>
 </AnchorPane>
