@@ -28,21 +28,26 @@ public class OpponentLogInBean {
     private static final String DBURL = dbConnection.getDBURL();
     private static final String DBNAME = dbConnection.getDBNAME();
     private static final String PASS = dbConnection.getPASS();
-
+    /**
+     * Changes the scene to a new fxml file.
+     * @param event action event
+     * @param fxmlFile fxml file to move to
+     * @param title title of new window
+     * @param player1 current player's username
+     * @param gameMode current game mode
+     * @param loginSession current player's log in session ID
+     */
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String player1, String player2, String gameMode, String loginSession) {
         Parent root = null;
         if (player1 != null) {
             try {
                 FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                 root = loader.load();
-                System.out.println("here");
                 if (gameMode.equals("arcade")){
                     BoardControllerArcade game = loader.getController();
                     game.setPlayer(player1, player2, loginSession);
                 } else {
-                    System.out.println("here1");
                     BoardController traditional = loader.getController();
-                    System.out.println("change scene: ");
                     traditional.setPlayer(player1, player2, loginSession);
                 }
             } catch (IOException e) {
@@ -60,7 +65,14 @@ public class OpponentLogInBean {
         stage.setScene(new Scene(root, 750, 500));
         stage.show();
     }
-    /** This logInUser method is used for opponent log in and will route user to game mode based on the choice*/
+    /** This logInUser method is used for opponent log in and will route user to game mode based on the choice
+     * @param event action event
+     * @param username player's username
+     * @param password player's password
+     * @param player1 player 1's username
+     * @param gameMode current game mode
+     * @param loginSession current log in session ID
+     * */
     public static void logInUser(ActionEvent event, String username, String password, String player1, String gameMode, String loginSession) {
         Connection connection = null;
         ResultSet resultSet = null;
@@ -124,7 +136,5 @@ public class OpponentLogInBean {
             }
         }
     }
-//    public static int getStoneCount() {
-//        return STONE_COUNT;
-//    }
+
 }

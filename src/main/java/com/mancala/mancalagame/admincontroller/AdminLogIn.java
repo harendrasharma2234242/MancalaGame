@@ -28,15 +28,12 @@ public class AdminLogIn implements Initializable {
     @FXML
     private TextField ad_password;
 
-
-    /**
+    /** In this initialize method, we have two buttons btn_logging and btn_back,
+     * 1. btn_loggin:- Admin log in,
+     * 2. btn_back: back to main game screen
      * @param url
      * @param resourceBundle
      */
-
-    /** In this initialize method, we have two buttons btn_logging and btn_back,
-     * 1. btn_loggin:- Admin log in,
-     * 2. btn_back: back to main game screen*/
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btn_logging.setOnAction(new EventHandler<ActionEvent>() {

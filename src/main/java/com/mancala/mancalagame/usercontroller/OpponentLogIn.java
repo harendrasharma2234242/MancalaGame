@@ -35,16 +35,23 @@ public class OpponentLogIn implements Initializable {
     private Button btn_back;
     @FXML
     private TextField login_session;
-/** setData method is used to set the player, gameMode, and login session information in OpponentLogin fxml page
-  */
+
+    /** setData method is used to set the player, gameMode, and login session information in OpponentLogin fxml page
+     * @param loginSession current log in session
+     * @param player current player
+     * @param gameMode current game mode
+     */
     public void setData(String player, String gameMode, String loginSession){
         player1.setText(player);
         game_mode.setText(gameMode);
         login_session.setText(loginSession);
     }
+
     /** This initialize method include two buttons actions
      * 1. Opponent log-in,
      * 2. Back button if player change his mind
+     * @param url
+     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

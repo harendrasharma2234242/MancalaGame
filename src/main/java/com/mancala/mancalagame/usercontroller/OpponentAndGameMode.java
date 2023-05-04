@@ -17,6 +17,11 @@ import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class of the screen where you select opponent type and game mode.
+ * @author Harendra Sharma
+ * @version 1.0
+ */
 public class OpponentAndGameMode implements Initializable {
     @FXML
     private RadioButton traditionalRadio;
@@ -44,9 +49,11 @@ public class OpponentAndGameMode implements Initializable {
     private Button myProfile;
     @FXML
     private Button leaderboard;
-    private static String name;
 
-
+    /**
+     * Functionality of radio buttons to select game mode.
+     * @param event The action relating to the component (radio button)
+     */
     @FXML
     private void handleGameModeSelection(ActionEvent event) {
         if (event.getSource().equals(traditionalRadio)) {
@@ -58,6 +65,10 @@ public class OpponentAndGameMode implements Initializable {
         }
     }
 
+    /**
+     * Functionality of radio buttons to select what type of opponent is played (CPU/human).
+     * @param event The action relating to the component (radio button)
+     */
     @FXML
     private void handleOpponentSelection(ActionEvent event) {
         // If human is selected, load login page
@@ -75,6 +86,11 @@ public class OpponentAndGameMode implements Initializable {
 
         }
     }
+
+    /**
+     * Go to opponent login page if all radio buttons are correctly selected.
+     * @param event The action relating to the component (radio button)
+     */
     @FXML
     private void secondPlayerLogin(ActionEvent event){
         if((arcadeRadio.isSelected() || traditionalRadio.isSelected())
@@ -96,6 +112,10 @@ public class OpponentAndGameMode implements Initializable {
         }
 
     }
+
+    /**
+     * Give alert if not all settings are set.
+     */
     @FXML
     private void handleStartGame() {
         if((arcadeRadio.isSelected() || traditionalRadio.isSelected())
@@ -109,6 +129,12 @@ public class OpponentAndGameMode implements Initializable {
 
     }
 
+    /**
+     * Save the data of the first player.
+     * @param user player 1 username
+     * @param sessionId ID of the game session
+     * @param profileImage player 1 profile image
+     */
     @FXML
     public void saveUser1(String user, String sessionId, InputStream profileImage){
         user1.setText(user);
@@ -132,6 +158,11 @@ public class OpponentAndGameMode implements Initializable {
 
     }
 
+    /**
+     * Initialise the scene and set start, profile and leaderboard buttons to function.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         startButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -166,8 +197,5 @@ public class OpponentAndGameMode implements Initializable {
             }
         });
 
-    }
-    public static void userName(String username) {
-        name = username;
     }
 }

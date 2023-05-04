@@ -30,6 +30,8 @@ public class PlayerLogin implements Initializable {
 
     /**
      * Log in, signup and back button functionality under initialize method.
+     * @param url
+     * @param resourceBundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

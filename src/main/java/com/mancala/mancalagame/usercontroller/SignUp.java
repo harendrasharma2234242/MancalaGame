@@ -19,11 +19,13 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controls sign up scene.
+ * @author Harendra Sharma
+ * @version 1.0
+ */
+
 public class SignUp implements Initializable {
-    /**
-     * @param url
-     * @param resourceBundle
-     */
 
     @FXML
     private Button btnSignup;
@@ -45,6 +47,11 @@ public class SignUp implements Initializable {
     private File file;
     private FileInputStream fis;
 
+    /**
+     * Initialises scene and sets button functionality.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btnSignup.setOnAction(new EventHandler<ActionEvent>() {
@@ -69,7 +76,8 @@ public class SignUp implements Initializable {
         btnLoggedIn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Log in", null, null, null, null);
+                UsersBean.changeScene(event, "PlayerLogIn.fxml", "Log in", null, null,
+                        null, null);
             }
         });
         fileChooser = new FileChooser();

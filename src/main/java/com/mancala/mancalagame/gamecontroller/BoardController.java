@@ -31,7 +31,6 @@ public class BoardController {
     @FXML
     protected final ArrayList<Mancala> mancalas = new ArrayList<>();
     protected int holeNumber;
-    protected Board board = new Board(holes, mancalas);
     @FXML
     protected Button button0;
     @FXML
@@ -120,7 +119,7 @@ public class BoardController {
     protected Rectangle winnerBackground;
 
     /**
-     * Exit the game.
+     * Button functionality to exit the game.
      */
     @FXML
     protected void back() {
@@ -132,7 +131,7 @@ public class BoardController {
         });
     }
     /**
-     * Initialise the game board with stones in holes and buttons enable/disabled.
+     * Initialise the game board with stones in holes and buttons enabled/disabled.
      */
     @FXML
     protected void setBoard() {
@@ -187,7 +186,7 @@ public class BoardController {
     }
 
     /**
-     * Set the current player.
+     * Set the current player and check if computer needs a turn.
      */
     private void setCurrentPlayer() {
         if (currentPlayer.getText().equals(player1)) {

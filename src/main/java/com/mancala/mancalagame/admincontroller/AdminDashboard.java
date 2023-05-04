@@ -12,25 +12,26 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * The Hello Application class for Start the project.
+ * The controller class for the admin dashboard scene.
  * @author Harendra Sharma
  * @version 1.0
  */
 public class AdminDashboard implements Initializable {
     @FXML
     private Button new_users;
-
     @FXML
     private Button frequent_users;
-
     @FXML
     private Button powerup;
-
     @FXML
     private Button back;
     private String userName;
 
-
+    /**
+     * Initialise the scene. Set button functions.
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         new_users.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -62,6 +63,11 @@ public class AdminDashboard implements Initializable {
             }
         });
     }
+
+    /**
+     * Retrieve the username of the current player.
+     * @param userName player's username
+     */
     public void setUserName(String userName){
         this.userName = userName;
     }

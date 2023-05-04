@@ -18,7 +18,10 @@ import java.sql.*;
 import java.util.ArrayList;
 
 /**
- *
+ * Functionality relating to the user files.
+ * @author Harendra Sharma
+ * @author Alex Wadge
+ * @version 1.0
  */
 public class UsersBean {
     static UsersQuery queryUtils = new UsersQuery();
@@ -26,7 +29,16 @@ public class UsersBean {
     private static final String DBURL = dbConnection.getDBURL();
     private static final String DBNAME = dbConnection.getDBNAME();
     private static final String PASS = dbConnection.getPASS();
-
+    /**
+     * Changes the scene to a new fxml file.
+     * @param event action event
+     * @param fxmlFile fxml file to move to
+     * @param title title of new window
+     * @param sessionId current game session ID
+     * @param profileImage current player's image
+     * @param userProfileData current player's log in session ID
+     * @param username current player's username
+     */
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, String sessionId, InputStream profileImage, ArrayList<String> userProfileData) {
         Parent root = null;
         if (username != null) {
@@ -49,6 +61,9 @@ public class UsersBean {
                     FavouriteUsersController.userName(username, sessionId, profileImage);
                     FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
                     root = loader.load();
+                } else {
+                    FXMLLoader loader = new FXMLLoader(UsersBean.class.getResource(fxmlFile));
+                    root = loader.load();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -66,6 +81,13 @@ public class UsersBean {
         stage.show();
     }
 
+    /**
+     * Signs a new player up to the database
+     * @param event action event
+     * @param name new user's username
+     * @param password new user's password
+     * @param profileImage new user's image
+     */
     public static void SignUp(ActionEvent event, String name, String username, String password, InputStream profileImage) {
         Connection connection = null;
         ResultSet resultSet = null;
@@ -115,6 +137,12 @@ public class UsersBean {
         }
     }
 
+    /**
+     * Logs a player in
+     * @param event action event
+     * @param username user's username
+     * @param password user's password
+     */
     public static void logInUser(ActionEvent event, String username, String password) {
         Connection connection = null;
         ResultSet resultSet = null;
@@ -174,6 +202,11 @@ public class UsersBean {
         }
     }
 
+    /**
+     * Returns info on the user profile
+     * @param username player's username
+     * @return list of player info: name, last login, totals games, wins and losses
+     */
     public static ArrayList<String> getUserProfile(String username){
         ArrayList<String> userProfileData = new ArrayList<>();
         Connection connection = null;
@@ -224,6 +257,10 @@ public class UsersBean {
         return userProfileData;
     }
 
+    /**
+     * Returns a list of all active players
+     * @return a list of all active players
+     */
     public static ArrayList<String> getAllUsers(){
         ArrayList<String> userProfileData = new ArrayList<>();
         Connection connection = null;
@@ -257,6 +294,11 @@ public class UsersBean {
         return userProfileData;
     }
 
+    /**
+     * Add a player to another player's favourites
+     * @param username1 username of player who is favouriting
+     * @param username2 username of player being favourited
+     */
     public static void addFavourite(String username1, String username2) {
         Connection connection = null;
         try {
@@ -287,6 +329,11 @@ public class UsersBean {
         }
     }
 
+    /**
+     * Remove a player from another player's favourites
+     * @param username1 username of player who is unfavouriting
+     * @param username2 username of player being unfavourited
+     */
     public static void removeFavourite(String username1, String username2) {
         Connection connection = null;
         ResultSet resultSet = null;
@@ -311,6 +358,11 @@ public class UsersBean {
         }
     }
 
+    /**
+     * Get list of all favourites for a given user
+     * @param username1 username of player for whom to return favourites
+     * @return list of player's favourites
+     */
     public static ArrayList<String> getAllFavourites(String username1) {
         ArrayList<String> favourites = new ArrayList<>();
         Connection connection = null;
@@ -345,6 +397,10 @@ public class UsersBean {
         return favourites;
     }
 
+    /**
+     * Order a list of users by their win percentage
+     * @return list of ordered users and their percentage wins
+     */
     public static ArrayList<ArrayList<String>> orderByPercentage() {
         ArrayList<String> allUsers = getAllUsers();
         ArrayList<String> orderedByPercentage = allUsers;
@@ -373,6 +429,10 @@ public class UsersBean {
         return listOfLists;
     }
 
+    /**
+     * Order a list of users by their win total
+     * @return list of ordered users and their total wins
+     */
     public static ArrayList<ArrayList<String>> orderByWins() {
         ArrayList<String> allUsers = getAllUsers();
         ArrayList<String> orderedByTotalWins = allUsers;

@@ -13,6 +13,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the power up statistic page for admins.
+ * @author Jamie Lloyd
+ * @author Harendra Sharma
+ * @version 1.0
+ */
 public class PowerupStats implements Initializable {
 
     @FXML
@@ -28,6 +34,11 @@ public class PowerupStats implements Initializable {
     @FXML
     private Label switchSidesUses;
 
+    /**
+     * Initialise the scene and set text of labels to statistics.
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ArrayList<Integer> powerStone =  AdminBean.getAllSpecialStones();
         if (powerStone.size() !=0){
@@ -41,7 +52,8 @@ public class PowerupStats implements Initializable {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "adminDashboard.fxml","Admin Dashboard", null, null,null, null);
+                UsersBean.changeScene(event, "adminDashboard.fxml","Admin Dashboard", null,
+                        null,null, null);
             }
         });
     }

@@ -19,9 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * This Bean class is for admin related activity with database updates.
  * @author Harendra Sharma
  * @version 1.0
- * This Bean class is for admin related activity with database updates.
  */
 public class AdminBean {
     static AdminQuery adminQuery = new AdminQuery();
@@ -31,6 +31,14 @@ public class AdminBean {
     private static final String DBNAME = dbConnection.getDBNAME();
     private static final String PASS = dbConnection.getPASS();
 
+    /**
+     * Changes the scene to a new fxml file.
+     * @param event action event
+     * @param fxmlFile fxml file to move to
+     * @param title title of new window
+     * @param username current player's username
+     * @param resultSet results of database query
+     */
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String username, List<List<String>> resultSet) {
         Parent root = null;
         if (username != null) {
@@ -60,8 +68,9 @@ public class AdminBean {
         stage.setScene(new Scene(root, 600, 400));
         stage.show();
     }
+
     /**
-     * loginAdmin method is made for admi log in
+     * loginAdmin method is made for admin log in
      * @param username admin username
      * @param password admin password
      * */
@@ -160,8 +169,8 @@ public class AdminBean {
     }
 
     /**
-     * updateUsers mehtod is for activate the users
-     * @param userId  this user int type userid
+     * updateUsers method is for activate the users
+     * @param userId ID for user
      * */
     public static void updateUsers(int userId){
         Connection connection = null;
@@ -183,6 +192,11 @@ public class AdminBean {
             }
         }
     }
+
+    /**
+     * Get the number of special stones and power ups used
+     * @return list of counts for each stone/powerup
+     */
     public static ArrayList<Integer> getAllSpecialStones(){
         ArrayList<Integer> allStones = new ArrayList<>();
         Connection connection = null;
@@ -221,6 +235,11 @@ public class AdminBean {
             }
         }
     }
+
+    /**
+     * Get the list of users with their recent log in times
+     * @return list of list of users with log in details
+     */
     public static List<List<String>> getFrequentUsers(){
         List<List<String>> listOfLists = new ArrayList<List<String>>();
         Connection connection = null;

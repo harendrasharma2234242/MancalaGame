@@ -16,7 +16,12 @@ public class MancalaGameBean {
     private static final String PASS = dbConnection.getPASS();
     Connection connection = null;
 
-    /**InitiateGame method id used for insert the game related all information*/
+    /**InitiateGame method id used for insert the game related all information
+     * @param player1 player 1's username
+     * @param opponentPlayer player 2's username
+     * @param gameMode game mode of the game
+     * @param gameSessionId session ID of the current game
+     */
     public void initiateGame(String player1, String opponentPlayer, String gameMode, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();
@@ -33,9 +38,11 @@ public class MancalaGameBean {
         }
 
     }
+
     /**updateGameStatus method is used for update game status when game is start OR draw
      * @param gameStatus  It includes current game status string.
-     * @param gameSessionId  this is game session id which is used for update game records*/
+     * @param gameSessionId  this is game session id which is used for update game records
+     */
     public void  updateGameStatus(String gameStatus, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();
@@ -53,7 +60,8 @@ public class MancalaGameBean {
     /**declareWinner method is used for update game winner and status when game is finished
      * @param gameSessionId this is game session id which is used for update game records
      * @param gameStatus t includes current game status string.
-     * @param username It is winner user name*/
+     * @param username It is winner user name
+     */
     public void declareWinner(String gameStatus, String username, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();
@@ -72,7 +80,7 @@ public class MancalaGameBean {
     /**updateSpecialPoints method is used for update game special points like continue turn or double stone
      * @param gameSessionId the ID of the game being played
      * @param specialPointName which special stone is used
-     * */
+     */
     public void updateSpecialCases(String specialPointName, String gameSessionId){
         try {
             GameQuery gameQuery = new GameQuery();

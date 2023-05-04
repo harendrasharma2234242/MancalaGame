@@ -14,17 +14,49 @@ public class GameQuery {
     private static final String HALF_HAND = "UPDATE gamerecord SET halfHand = ? WHERE gameSessionId = ?";
     private static final String SWITCH_SIDE = "UPDATE gamerecord SET switchSide = ? WHERE gameSessionId = ?";
     private static final String GET_GAME = "SELECT * FROM gamerecord where gameSessionId = ?";
-
+    /**
+     * Get query to add new game record.
+     * @return query to add new game record.
+     */
     public String gameInitiate(){return GAME_INITIATE;}
+    /**
+     * Get query to update game status.
+     * @return query to update game status.
+     */
     public String startGame(){return START_GAME;}
+    /**
+     * Get query to declare winner.
+     * @return query to declare winner.
+     */
     public String declareWinner(){return DECLARE_WINNER;}
+    /**
+     * Get query to see how many double points used.
+     * @return query to see how many double points used.
+     */
     public String updateDoublePoint(){return DOUBLE_POINT;}
+    /**
+     * Get query to see how many continue turns used.
+     * @return query to see how many continue turns used.
+     */
     public String updateContinueTurn(){return CONTINUE_TURN;}
-
+    /**
+     * Get query to see how many reverse turns used.
+     * @return query to see how many reverse turns used.
+     */
     public static String updateReverseTurn() {return REVERSE_TURN;}
+    /**
+     * Get query to see how many half hands used.
+     * @return query to see how many half hands used.
+     */
     public static String updateHalfHand() {return HALF_HAND;}
+    /**
+     * Get query to see how many switch sides used.
+     * @return query to see how many switch sides used.
+     */
     public static String updateSwitchSide() {return SWITCH_SIDE;}
-
-
+    /**
+     * Get query to return a game session id
+     * @return query to return a game session id.
+     */
     public String getGame(){return GET_GAME;}
 }

@@ -10,7 +10,21 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Functionality relating to the OpponentAndGameMode files.
+ * @author Harendra Sharma
+ * @version 1.0
+ */
 public class OpponentAndGameModeBean {
+    /**
+     * Changes the scene to a new fxml file.
+     * @param event action event
+     * @param fxmlFile fxml file to move to
+     * @param title title of new window
+     * @param player1 current player's username
+     * @param gameMode current game mode
+     * @param loginSession current player's log in session ID
+     */
     public static void changeScene(ActionEvent event, String fxmlFile, String title, String player1, String gameMode, String loginSession) {
         Parent root = null;
         try {

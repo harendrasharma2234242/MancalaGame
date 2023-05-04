@@ -19,6 +19,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class for frequent user scene.
+ * @author Harendra Sharma
+ * @author Jamie LLoyd
+ * @author Alex Wadge
+ * @version 1.0
+ */
 public class FrequentUsers  implements Initializable {
 
     @FXML
@@ -26,6 +33,11 @@ public class FrequentUsers  implements Initializable {
     @FXML
     private GridPane frequentUsersId;
 
+    /**
+     * Initialise the scene and set button functionality.
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<List<String>> frequentUsers = AdminBean.getFrequentUsers();
         addFrequentUsers(frequentUsers);
@@ -36,6 +48,11 @@ public class FrequentUsers  implements Initializable {
             }
         });
     }
+
+    /**
+     * Add frequent user info to table.
+     * @param frequentUsers list of users with their login count
+     */
     public void addFrequentUsers(List<List<String>> frequentUsers){
         for (int i= 0; i < frequentUsers.size(); i++) {
             List<String> users = frequentUsers.get(i);

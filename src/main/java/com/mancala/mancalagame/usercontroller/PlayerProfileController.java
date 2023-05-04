@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * The controller for player profile
+ * @author Harendra Sharma
+ * @author Alex Wadge
+ * @version 2.0
+ */
 public class PlayerProfileController implements Initializable{
     @FXML
     private Label playerUserName;
@@ -30,7 +36,9 @@ public class PlayerProfileController implements Initializable{
     @FXML
     private Label totalLoss;
     @FXML
-    private Label position;
+    private Label winPosition;
+    @FXML
+    private Label percentPosition;
     @FXML
     private Label winPercentage;
     @FXML
@@ -39,9 +47,16 @@ public class PlayerProfileController implements Initializable{
     private Button back;
     private static String name;
 
+    /**
+     * Updates profile data.
+     * @param username current player's username.
+     */
     public void updateProfileData(String username){
-        System.out.println(username);
         ArrayList<String> userData = UsersBean.getUserProfile(username);
+        ArrayList<ArrayList<String>> wins = UsersBean.orderByWins();
+        int winsPos = wins.get(0).indexOf(username)+1;
+        ArrayList<ArrayList<String>> percent = UsersBean.orderByPercentage();
+        int percentPos = percent.get(0).indexOf(username)+1;
         playerUserName.setText(userData.get(0));
         lastLogin.setText(userData.get(1));
         finishedGame.setText(userData.get(2));
@@ -49,8 +64,15 @@ public class PlayerProfileController implements Initializable{
         totalWins.setText(userData.get(3));
         totalLoss.setText(userData.get(4));
         winPercentage.setText(String.valueOf(userData.get(5)));
+        winPosition.setText(String.valueOf(winsPos));
+        percentPosition.setText(String.valueOf(percentPos));
     }
 
+    /**
+     * Initialises the scene and sets button functionality.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateProfileData(name);
@@ -69,11 +91,10 @@ public class PlayerProfileController implements Initializable{
         });
     }
 
-    @FXML
-    public void test()  {
-        updateProfileData(name);
-    }
-
+    /**
+     * Retrieve current player's username.
+     * @param username current player's username
+     */
     public static void userName(String username) {
         name = username;
     }

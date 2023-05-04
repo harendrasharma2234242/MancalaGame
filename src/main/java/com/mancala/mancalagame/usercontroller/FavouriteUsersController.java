@@ -16,6 +16,12 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the favourite users scene.
+ * @author Ikechukwu Ngini
+ * @author Alex Wadge
+ * @version 2.0
+ */
 public class FavouriteUsersController implements Initializable {
     @FXML
     private GridPane favouriteUsersId;
@@ -27,12 +33,19 @@ public class FavouriteUsersController implements Initializable {
     private static String sessionID;
     private static InputStream profileImageStream;
 
-
+    /**
+     * Initialise the scene and place data in scene.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refresh();
-
     }
+
+    /**
+     * Set back button functionality.
+     */
     @FXML
     private void back() {
         back.setOnAction(new EventHandler<ActionEvent>() {
@@ -43,28 +56,16 @@ public class FavouriteUsersController implements Initializable {
         });
     }
 
+    /**
+     * Update the list of favourite players shown.
+     */
     @FXML
     private void refresh() {
-        // Here you would implement the logic to retrieve the latest leaderboard data
-        // from your backend or data source and update the UI accordingly
-        // For the sake of example, let's assume we have some leaderboard data
-
-        // Clear existing rows from the leaderboard grid pane
-//        favouriteUsersId.getChildren().removeAll(favouriteUsersId.getChildren());
-//
-//        favouriteUsersId.add(new Label("Username"), 0, 0);
-//        favouriteUsersId.add(new Label("Add/Remove"), 1, 0);
         ArrayList<String> favourites = UsersBean.getAllFavourites(username);
 
-        // Add new rows to the leaderboard grid pane
         for (int i = 0; i < favourites.size(); i++) {
-            // Here you would retrieve the player data for the ith player in the leaderboard
-            // and use it to populate the UI elements below
-
             String user = favourites.get(i);
             CheckBox favoriteCheckBox1 = new CheckBox();
-
-            // Add UI elements for the ith player to the leaderboard grid pane
             Label playerNameLabel = new Label(user);
 
             favouriteUsersId.add(playerNameLabel, 0, i);
@@ -83,8 +84,12 @@ public class FavouriteUsersController implements Initializable {
         }
     }
 
-
-
+    /**
+     * Retrieve the current player's username
+     * @param name player's username
+     * @param session current session ID
+     * @param image player's profile image
+     */
     public static void userName(String name, String session, InputStream image) {
         username = name;
         sessionID = session;

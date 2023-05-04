@@ -362,7 +362,6 @@ public class BoardControllerArcade extends BoardController {
      * Starts a computer's turn if the current player is CPU. Allows CPU to use power ups via computerPowerUp().
      * @param opponentPlayer the second player in the current game.
      */
-
     private void computerTurn(String opponentPlayer) {
         if (opponentPlayer.equals("CPU") && currentPlayer.getText().equals(opponentPlayer)) {
             int computerChoice = computerChoice();

@@ -9,6 +9,11 @@ import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for homescreen where you can log in as admin or player
+ * @author Harendra Sharma
+ * @version 1.0
+ */
 public class Home implements Initializable {
 
     @FXML
@@ -16,7 +21,11 @@ public class Home implements Initializable {
     @FXML
     private Button btn_admin;
 
-
+    /**
+     * Initialise the scene and set button functionality.
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         btn_player.setOnAction(new EventHandler<ActionEvent>() {

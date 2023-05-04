@@ -15,12 +15,24 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * Controls the new user request page for admins.
+ * @author Jamie Lloyd
+ * @author Harendra Sharma
+ * @version 1.0
+ */
 public class NewUserRequests implements Initializable {
 
     @FXML
     private Button back;
     @FXML
     private GridPane newUsers;
+
+    /**
+     * Initialise the scene and set back button functionality.
+     * @param url
+     * @param resourceBundle
+     */
     public void initialize(URL url, ResourceBundle resourceBundle) {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -30,6 +42,11 @@ public class NewUserRequests implements Initializable {
         });
 
     }
+
+    /**
+     * Create layout for table of new user requests and populate with requests. Set functionality of checkboxes.
+     * @param resultSet Data from database of new users requiring approval.
+     */
     public void setNewUser(List<List<String>> resultSet){
         for (int i= 0; i < resultSet.size(); i++){
             List<String> users = resultSet.get(i);
@@ -48,6 +65,10 @@ public class NewUserRequests implements Initializable {
             newUsers.getChildren().addAll(checkBox,username);
         }
     }
+
+    /**
+     * Displays an alert when a user has been activated.
+     */
     private class MyEventHandler implements EventHandler<Event>{
         @Override
         public void handle(Event evt) {

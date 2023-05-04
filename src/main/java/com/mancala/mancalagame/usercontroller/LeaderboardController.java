@@ -1,11 +1,6 @@
 package com.mancala.mancalagame.usercontroller;
 
-import com.almasb.fxgl.input.Input;
-import com.mancala.mancalagame.OpponentAndGameModeBean;
-import com.mancala.mancalagame.Player;
-import com.mancala.mancalagame.User;
 import com.mancala.mancalagame.UsersBean;
-import com.mancala.mancalagame.query.UsersQuery;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,11 +12,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 import java.io.InputStream;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller class off the leaderboard scene.
+ * @author Ikechukwu Ngini
+ * @author Alex Wadge
+ * @version 2.0
+ */
 public class LeaderboardController implements Initializable {
 
     public Label usernameLabel;
@@ -38,30 +38,40 @@ public class LeaderboardController implements Initializable {
     @FXML
     private Button back;
 
+    /**
+     * Initialise the scene and fill in data.
+     * @param location
+     * @param resources
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         refreshLeaderboardTotalWins();
-
     }
+
+    /**
+     * Back button functionality. Return to previous page.
+     */
     @FXML
     private void back() {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                UsersBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", username, sessionID, profileImageStream, null);
+                UsersBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", username, sessionID,
+                        profileImageStream, null);
             }
         });
     }
 
+    /**
+     * Retrieve the latest leaderboard data ordered by win count.
+     */
     @FXML
     private void refreshLeaderboardTotalWins() {
-        // Here you would implement the logic to retrieve the latest leaderboard data
-        // from your backend or data source and update the UI accordingly
-        // For the sake of example, let's assume we have some leaderboard data
-
         // Clear existing rows from the leaderboard grid pane
         leaderboardGridPane.getChildren().removeAll(leaderboardGridPane.getChildren());
+
         float totalWins;
+        //retrieve the data, ordered by total wins per user
         ArrayList<ArrayList<String>> listOfLists = UsersBean.orderByWins();
         ArrayList<String> orderedByTotalWins = listOfLists.get(0);
         ArrayList<String> wins = listOfLists.get(1);
@@ -104,6 +114,9 @@ public class LeaderboardController implements Initializable {
         }
     }
 
+    /**
+     * Retrieve the latest leaderboard data ordered by win percentage.
+     */
     @FXML
     private void refreshLeaderboardPercentage() {
         // Here you would implement the logic to retrieve the latest leaderboard data
@@ -114,6 +127,7 @@ public class LeaderboardController implements Initializable {
         leaderboardGridPane.getChildren().removeAll(leaderboardGridPane.getChildren());
 
         float winPercentage;
+        //retrieve the data, ordered by win percentage per user
         ArrayList<ArrayList<String>> listOfLists = UsersBean.orderByPercentage();
         ArrayList<String> orderedByPercentage = listOfLists.get(0);
         ArrayList<String> percents = listOfLists.get(1);
@@ -155,6 +169,12 @@ public class LeaderboardController implements Initializable {
         }
     }
 
+    /**
+     * Retrieve the username of the player currently logged in
+     * @param name player's username
+     * @param session player's current session ID
+     * @param image player's profile image
+     */
     public static void userName(String name, String session, InputStream image) {
         username = name;
         sessionID = session;

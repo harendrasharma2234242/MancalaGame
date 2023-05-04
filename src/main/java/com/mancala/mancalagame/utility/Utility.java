@@ -7,7 +7,9 @@ import java.util.UUID;
  * @version 1.0
  */
 public class Utility {
-/** getRandomKey methods generate uuid which is being used as unique sessionId*/
+    /** getRandomKey methods generate uuid which is being used as unique sessionId
+     * @return unique session ID
+     */
     public static UUID getRandomKey() {
         UUID uuid = UUID.randomUUID();
         return uuid;
