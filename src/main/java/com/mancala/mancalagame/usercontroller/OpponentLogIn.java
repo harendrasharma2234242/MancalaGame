@@ -64,7 +64,7 @@ public class OpponentLogIn implements Initializable {
         btn_back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml", "Choose options", null, null,null);
+                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml", "Choose options", player1.getText(), null, login_session.getText());
             }
         });
     }

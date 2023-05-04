@@ -304,6 +304,7 @@ public class UsersBean {
         try {
             ArrayList<String> existingFaves = getAllFavourites(username1);
             if (!existingFaves.contains(username2)) {
+                System.out.println("here");
                 final String FAVOURITE_QUERY = queryUtils.getFavourite();
                 connection = DriverManager.getConnection(DBURL, DBNAME, PASS);
                 PreparedStatement addFave = connection.prepareStatement(FAVOURITE_QUERY);

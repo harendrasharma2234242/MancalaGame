@@ -51,7 +51,7 @@ public class FavouriteUsersController implements Initializable {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", username, null, null);
+                UsersBean.changeScene(event, "Home.fxml","Home", username, null, null, null);
             }
         });
     }

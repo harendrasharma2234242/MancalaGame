@@ -2,6 +2,7 @@ package com.mancala.mancalagame.gamecontroller;
 
 import com.mancala.mancalagame.MancalaGameBean;
 import com.mancala.mancalagame.OpponentAndGameModeBean;
+import com.mancala.mancalagame.UsersBean;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -126,7 +127,8 @@ public class BoardController {
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", player1, null, null);
+                UsersBean.changeScene(event, "Home.fxml","Home", null, null, null, null);
+
             }
         });
     }
@@ -249,9 +251,14 @@ public class BoardController {
                 notEmpty.add(i+6);
             }
         }
-        Random random = new Random();
-        int option = random.nextInt(notEmpty.size());
-        return notEmpty.get(option);
+       if (notEmpty.size() != 0) {
+           Random random = new Random();
+           int option = random.nextInt(notEmpty.size());
+           return notEmpty.get(option);
+       } else {
+           getWinner(player1, opponentPlayer);
+           return 0;
+       }
     }
 
     /**
@@ -453,7 +460,7 @@ public class BoardController {
         button10.setDisable(true);
         button11.setDisable(true);
         winnerLabel.setVisible(true);
-        winnerLabel.setText(winner + " won!");
+        winnerLabel.setText(winner + " won! \n" + score1 + " : " + score2);
         winnerBackground.setVisible(true);
         back.setLayoutX(305);
         back.setLayoutY(88);

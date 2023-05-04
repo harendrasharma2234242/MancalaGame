@@ -86,7 +86,7 @@ public class PlayerProfileController implements Initializable{
         back.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                OpponentAndGameModeBean.changeScene(event, "OpponentAndGameMode.fxml","Choose!", name, null, null);
+                UsersBean.changeScene(event, "Home.fxml","Home", name, null, null, null);
             }
         });
     }
