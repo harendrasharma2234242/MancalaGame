@@ -49,6 +49,8 @@ public class OpponentAndGameMode implements Initializable {
     private Button myProfile;
     @FXML
     private Button leaderboard;
+    @FXML
+    private Button logout;
 
     /**
      * Functionality of radio buttons to select game mode.
@@ -194,6 +196,12 @@ public class OpponentAndGameMode implements Initializable {
             public void handle(ActionEvent event) {
                 String userName = user1.getText();
                 UsersBean.changeScene(event, "Leaderboard.fxml", "Leaderboard", userName, null, null, null);
+            }
+        });
+        logout.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                UsersBean.changeScene(event, "Home.fxml", "Home", null, null, null, null);
             }
         });
 
